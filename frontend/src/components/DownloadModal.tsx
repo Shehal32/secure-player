@@ -470,7 +470,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
 
           {activeTab === 'mac' && (
             <>
-              {/* macOS Option 1: DMG */}
+              {/* macOS Option 1: Apple Silicon DMG (M1/M2/M3/M4) */}
               <div
                 style={{
                   background: 'rgba(255, 255, 255, 0.03)',
@@ -500,7 +500,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                     }}
                   >
                     <Sparkles size={11} />
-                    Universal Mac
+                    Apple Silicon
                   </span>
                 </div>
 
@@ -508,35 +508,35 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
                     <Apple size={18} color="#f97316" />
                     <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      macOS Disk Image
+                      Apple Silicon (M1 / M2 / M3 / M4)
                     </h3>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
-                    Apple DMG installer for all Apple Silicon (M1/M2/M3/M4) & Intel Macs.
+                    Native ARM64 build for modern Apple Silicon MacBooks, iMacs, Mac Studios & Mac Minis.
                   </p>
 
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 18px 0', fontSize: '12px', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Drag-and-Drop to /Applications</span>
+                      <span>Optimized for M-Series Apple Silicon</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>1-Click Launch from Safari / Chrome</span>
+                      <span>Drag-and-Drop install to /Applications</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Apple NSWindowSharingNone protection</span>
+                      <span>1-Click Launch from Safari / Chrome (eduone://)</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>QuickTime & Screenshot blackout</span>
+                      <span>Hardware NSWindowSharingNone screen blackout</span>
                     </li>
                   </ul>
                 </div>
 
                 <button
-                  onClick={() => handleDownload('/EduOne-SecurePlayer.dmg', 'EduOne-SecurePlayer.dmg')}
+                  onClick={() => handleDownload('/EduOne-SecurePlayer-AppleSilicon.dmg', 'EduOne-SecurePlayer-AppleSilicon.dmg')}
                   className="primary-btn"
                   style={{
                     width: '100%',
@@ -549,7 +549,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                     justifyContent: 'center',
                     gap: '7px',
                     background:
-                      downloadedFile === 'EduOne-SecurePlayer.dmg'
+                      downloadedFile === 'EduOne-SecurePlayer-AppleSilicon.dmg'
                         ? '#059669'
                         : 'linear-gradient(135deg, #ea580c, #f97316)',
                     border: 'none',
@@ -557,12 +557,12 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                     cursor: 'pointer',
                   }}
                 >
-                  {downloadingFile === 'EduOne-SecurePlayer.dmg' ? (
+                  {downloadingFile === 'EduOne-SecurePlayer-AppleSilicon.dmg' ? (
                     <>
                       <div className="button-spinner" style={{ width: '13px', height: '13px', borderWidth: '2px', borderTopColor: '#ffffff' }} />
-                      <span>Downloading (180 MB)...</span>
+                      <span>Downloading Apple Silicon...</span>
                     </>
-                  ) : downloadedFile === 'EduOne-SecurePlayer.dmg' ? (
+                  ) : downloadedFile === 'EduOne-SecurePlayer-AppleSilicon.dmg' ? (
                     <>
                       <ShieldCheck size={15} />
                       <span>Downloaded!</span>
@@ -570,13 +570,13 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   ) : (
                     <>
                       <Download size={15} />
-                      <span>Download Mac (.dmg)</span>
+                      <span>Download Apple Silicon (.dmg)</span>
                     </>
                   )}
                 </button>
               </div>
 
-              {/* macOS Option 2: Portable Zip */}
+              {/* macOS Option 2: Intel Mac DMG */}
               <div
                 style={{
                   background: 'rgba(255, 255, 255, 0.02)',
@@ -600,43 +600,43 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                       borderRadius: '6px',
                     }}
                   >
-                    Portable Zip
+                    Intel x64
                   </span>
                 </div>
 
                 <div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <HardDrive size={18} color="#94a3b8" />
+                    <Laptop size={18} color="#94a3b8" />
                     <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Standalone .app Zip
+                      Intel Macs (Core i5 / i7 / i9)
                     </h3>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
-                    Direct archive. Extract and run without mounting a disk image.
+                    Native 64-bit DMG installer for Intel-powered Mac computers.
                   </p>
 
                   <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 18px 0', fontSize: '12px', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Unzip and run immediately</span>
+                      <span>Optimized for Intel 64-bit architecture</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Universal Intel + M1/M2/M3/M4</span>
+                      <span>Drag-and-Drop install to /Applications</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Watch lectures directly inside player</span>
+                      <span>1-Click Launch from Safari / Chrome (eduone://)</span>
                     </li>
                     <li style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                       <CheckCircle2 size={13} color="#10b981" />
-                      <span>Full hardware screen blackout</span>
+                      <span>Hardware NSWindowSharingNone screen blackout</span>
                     </li>
                   </ul>
                 </div>
 
                 <button
-                  onClick={() => handleDownload('/EduOne-SecurePlayer-Mac.zip', 'EduOne-SecurePlayer-Mac.zip')}
+                  onClick={() => handleDownload('/EduOne-SecurePlayer-Intel.dmg', 'EduOne-SecurePlayer-Intel.dmg')}
                   className="secondary-btn"
                   style={{
                     width: '100%',
@@ -649,26 +649,26 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                     justifyContent: 'center',
                     gap: '7px',
                     background:
-                      downloadedFile === 'EduOne-SecurePlayer-Mac.zip'
+                      downloadedFile === 'EduOne-SecurePlayer-Intel.dmg'
                         ? 'rgba(16, 185, 129, 0.15)'
                         : 'rgba(255, 255, 255, 0.06)',
                     borderColor:
-                      downloadedFile === 'EduOne-SecurePlayer-Mac.zip'
+                      downloadedFile === 'EduOne-SecurePlayer-Intel.dmg'
                         ? '#10b981'
                         : 'rgba(255, 255, 255, 0.15)',
                     color:
-                      downloadedFile === 'EduOne-SecurePlayer-Mac.zip'
+                      downloadedFile === 'EduOne-SecurePlayer-Intel.dmg'
                         ? '#10b981'
                         : '#f8fafc',
                     cursor: 'pointer',
                   }}
                 >
-                  {downloadingFile === 'EduOne-SecurePlayer-Mac.zip' ? (
+                  {downloadingFile === 'EduOne-SecurePlayer-Intel.dmg' ? (
                     <>
                       <div className="button-spinner" style={{ width: '13px', height: '13px', borderWidth: '2px', borderTopColor: '#f8fafc' }} />
-                      <span>Downloading (174 MB)...</span>
+                      <span>Downloading Intel...</span>
                     </>
-                  ) : downloadedFile === 'EduOne-SecurePlayer-Mac.zip' ? (
+                  ) : downloadedFile === 'EduOne-SecurePlayer-Intel.dmg' ? (
                     <>
                       <ShieldCheck size={15} />
                       <span>Downloaded!</span>
@@ -676,7 +676,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   ) : (
                     <>
                       <Download size={15} />
-                      <span>Download Portable (.zip)</span>
+                      <span>Download Intel (.dmg)</span>
                     </>
                   )}
                 </button>
