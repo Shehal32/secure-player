@@ -9,7 +9,7 @@ use tao::{
     window::WindowBuilder,
 };
 use windows::Win32::Foundation::HWND;
-use windows::Win32::UI::WindowsAndMessaging::{SetWindowDisplayAffinity, WDA_MONITOR};
+use windows::Win32::UI::WindowsAndMessaging::{GetWindowDisplayAffinity, SetWindowDisplayAffinity, WDA_MONITOR};
 use winreg::enums::*;
 use winreg::RegKey;
 use wry::WebViewBuilder;
@@ -82,7 +82,26 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let _ = SetWindowDisplayAffinity(HWND(hwnd as _), WDA_MONITOR);
     }
 
-    // 2. Prepare JavaScript Native Bridge Injection
+    // 2. High-Frequency Affinity Watchdog Thread (200ms Heartbeat)
+    // If an attacker uses DLL injection or Cheat Engine to reset display affinity to WDA_NONE,
+    // this watchdog terminates the process within 0.2 seconds.
+    let hwnd_raw = hwnd as isize;
+    std::thread::spawn(move || {
+        loop {
+            std::thread::sleep(std::time::Duration::from_millis(200));
+            unsafe {
+                let mut current_affinity: u32 = 0;
+                if GetWindowDisplayAffinity(HWND(hwnd_raw as _), &mut current_affinity).is_ok() {
+                    if current_affinity != WDA_MONITOR.0 {
+                        eprintln!("[SECURITY TAMPER] Display affinity altered from WDA_MONITOR! Self-terminating.");
+                        std::process::exit(1);
+                    }
+                }
+            }
+        }
+    });
+
+    // 3. Prepare JavaScript Native Bridge Injection
     let deep_link_js = if deep_link.is_empty() {
         "null".to_string()
     } else {
