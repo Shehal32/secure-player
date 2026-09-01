@@ -13,8 +13,10 @@ import {
 } from 'lucide-react';
 import { CurrentUser } from './Navbar';
 import SecurePlayer from '../player/SecurePlayer';
+import { YouTubeSecurePlayer } from '../player/YouTubeSecurePlayer';
 import { generateDeviceFingerprint, getDeviceLocationCoords, detectUserOS } from '../player/security/fingerprint';
 import { DownloadModal } from './DownloadModal';
+import { Youtube } from 'lucide-react';
 
 export interface VideoItem {
   id: string;
@@ -41,6 +43,30 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [fingerprint, setFingerprint] = useState<string>('');
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [youtubeUrl, setYoutubeUrl] = useState('');
+  const [activeYoutubeId, setActiveYoutubeId] = useState<string | null>(null);
+
+  const extractYoutubeId = (url: string): string | null => {
+    if (!url) return null;
+    const trimmed = url.trim();
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+    const match = trimmed.match(
+      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/,
+    );
+    return match ? match[1] : null;
+  };
+
+  const handlePlayYoutube = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    const id = extractYoutubeId(youtubeUrl);
+    if (id) {
+      setActiveYoutubeId(id);
+      setSelectedVideo(null);
+      setTokenError(null);
+    } else {
+      setTokenError('Please enter a valid YouTube video URL or ID');
+    }
+  };
 
   const isDesktop =
     typeof window !== 'undefined' &&
@@ -201,14 +227,59 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         {/* Left Column: Secure Video Player */}
         <div className="student-main-content">
           <div className="player-card">
-            {videos.length === 0 ? (
+            {/* YouTube Stream Input Bar */}
+            <div style={{
+              display: 'flex',
+              gap: '10px',
+              padding: '12px 16px',
+              background: 'rgba(15, 23, 42, 0.65)',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              alignItems: 'center',
+            }}>
+              <Youtube size={20} color="#ef4444" style={{ flexShrink: 0 }} />
+              <input
+                type="text"
+                placeholder="Paste YouTube Link or Video ID (e.g. https://www.youtube.com/watch?v=...)"
+                value={youtubeUrl}
+                onChange={(e) => setYoutubeUrl(e.target.value)}
+                onKeyDown={(e) => { if (e.key === 'Enter') handlePlayYoutube(); }}
+                style={{
+                  flex: 1,
+                  background: 'rgba(30, 41, 59, 0.8)',
+                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  borderRadius: '6px',
+                  padding: '8px 12px',
+                  color: '#fff',
+                  fontSize: '13px',
+                  outline: 'none',
+                }}
+              />
+              <button
+                type="button"
+                onClick={handlePlayYoutube}
+                className="primary-btn"
+                style={{ padding: '8px 14px', fontSize: '13px', whiteSpace: 'nowrap', cursor: 'pointer' }}
+              >
+                Play YouTube
+              </button>
+            </div>
+
+            {activeYoutubeId ? (
+              <YouTubeSecurePlayer
+                youtubeId={activeYoutubeId}
+                userId={currentUser.studentId || currentUser.userId}
+                email={currentUser.email}
+                sessionId={currentUser.sessionId}
+                watermarkOpacity={0.22}
+              />
+            ) : videos.length === 0 ? (
               <div className="player-placeholder" style={{ padding: '60px 24px' }}>
                 <BookOpen size={48} className="placeholder-icon" style={{ color: '#f97316', marginBottom: '16px' }} />
                 <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--text-primary)' }}>
                   No Lectures Available
                 </h3>
                 <p style={{ margin: 0, maxWidth: '420px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                  There are currently no published lectures in your course catalog. Please check back later or contact your instructor.
+                  There are currently no published lectures in your course catalog. You can paste a YouTube link above to test hardware blackout!
                 </p>
               </div>
             ) : !isDesktop ? (
@@ -290,27 +361,27 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   <>
                     <BookOpen size={36} className="placeholder-icon" />
                     <h3>Select a Lecture to Begin</h3>
-                    <p>Choose a lesson from your course catalog on the right to start watching.</p>
+                    <p>Choose a lesson from your course catalog on the right or paste a YouTube URL above.</p>
                   </>
                 )}
               </div>
             )}
 
             {/* Video Meta Bar */}
-            {selectedVideo && videos.length > 0 && (
+            {(selectedVideo || activeYoutubeId) && (
               <div className="video-meta-bar">
                 <div className="video-title-group">
-                  <h3>{selectedVideo.title}</h3>
-                  <span className="video-id-tag">Lecture: {selectedVideo.id}</span>
+                  <h3>{activeYoutubeId ? `YouTube Protected Stream (${activeYoutubeId})` : selectedVideo?.title}</h3>
+                  <span className="video-id-tag">{activeYoutubeId ? `YouTube: ${activeYoutubeId}` : `Lecture: ${selectedVideo?.id}`}</span>
                 </div>
                 <div className="security-status-pills">
                   <div className="sec-pill">
                     <Lock size={12} color="#ea580c" />
-                    <span>AES-128 Protected</span>
+                    <span>{activeYoutubeId ? 'Hardware Blackout Protected' : 'AES-128 Protected'}</span>
                   </div>
                   <div className="sec-pill">
                     <ShieldCheck size={12} color="#ea580c" />
-                    <span>Encrypted Delivery</span>
+                    <span>Forensic Watermarked</span>
                   </div>
                 </div>
               </div>
@@ -350,7 +421,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                     <div
                       key={vid.id}
                       className={`lesson-item ${isSelected ? 'active' : ''}`}
-                      onClick={() => setSelectedVideo(vid)}
+                      onClick={() => {
+                        setActiveYoutubeId(null);
+                        setSelectedVideo(vid);
+                      }}
                     >
                       <div className="lesson-number">
                         {isSelected ? <Play size={14} fill="#ea580c" color="#ea580c" /> : idx + 1}
