@@ -45,6 +45,18 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         register_protocols(&current_exe);
     }
 
+    // Strict Anti-Tampering & Remote Debugging Flag Filter
+    for arg in &args[1..] {
+        let lower = arg.to_lowercase();
+        if lower.contains("remote-debugging") || 
+           lower.contains("inspect") || 
+           lower.contains("enable-logging") ||
+           lower.contains("custom-devtools") {
+            eprintln!("[SECURITY ALERT] Unauthorized debugging attempt blocked. Terminating process.");
+            std::process::exit(1);
+        }
+    }
+
     let mut deep_link = String::new();
     for arg in &args[1..] {
         if arg.starts_with("eduone://") || arg.starts_with("fonixedu://") {

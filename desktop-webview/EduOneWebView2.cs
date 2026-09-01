@@ -41,6 +41,16 @@ namespace EduOneSecurePlayer
 
             RegisterProtocols();
 
+            // Strict Anti-Tampering & Remote Debugging Flag Filter
+            foreach (string arg in args)
+            {
+                string lower = arg.ToLowerInvariant();
+                if (lower.Contains("remote-debugging") || lower.Contains("inspect") || lower.Contains("enable-logging"))
+                {
+                    Environment.Exit(1);
+                }
+            }
+
             string deepLinkArg = "";
             foreach (string arg in args)
             {
