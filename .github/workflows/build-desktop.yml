@@ -18,29 +18,26 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20.x
+      - name: Setup Node.js 22.x
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install Monorepo Dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build Frontend Production Assets
-        run: npm run build --workspace=frontend
-
-      - name: Build TypeScript Desktop Core
-        run: npm run build:desktop
+      - name: Build Monorepo Workspaces (Frontend & Desktop)
+        run: npm run build
 
       - name: Package Windows Executables (.exe)
         if: matrix.os == 'windows-latest'
-        run: npx electron-builder --win --x64
+        run: npx electron-builder --win --x64 -c.electronVersion=33.2.1
         working-directory: desktop
 
       - name: Package macOS Applications (.dmg)
         if: matrix.os == 'macos-latest'
-        run: npx electron-builder --mac --universal
+        run: npx electron-builder --mac -c.electronVersion=33.2.1
         working-directory: desktop
 
       - name: Upload Build Artifacts
