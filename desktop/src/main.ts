@@ -104,8 +104,10 @@ function createWindow() {
     }
   });
 
-  // 4. Lockdown DevTools & Remote Debugging
-  if (!isDev) {
+  // 4. DevTools handling
+  if (isDev) {
+    mainWindow.webContents.openDevTools({ mode: 'detach' });
+  } else {
     mainWindow.webContents.on('devtools-opened', () => {
       mainWindow?.webContents.closeDevTools();
     });
@@ -122,6 +124,8 @@ function createWindow() {
       parsedUrl.hostname !== 'localhost' &&
       parsedUrl.hostname !== '127.0.0.1' &&
       !parsedUrl.hostname.includes('ngrok') &&
+      !parsedUrl.hostname.includes('azure.com') &&
+      !parsedUrl.hostname.includes('fonixedu') &&
       !parsedUrl.protocol.startsWith('file')
     ) {
       event.preventDefault();
