@@ -8,6 +8,8 @@ dist-electron/
 release/
 build/
 *.tsbuildinfo
+*.WebView2/
+EBWebView/
 
 # Binary executables & scratch scripts
 ngrok.exe
