@@ -29,10 +29,12 @@ export class PlaylistService {
     sessionPattern?: string,
     sessionId?: string,
     incomingJwt?: string,
+    basePath: string = '',
   ): string {
     const lines = rawM3u8.split(/\r?\n/);
     const sessionToken = this.keysService.generateSessionToken(userId, videoId, 21600, sessionId);
     const authQueryToken = incomingJwt || sessionToken;
+    const cleanBasePath = basePath ? basePath.replace(/\/+$/, '') : '';
 
     // 0. Handle Master Playlist with multiple resolution tiers (#EXT-X-STREAM-INF)
     if (rawM3u8.includes('#EXT-X-STREAM-INF')) {
@@ -42,7 +44,7 @@ export class PlaylistService {
         if (trimmed && !trimmed.startsWith('#')) {
           const variantName = trimmed.replace(/\.m3u8$/, '');
           rewrittenMasterLines.push(
-            `/playlist/${videoId}?variant=${variantName}&jwt=${authQueryToken}${sessionId ? `&sessionId=${sessionId}` : ''}`,
+            `${cleanBasePath}/playlist/${videoId}?variant=${variantName}&jwt=${authQueryToken}${sessionId ? `&sessionId=${sessionId}` : ''}`,
           );
         } else {
           rewrittenMasterLines.push(line);
@@ -82,7 +84,7 @@ export class PlaylistService {
 
       if (trimmed.startsWith('#EXT-X-KEY')) {
         // Rewrite EXT-X-KEY tag to point to our secure key delivery route with session token
-        line = this.rewriteKeyTag(trimmed, videoId, sessionToken);
+        line = this.rewriteKeyTag(trimmed, videoId, sessionToken, cleanBasePath);
       } else if (trimmed && !trimmed.startsWith('#')) {
         // Segment line: replace with batch-generated direct SAS URL for target variant
         const targetSegment = this.resolveWatermarkedSegmentName(trimmed, currentSegmentIndex, sessionPattern);
@@ -125,6 +127,7 @@ export class PlaylistService {
     keyTagLine: string,
     videoId: string,
     sessionToken: string,
+    basePath: string = '',
   ): string {
     const uriMatch = keyTagLine.match(/URI="([^"]+)"/);
     if (!uriMatch) {
@@ -138,7 +141,8 @@ export class PlaylistService {
       keyIndex = parseInt(indexMatch[1], 10);
     }
 
-    const secureKeyUri = `/keys/${encodeURIComponent(videoId)}?keyIndex=${keyIndex}&t=${encodeURIComponent(sessionToken)}`;
+    const cleanBasePath = basePath ? basePath.replace(/\/+$/, '') : '';
+    const secureKeyUri = `${cleanBasePath}/keys/${encodeURIComponent(videoId)}?keyIndex=${keyIndex}&t=${encodeURIComponent(sessionToken)}`;
     return keyTagLine.replace(/URI="[^"]+"/, `URI="${secureKeyUri}"`);
   }
 }

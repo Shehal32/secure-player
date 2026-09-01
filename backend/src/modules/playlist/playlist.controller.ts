@@ -123,6 +123,14 @@ export class PlaylistController {
 
     // 6. Rewrite playlist with short-lived key session token, direct batched Azure SAS URLs, and A/B forensic selection
     const rawJwt = this.extractRawToken(req, jwtQuery);
+    const prefixHeader = (req.headers['x-forwarded-prefix'] as string) || '';
+    const originalUrl = req.originalUrl || req.url || '';
+    const basePath = prefixHeader
+      ? prefixHeader.replace(/\/+$/, '')
+      : originalUrl.includes('/secure-api')
+        ? '/secure-api'
+        : '';
+
     const rewrittenM3u8 = this.playlistService.rewritePlaylist(
       rawM3u8,
       videoId,
@@ -130,6 +138,7 @@ export class PlaylistController {
       sessionPattern,
       sessionId,
       rawJwt,
+      basePath,
     );
 
     // 7. Send response with strict no-cache headers
