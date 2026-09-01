@@ -1,0 +1,105 @@
+{
+  "name": "@secure-player/desktop",
+  "version": "1.0.0",
+  "description": "FonixEdu Secure Player Enterprise Desktop Client with Hardware Screen Protection",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc && electron .",
+    "start": "electron .",
+    "package": "npm run build && electron-builder",
+    "package:win": "npm run build && electron-builder --win --x64",
+    "package:mac": "npm run build && electron-builder --mac"
+  },
+  "keywords": [
+    "fonixedu",
+    "electron",
+    "video-security",
+    "drm",
+    "screen-protection"
+  ],
+  "author": "FonixEdu Security Team",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "koffi": "^3.1.6"
+  },
+  "build": {
+    "appId": "com.fonixedu.secureplayer",
+    "productName": "FonixEdu Secure Player",
+    "directories": {
+      "output": "release"
+    },
+    "icon": "assets/icon.svg",
+    "files": [
+      "dist/**/*",
+      "package.json",
+      "assets/**/*",
+      "node_modules/koffi/**/*",
+      "../frontend/dist/**/*"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "FonixEdu Secure Player"
+    },
+    "mac": {
+      "category": "public.app-category.education",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ]
+    },
+    "dmg": {
+      "title": "FonixEdu Secure Player",
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+package-lock.json.backup
+
+# Build outputs & releases
+dist/
+dist-electron/
+release/
+build/
+*.tsbuildinfo
+
+# Binary executables & scratch scripts
+ngrok.exe
+desktop/scratch_test_affinity.js
+
+# Environment variables & secrets
+.env
+.env.*
+!.env.example
+
+# Temporary media & cache
+temp/
+videos/
+*.ts.enc
+*.key
+*.iv
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS Files
+.DS_Store
+Thumbs.db

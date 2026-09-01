@@ -1,0 +1,111 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "name": "AzureCdnEdgeSecurityRules",
+  "description": "Azure CDN / Front Door Edge Security Rules for FonixEdu Secure Player",
+  "rules": [
+    {
+      "name": "EdgeSasValidationRule",
+      "order": 1,
+      "conditions": [
+        {
+          "name": "UrlPath",
+          "parameters": {
+            "operator": "BeginsWith",
+            "matchValues": ["/videos/"]
+          }
+        },
+        {
+          "name": "UrlFileName",
+          "parameters": {
+            "operator": "EndsWith",
+            "matchValues": [".ts"]
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "UrlSigning",
+          "parameters": {
+            "algorithm": "SHA256",
+            "parameterName": "sig",
+            "enforceExpiration": true
+          }
+        }
+      ]
+    },
+    {
+      "name": "SegmentEdgeRateLimitingRule",
+      "order": 2,
+      "conditions": [
+        {
+          "name": "UrlFileName",
+          "parameters": {
+            "operator": "EndsWith",
+            "matchValues": [".ts"]
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "RateLimit",
+          "parameters": {
+            "rateLimitThreshold": 120,
+            "rateLimitDurationInMinutes": 1,
+            "action": "Block"
+          }
+        }
+      ]
+    },
+    {
+      "name": "NoCachePlaylistAndKeysRule",
+      "order": 3,
+      "conditions": [
+        {
+          "name": "UrlPath",
+          "parameters": {
+            "operator": "Contains",
+            "matchValues": ["/playlist/", "/keys/", ".m3u8"]
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "CacheExpiration",
+          "parameters": {
+            "cacheBehavior": "BypassCache"
+          }
+        },
+        {
+          "name": "ModifyResponseHeader",
+          "parameters": {
+            "action": "Overwrite",
+            "headerName": "Cache-Control",
+            "value": "no-store, no-cache, must-revalidate, max-age=0"
+          }
+        }
+      ]
+    },
+    {
+      "name": "EncryptedSegmentEdgeCacheRule",
+      "order": 4,
+      "conditions": [
+        {
+          "name": "UrlFileName",
+          "parameters": {
+            "operator": "EndsWith",
+            "matchValues": [".ts"]
+          }
+        }
+      ],
+      "actions": [
+        {
+          "name": "CacheExpiration",
+          "parameters": {
+            "cacheBehavior": "Override",
+            "cacheDuration": "00:01:00"
+          }
+        }
+      ]
+    }
+  ]
+}

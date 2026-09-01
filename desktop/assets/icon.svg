@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="50%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#c2410c"/>
+    </linearGradient>
+    <linearGradient id="playGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Rounded App Background Icon Canvas -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" stroke="rgba(249,115,22,0.3)" stroke-width="8"/>
+
+  <!-- Outer Security Shield -->
+  <path d="M256 70 C360 70 410 110 410 200 C410 330 290 410 256 440 C222 410 102 330 102 200 C102 110 152 70 256 70 Z"
+        fill="url(#shieldGrad)"
+        filter="url(#glow)"/>
+
+  <!-- Inner Dark Shield Recess -->
+  <path d="M256 100 C336 100 376 132 376 205 C376 308 280 374 256 400 C232 374 136 308 136 205 C136 132 176 100 256 100 Z"
+        fill="#0f172a"/>
+
+  <!-- Play Symbol with Security Lock Arch -->
+  <polygon points="220,180 330,256 220,332" fill="url(#playGrad)"/>
+  <circle cx="256" cy="180" r="14" fill="#f97316"/>
+</svg>

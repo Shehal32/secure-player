@@ -1,0 +1,27 @@
+{
+  "name": "secure-player-encoder",
+  "version": "1.0.0",
+  "description": "AES-128 HLS packaging and key rotation CLI/library for secure VOD streaming",
+  "private": true,
+  "bin": {
+    "secure-encode": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "encode": "ts-node src/cli.ts"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.26.0",
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "commander": "^13.1.0",
+    "dotenv": "^16.4.7",
+    "pg": "^8.13.3",
+    "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "@types/pg": "^8.11.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3"
+  }
+}

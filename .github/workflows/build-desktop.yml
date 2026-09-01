@@ -1,0 +1,50 @@
+name: Build FonixEdu Desktop Applications (Windows & macOS)
+
+on:
+  push:
+    branches: [ main, master ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Desktop Clients
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install Monorepo Dependencies
+        run: npm ci
+
+      - name: Build Frontend Production Assets
+        run: npm run build --workspace=frontend
+
+      - name: Build TypeScript Desktop Core
+        run: npm run build:desktop
+
+      - name: Package Windows Executables (.exe)
+        if: matrix.os == 'windows-latest'
+        run: npx electron-builder --win --x64
+        working-directory: desktop
+
+      - name: Package macOS Applications (.dmg)
+        if: matrix.os == 'macos-latest'
+        run: npx electron-builder --mac --universal
+        working-directory: desktop
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: fonixedu-desktop-${{ matrix.os }}
+          path: desktop/release/*

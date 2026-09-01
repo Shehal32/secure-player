@@ -1,0 +1,24 @@
+{
+  "name": "secure-player-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "backend",
+    "encoder",
+    "frontend",
+    "desktop"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspace=backend",
+    "start:backend": "npm run start:dev --workspace=backend",
+    "start:frontend": "npm run dev --workspace=frontend",
+    "start:desktop": "npm run dev --workspace=desktop",
+    "build:desktop": "npm run build --workspace=desktop",
+    "tunnel": "node tunnel.js"
+  },
+  "dependencies": {
+    "@ngrok/ngrok": "^1.7.0",
+    "ngrok": "^5.0.0-beta.2"
+  }
+}
