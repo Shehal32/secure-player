@@ -21,11 +21,17 @@ namespace EduOneSecurePlayer
             Application.SetCompatibleTextRenderingDefault(false);
 
             Form form = new Form();
-            form.Text = "EduOne Secure Player — Lightweight WebView2";
+            form.Text = "EduOne";
             form.Size = new Size(1340, 840);
             form.MinimumSize = new Size(900, 600);
             form.StartPosition = FormStartPosition.CenterScreen;
             form.BackColor = Color.FromArgb(15, 23, 42);
+
+            try
+            {
+                form.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            }
+            catch { }
 
             // Apply OBS & Screenshot hardware blackout
             form.Shown += (s, e) => {
