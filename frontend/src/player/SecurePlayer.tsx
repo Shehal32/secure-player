@@ -22,6 +22,7 @@ import './SecurePlayer.css';
 export const SecurePlayer: React.FC<SecurePlayerProps> = ({
   videoId,
   jwtToken,
+  apiBaseUrl,
   autoPlay = true,
   userId,
   email,
@@ -170,13 +171,14 @@ export const SecurePlayer: React.FC<SecurePlayerProps> = ({
     };
   }, []);
 
-  // Construct the playlist URL using relative path (Vite proxy routes /playlist -> backend)
+  // Construct the playlist URL using apiBaseUrl or relative path
+  const base = apiBaseUrl ? apiBaseUrl.replace(/\/+$/, '') : '';
   const queryParams = new URLSearchParams();
   if (jwtToken) queryParams.set('jwt', jwtToken);
   if (sessionId) queryParams.set('sessionId', sessionId);
   if (fingerprint) queryParams.set('fp', fingerprint);
   const queryString = queryParams.toString() ? `?${queryParams.toString()}` : '';
-  const playlistUrl = `/playlist/${encodeURIComponent(videoId)}${queryString}`;
+  const playlistUrl = `${base}/playlist/${encodeURIComponent(videoId)}${queryString}`;
 
   // Initialize HLS.js instance
   useEffect(() => {
@@ -201,6 +203,17 @@ export const SecurePlayer: React.FC<SecurePlayerProps> = ({
         manifestLoadingMaxRetry: 3,
         levelLoadingMaxRetry: 3,
         autoStartLoad: true,
+        xhrSetup: (xhr: any) => {
+          if (fingerprint) {
+            xhr.setRequestHeader('x-device-fingerprint', fingerprint);
+          }
+          if (jwtToken) {
+            xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+          }
+          if (userId) {
+            xhr.setRequestHeader('x-user-id', userId);
+          }
+        },
       } as unknown as Partial<Hls['config']>);
 
       hlsRef.current = hls;
