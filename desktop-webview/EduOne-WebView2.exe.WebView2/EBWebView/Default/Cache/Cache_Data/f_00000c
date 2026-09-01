@@ -1,0 +1,1675 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/DownloadModal.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=cf072edf"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = RefreshRuntime.getRefreshReg("D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx");
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+var _s = $RefreshSig$();
+import __vite__cjsImport3_react from "/node_modules/.vite/deps/react.js?v=cf072edf"; const useState = __vite__cjsImport3_react["useState"];
+import {
+  X,
+  Laptop,
+  Apple,
+  Smartphone,
+  Download,
+  ShieldCheck,
+  CheckCircle2,
+  Sparkles,
+  Zap,
+  HardDrive,
+  ExternalLink
+} from "/node_modules/.vite/deps/lucide-react.js?v=f35704ce";
+import { detectUserOS } from "/src/player/security/fingerprint.ts";
+export const DownloadModal = ({ isOpen, onClose }) => {
+  _s();
+  const detectedOS = detectUserOS();
+  const [activeTab, setActiveTab] = useState(
+    detectedOS === "mac" ? "mac" : detectedOS === "ios" || detectedOS === "android" ? "mobile" : "windows"
+  );
+  const [downloadingFile, setDownloadingFile] = useState(null);
+  const [downloadedFile, setDownloadedFile] = useState(null);
+  if (!isOpen) return null;
+  const handleDownload = (url, filename) => {
+    if (!url || url === "#" || downloadingFile) return;
+    setDownloadingFile(filename);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => {
+      setDownloadingFile(null);
+      setDownloadedFile(filename);
+      setTimeout(() => {
+        setDownloadedFile(null);
+      }, 4e3);
+    }, 1200);
+  };
+  return /* @__PURE__ */ jsxDEV(
+    "div",
+    {
+      className: "modal-backdrop-overlay",
+      onClick: onClose,
+      style: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: "rgba(0, 0, 0, 0.78)",
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        zIndex: 999999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "16px",
+        animation: "fadeIn 0.2s ease-out"
+      },
+      children: /* @__PURE__ */ jsxDEV(
+        "div",
+        {
+          className: "download-modal-card",
+          onClick: (e) => e.stopPropagation(),
+          style: {
+            maxWidth: "760px",
+            width: "100%",
+            maxHeight: "90vh",
+            overflowY: "auto",
+            background: "#0b1329",
+            border: "1px solid rgba(249, 115, 22, 0.35)",
+            borderRadius: "18px",
+            padding: "24px",
+            boxShadow: "0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(249, 115, 22, 0.2)",
+            position: "relative",
+            animation: "slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1)"
+          },
+          children: [
+            /* @__PURE__ */ jsxDEV(
+              "div",
+              {
+                style: {
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
+                  paddingBottom: "16px"
+                },
+                children: [
+                  /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "12px" }, children: [
+                    /* @__PURE__ */ jsxDEV(
+                      "div",
+                      {
+                        style: {
+                          width: "42px",
+                          height: "42px",
+                          borderRadius: "12px",
+                          background: "linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(234, 88, 12, 0.35))",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          color: "#f97316",
+                          border: "1px solid rgba(249, 115, 22, 0.3)"
+                        },
+                        children: /* @__PURE__ */ jsxDEV(Download, { size: 22 }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 134,
+                          columnNumber: 15
+                        }, this)
+                      },
+                      void 0,
+                      false,
+                      {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 121,
+                        columnNumber: 13
+                      },
+                      this
+                    ),
+                    /* @__PURE__ */ jsxDEV("div", { children: [
+                      /* @__PURE__ */ jsxDEV("h2", { style: { fontSize: "19px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Download EduOne Secure Player" }, void 0, false, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 137,
+                        columnNumber: 15
+                      }, this),
+                      /* @__PURE__ */ jsxDEV("p", { style: { margin: "2px 0 0 0", fontSize: "12.5px", color: "#94a3b8" }, children: "Select the best edition for your operating system and workflow" }, void 0, false, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 140,
+                        columnNumber: 15
+                      }, this)
+                    ] }, void 0, true, {
+                      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                      lineNumber: 136,
+                      columnNumber: 13
+                    }, this)
+                  ] }, void 0, true, {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 120,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ jsxDEV(
+                    "button",
+                    {
+                      onClick: onClose,
+                      style: {
+                        background: "rgba(255, 255, 255, 0.08)",
+                        border: "none",
+                        borderRadius: "8px",
+                        width: "32px",
+                        height: "32px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "#94a3b8",
+                        cursor: "pointer",
+                        transition: "all 0.2s ease"
+                      },
+                      onMouseEnter: (e) => {
+                        e.currentTarget.style.color = "#ffffff";
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.15)";
+                      },
+                      onMouseLeave: (e) => {
+                        e.currentTarget.style.color = "#94a3b8";
+                        e.currentTarget.style.background = "rgba(255, 255, 255, 0.08)";
+                      },
+                      children: /* @__PURE__ */ jsxDEV(X, { size: 18 }, void 0, false, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 169,
+                        columnNumber: 13
+                      }, this)
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                      lineNumber: 145,
+                      columnNumber: 11
+                    },
+                    this
+                  )
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 111,
+                columnNumber: 9
+              },
+              this
+            ),
+            /* @__PURE__ */ jsxDEV(
+              "div",
+              {
+                style: {
+                  display: "flex",
+                  gap: "8px",
+                  background: "rgba(255, 255, 255, 0.04)",
+                  padding: "5px",
+                  borderRadius: "12px",
+                  margin: "20px 0"
+                },
+                children: [
+                  /* @__PURE__ */ jsxDEV(
+                    "button",
+                    {
+                      onClick: () => setActiveTab("windows"),
+                      style: {
+                        flex: 1,
+                        padding: "10px 14px",
+                        borderRadius: "9px",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "7px",
+                        transition: "all 0.2s ease",
+                        background: activeTab === "windows" ? "linear-gradient(135deg, #ea580c, #f97316)" : "transparent",
+                        color: activeTab === "windows" ? "#ffffff" : "#94a3b8",
+                        boxShadow: activeTab === "windows" ? "0 4px 12px rgba(234, 88, 12, 0.3)" : "none"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxDEV(Laptop, { size: 16 }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 204,
+                          columnNumber: 13
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("span", { children: "Windows" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 205,
+                          columnNumber: 13
+                        }, this),
+                        detectedOS === "windows" && /* @__PURE__ */ jsxDEV("span", { style: { fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 6px", borderRadius: "10px" }, children: "Your OS" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 207,
+                          columnNumber: 13
+                        }, this)
+                      ]
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                      lineNumber: 184,
+                      columnNumber: 11
+                    },
+                    this
+                  ),
+                  /* @__PURE__ */ jsxDEV(
+                    "button",
+                    {
+                      onClick: () => setActiveTab("mac"),
+                      style: {
+                        flex: 1,
+                        padding: "10px 14px",
+                        borderRadius: "9px",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "7px",
+                        transition: "all 0.2s ease",
+                        background: activeTab === "mac" ? "linear-gradient(135deg, #ea580c, #f97316)" : "transparent",
+                        color: activeTab === "mac" ? "#ffffff" : "#94a3b8",
+                        boxShadow: activeTab === "mac" ? "0 4px 12px rgba(234, 88, 12, 0.3)" : "none"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxDEV(Apple, { size: 16 }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 233,
+                          columnNumber: 13
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("span", { children: "macOS" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 234,
+                          columnNumber: 13
+                        }, this),
+                        detectedOS === "mac" && /* @__PURE__ */ jsxDEV("span", { style: { fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 6px", borderRadius: "10px" }, children: "Your OS" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 236,
+                          columnNumber: 13
+                        }, this)
+                      ]
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                      lineNumber: 213,
+                      columnNumber: 11
+                    },
+                    this
+                  ),
+                  /* @__PURE__ */ jsxDEV(
+                    "button",
+                    {
+                      onClick: () => setActiveTab("mobile"),
+                      style: {
+                        flex: 1,
+                        padding: "10px 14px",
+                        borderRadius: "9px",
+                        border: "none",
+                        cursor: "pointer",
+                        fontSize: "13px",
+                        fontWeight: 600,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        gap: "7px",
+                        transition: "all 0.2s ease",
+                        background: activeTab === "mobile" ? "linear-gradient(135deg, #ea580c, #f97316)" : "transparent",
+                        color: activeTab === "mobile" ? "#ffffff" : "#94a3b8",
+                        boxShadow: activeTab === "mobile" ? "0 4px 12px rgba(234, 88, 12, 0.3)" : "none"
+                      },
+                      children: [
+                        /* @__PURE__ */ jsxDEV(Smartphone, { size: 16 }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 262,
+                          columnNumber: 13
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("span", { children: "Mobile" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 263,
+                          columnNumber: 13
+                        }, this),
+                        (detectedOS === "ios" || detectedOS === "android") && /* @__PURE__ */ jsxDEV("span", { style: { fontSize: "10px", background: "rgba(255,255,255,0.25)", padding: "2px 6px", borderRadius: "10px" }, children: "Your OS" }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 265,
+                          columnNumber: 13
+                        }, this)
+                      ]
+                    },
+                    void 0,
+                    true,
+                    {
+                      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                      lineNumber: 242,
+                      columnNumber: 11
+                    },
+                    this
+                  )
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 174,
+                columnNumber: 9
+              },
+              this
+            ),
+            /* @__PURE__ */ jsxDEV("div", { style: { display: "grid", gridTemplateColumns: activeTab === "mobile" ? "1fr 1fr" : "1fr 1fr", gap: "14px", marginBottom: "20px" }, children: [
+              activeTab === "windows" && /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(249, 115, 22, 0.35)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }, children: [
+                            /* @__PURE__ */ jsxDEV(Zap, { size: 18, color: "#f97316", style: { flexShrink: 0 } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 292,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "15px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Setup Installer" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 293,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 291,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV(
+                            "span",
+                            {
+                              style: {
+                                background: "rgba(249, 115, 22, 0.2)",
+                                color: "#f97316",
+                                border: "1px solid rgba(249, 115, 22, 0.4)",
+                                fontSize: "10.5px",
+                                fontWeight: 700,
+                                padding: "2px 8px",
+                                borderRadius: "6px",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                                whiteSpace: "nowrap",
+                                flexShrink: 0
+                              },
+                              children: [
+                                /* @__PURE__ */ jsxDEV(Sparkles, { size: 11 }, void 0, false, {
+                                  fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                                  lineNumber: 313,
+                                  columnNumber: 23
+                                }, this),
+                                "Recommended"
+                              ]
+                            },
+                            void 0,
+                            true,
+                            {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 297,
+                              columnNumber: 21
+                            },
+                            this
+                          )
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 290,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "Standard installation package. Best for personal laptops and PCs." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 317,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 323,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "1-Click Launch from Chrome / Edge" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 324,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 322,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 327,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Desktop & Start Menu shortcuts" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 328,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 326,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 331,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Automatic protocol integration" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 332,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 330,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 335,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Full hardware screen blackout" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 336,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 334,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 321,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 289,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "button",
+                        {
+                          onClick: () => handleDownload("/EduOne-SecurePlayer-Setup.exe", "EduOne-SecurePlayer-Setup.exe"),
+                          className: "primary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            background: downloadedFile === "EduOne-SecurePlayer-Setup.exe" ? "#059669" : "linear-gradient(135deg, #ea580c, #f97316)",
+                            border: "none",
+                            color: "#ffffff",
+                            cursor: "pointer"
+                          },
+                          children: downloadingFile === "EduOne-SecurePlayer-Setup.exe" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV("div", { className: "button-spinner", style: { width: "13px", height: "13px", borderWidth: "2px", borderTopColor: "#ffffff" } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 365,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloading (188 MB)..." }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 366,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 364,
+                            columnNumber: 17
+                          }, this) : downloadedFile === "EduOne-SecurePlayer-Setup.exe" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 370,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloaded!" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 371,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 369,
+                            columnNumber: 17
+                          }, this) : /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(Download, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 375,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Download Installer (.exe)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 376,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 374,
+                            columnNumber: 17
+                          }, this)
+                        },
+                        void 0,
+                        false,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 341,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 277,
+                    columnNumber: 15
+                  },
+                  this
+                ),
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.02)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }, children: [
+                            /* @__PURE__ */ jsxDEV(HardDrive, { size: 18, color: "#94a3b8", style: { flexShrink: 0 } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 397,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "15px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Portable Edition" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 398,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 396,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV(
+                            "span",
+                            {
+                              style: {
+                                background: "rgba(255, 255, 255, 0.08)",
+                                color: "#94a3b8",
+                                fontSize: "10.5px",
+                                fontWeight: 600,
+                                padding: "2px 8px",
+                                borderRadius: "6px",
+                                whiteSpace: "nowrap",
+                                flexShrink: 0
+                              },
+                              children: "Zero-Install"
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 402,
+                              columnNumber: 21
+                            },
+                            this
+                          )
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 395,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "Standalone executable. Great for lab / shared PCs without admin permissions." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 417,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 423,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "No installation or admin rights required" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 424,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 422,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 427,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Runs directly from USB or Downloads" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 428,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 426,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 431,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Watch lectures directly inside player" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 432,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 430,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 435,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Full hardware screen blackout" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 436,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 434,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 421,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 394,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "button",
+                        {
+                          onClick: () => handleDownload("/EduOne-SecurePlayer-Portable.exe", "EduOne-SecurePlayer-Portable.exe"),
+                          className: "secondary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            background: downloadedFile === "EduOne-SecurePlayer-Portable.exe" ? "rgba(16, 185, 129, 0.15)" : "rgba(255, 255, 255, 0.06)",
+                            borderColor: downloadedFile === "EduOne-SecurePlayer-Portable.exe" ? "#10b981" : "rgba(255, 255, 255, 0.15)",
+                            color: downloadedFile === "EduOne-SecurePlayer-Portable.exe" ? "#10b981" : "#f8fafc",
+                            cursor: "pointer"
+                          },
+                          children: downloadingFile === "EduOne-SecurePlayer-Portable.exe" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV("div", { className: "button-spinner", style: { width: "13px", height: "13px", borderWidth: "2px", borderTopColor: "#f8fafc" } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 471,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloading (187 MB)..." }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 472,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 470,
+                            columnNumber: 17
+                          }, this) : downloadedFile === "EduOne-SecurePlayer-Portable.exe" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 476,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloaded!" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 477,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 475,
+                            columnNumber: 17
+                          }, this) : /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(Download, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 481,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Download Portable (.exe)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 482,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 480,
+                            columnNumber: 17
+                          }, this)
+                        },
+                        void 0,
+                        false,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 441,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 383,
+                    columnNumber: 15
+                  },
+                  this
+                )
+              ] }, void 0, true, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 275,
+                columnNumber: 11
+              }, this),
+              activeTab === "mac" && /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(249, 115, 22, 0.35)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.25)"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }, children: [
+                            /* @__PURE__ */ jsxDEV(Apple, { size: 18, color: "#f97316", style: { flexShrink: 0 } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 508,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "15px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Apple Silicon (M1–M4)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 509,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 507,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV(
+                            "span",
+                            {
+                              style: {
+                                background: "rgba(249, 115, 22, 0.2)",
+                                color: "#f97316",
+                                border: "1px solid rgba(249, 115, 22, 0.4)",
+                                fontSize: "10.5px",
+                                fontWeight: 700,
+                                padding: "2px 8px",
+                                borderRadius: "6px",
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: "4px",
+                                whiteSpace: "nowrap",
+                                flexShrink: 0
+                              },
+                              children: [
+                                /* @__PURE__ */ jsxDEV(Sparkles, { size: 11 }, void 0, false, {
+                                  fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                                  lineNumber: 529,
+                                  columnNumber: 23
+                                }, this),
+                                "Apple Silicon"
+                              ]
+                            },
+                            void 0,
+                            true,
+                            {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 513,
+                              columnNumber: 21
+                            },
+                            this
+                          )
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 506,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "Native ARM64 build for modern Apple Silicon MacBooks, iMacs, Mac Studios & Mac Minis." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 533,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 539,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Optimized for M-Series Apple Silicon" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 540,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 538,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 543,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Drag-and-Drop install to /Applications" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 544,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 542,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 547,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "1-Click Launch from Safari / Chrome (eduone://)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 548,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 546,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 551,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Hardware NSWindowSharingNone screen blackout" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 552,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 550,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 537,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 505,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "button",
+                        {
+                          onClick: () => handleDownload("/EduOne-SecurePlayer-AppleSilicon.dmg", "EduOne-SecurePlayer-AppleSilicon.dmg"),
+                          className: "primary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            background: downloadedFile === "EduOne-SecurePlayer-AppleSilicon.dmg" ? "#059669" : "linear-gradient(135deg, #ea580c, #f97316)",
+                            border: "none",
+                            color: "#ffffff",
+                            cursor: "pointer"
+                          },
+                          children: downloadingFile === "EduOne-SecurePlayer-AppleSilicon.dmg" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV("div", { className: "button-spinner", style: { width: "13px", height: "13px", borderWidth: "2px", borderTopColor: "#ffffff" } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 581,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloading Apple Silicon..." }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 582,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 580,
+                            columnNumber: 17
+                          }, this) : downloadedFile === "EduOne-SecurePlayer-AppleSilicon.dmg" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 586,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloaded!" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 587,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 585,
+                            columnNumber: 17
+                          }, this) : /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(Download, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 591,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Download Apple Silicon (.dmg)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 592,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 590,
+                            columnNumber: 17
+                          }, this)
+                        },
+                        void 0,
+                        false,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 557,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 493,
+                    columnNumber: 15
+                  },
+                  this
+                ),
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.02)",
+                      border: "1px solid rgba(255, 255, 255, 0.1)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", minWidth: 0 }, children: [
+                            /* @__PURE__ */ jsxDEV(Laptop, { size: 18, color: "#94a3b8", style: { flexShrink: 0 } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 613,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "15px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Intel Macs (Core i5 / i7 / i9)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 614,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 612,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV(
+                            "span",
+                            {
+                              style: {
+                                background: "rgba(255, 255, 255, 0.08)",
+                                color: "#94a3b8",
+                                fontSize: "10.5px",
+                                fontWeight: 600,
+                                padding: "2px 8px",
+                                borderRadius: "6px",
+                                whiteSpace: "nowrap",
+                                flexShrink: 0
+                              },
+                              children: "Intel x64"
+                            },
+                            void 0,
+                            false,
+                            {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 618,
+                              columnNumber: 21
+                            },
+                            this
+                          )
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 611,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "Native 64-bit DMG installer for Intel-powered Mac computers." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 633,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 639,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Optimized for Intel 64-bit architecture" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 640,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 638,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 643,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Drag-and-Drop install to /Applications" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 644,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 642,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 647,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "1-Click Launch from Safari / Chrome (eduone://)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 648,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 646,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 651,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Hardware NSWindowSharingNone screen blackout" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 652,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 650,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 637,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 610,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "button",
+                        {
+                          onClick: () => handleDownload("/EduOne-SecurePlayer-Intel.dmg", "EduOne-SecurePlayer-Intel.dmg"),
+                          className: "secondary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            background: downloadedFile === "EduOne-SecurePlayer-Intel.dmg" ? "rgba(16, 185, 129, 0.15)" : "rgba(255, 255, 255, 0.06)",
+                            borderColor: downloadedFile === "EduOne-SecurePlayer-Intel.dmg" ? "#10b981" : "rgba(255, 255, 255, 0.15)",
+                            color: downloadedFile === "EduOne-SecurePlayer-Intel.dmg" ? "#10b981" : "#f8fafc",
+                            cursor: "pointer"
+                          },
+                          children: downloadingFile === "EduOne-SecurePlayer-Intel.dmg" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV("div", { className: "button-spinner", style: { width: "13px", height: "13px", borderWidth: "2px", borderTopColor: "#f8fafc" } }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 687,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloading Intel..." }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 688,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 686,
+                            columnNumber: 17
+                          }, this) : downloadedFile === "EduOne-SecurePlayer-Intel.dmg" ? /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 692,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Downloaded!" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 693,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 691,
+                            columnNumber: 17
+                          }, this) : /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                            /* @__PURE__ */ jsxDEV(Download, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 697,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Download Intel (.dmg)" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 698,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 696,
+                            columnNumber: 17
+                          }, this)
+                        },
+                        void 0,
+                        false,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 657,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 599,
+                    columnNumber: 15
+                  },
+                  this
+                )
+              ] }, void 0, true, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 491,
+                columnNumber: 11
+              }, this),
+              activeTab === "mobile" && /* @__PURE__ */ jsxDEV(Fragment, { children: [
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV(Smartphone, { size: 18, color: "#f97316" }, void 0, false, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 722,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "16px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "iPhone & iPad (iOS)" }, void 0, false, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 723,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 721,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "Official EduOne iOS app with Apple FairPlay DRM stream encryption." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 727,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 733,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "iOS Screen Recording Blocker" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 734,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 732,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 737,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "AirPlay mirroring protection" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 738,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 736,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 731,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 720,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "a",
+                        {
+                          href: "#app-store",
+                          className: "secondary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            textDecoration: "none",
+                            background: "rgba(255, 255, 255, 0.06)",
+                            color: "#f8fafc",
+                            boxSizing: "border-box"
+                          },
+                          children: [
+                            /* @__PURE__ */ jsxDEV(ExternalLink, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 762,
+                              columnNumber: 19
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Get on Apple App Store" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 763,
+                              columnNumber: 19
+                            }, this)
+                          ]
+                        },
+                        void 0,
+                        true,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 743,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 709,
+                    columnNumber: 15
+                  },
+                  this
+                ),
+                /* @__PURE__ */ jsxDEV(
+                  "div",
+                  {
+                    style: {
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.12)",
+                      borderRadius: "14px",
+                      padding: "18px",
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between"
+                    },
+                    children: [
+                      /* @__PURE__ */ jsxDEV("div", { children: [
+                        /* @__PURE__ */ jsxDEV("div", { style: { display: "flex", alignItems: "center", gap: "8px", marginBottom: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV(Smartphone, { size: 18, color: "#10b981" }, void 0, false, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 781,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("h3", { style: { fontSize: "16px", fontWeight: 700, margin: 0, color: "#f8fafc" }, children: "Android Devices" }, void 0, false, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 782,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 780,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("p", { style: { fontSize: "12px", color: "#94a3b8", margin: "0 0 14px 0", lineHeight: 1.5 }, children: "EduOne Android client featuring FLAG_SECURE hardware protection." }, void 0, false, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 786,
+                          columnNumber: 19
+                        }, this),
+                        /* @__PURE__ */ jsxDEV("ul", { style: { listStyle: "none", padding: 0, margin: "0 0 18px 0", fontSize: "12px", color: "#cbd5e1", display: "flex", flexDirection: "column", gap: "8px" }, children: [
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 792,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "FLAG_SECURE Blackout Active" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 793,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 791,
+                            columnNumber: 21
+                          }, this),
+                          /* @__PURE__ */ jsxDEV("li", { style: { display: "flex", alignItems: "center", gap: "6px" }, children: [
+                            /* @__PURE__ */ jsxDEV(CheckCircle2, { size: 13, color: "#10b981" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 796,
+                              columnNumber: 23
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Android Screen Capture Blocked" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 797,
+                              columnNumber: 23
+                            }, this)
+                          ] }, void 0, true, {
+                            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                            lineNumber: 795,
+                            columnNumber: 21
+                          }, this)
+                        ] }, void 0, true, {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 790,
+                          columnNumber: 19
+                        }, this)
+                      ] }, void 0, true, {
+                        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                        lineNumber: 779,
+                        columnNumber: 17
+                      }, this),
+                      /* @__PURE__ */ jsxDEV(
+                        "a",
+                        {
+                          href: "/EduOne-SecurePlayer.apk",
+                          download: "EduOne-SecurePlayer.apk",
+                          className: "secondary-btn",
+                          style: {
+                            width: "100%",
+                            padding: "11px 16px",
+                            fontSize: "13px",
+                            fontWeight: 600,
+                            borderRadius: "9px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "7px",
+                            textDecoration: "none",
+                            background: "rgba(255, 255, 255, 0.06)",
+                            color: "#f8fafc",
+                            boxSizing: "border-box"
+                          },
+                          children: [
+                            /* @__PURE__ */ jsxDEV(Download, { size: 15 }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 822,
+                              columnNumber: 19
+                            }, this),
+                            /* @__PURE__ */ jsxDEV("span", { children: "Download APK Package" }, void 0, false, {
+                              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                              lineNumber: 823,
+                              columnNumber: 19
+                            }, this)
+                          ]
+                        },
+                        void 0,
+                        true,
+                        {
+                          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                          lineNumber: 802,
+                          columnNumber: 17
+                        },
+                        this
+                      )
+                    ]
+                  },
+                  void 0,
+                  true,
+                  {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 768,
+                    columnNumber: 15
+                  },
+                  this
+                )
+              ] }, void 0, true, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 707,
+                columnNumber: 11
+              }, this)
+            ] }, void 0, true, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+              lineNumber: 273,
+              columnNumber: 9
+            }, this),
+            /* @__PURE__ */ jsxDEV(
+              "div",
+              {
+                style: {
+                  borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+                  paddingTop: "14px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "8px",
+                  fontSize: "12px",
+                  color: "#64748b",
+                  textAlign: "center"
+                },
+                children: [
+                  /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 16, color: "#059669" }, void 0, false, {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 844,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ jsxDEV("span", { children: "All editions include AES-128 cryptographic key delivery & native OS screen recording blackout." }, void 0, false, {
+                    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                    lineNumber: 845,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+                lineNumber: 831,
+                columnNumber: 9
+              },
+              this
+            )
+          ]
+        },
+        void 0,
+        true,
+        {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+          lineNumber: 93,
+          columnNumber: 7
+        },
+        this
+      )
+    },
+    void 0,
+    false,
+    {
+      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx",
+      lineNumber: 73,
+      columnNumber: 5
+    },
+    this
+  );
+};
+_s(DownloadModal, "9eNVWzZzUz/2jbnt1TVOt8dp+8c=");
+_c = DownloadModal;
+var _c;
+$RefreshReg$(_c, "DownloadModal");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("D:/FonixEdu Repos/secure player/frontend/src/components/DownloadModal.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBa0hjLFNBc09NLFVBdE9OOzs7Ozs7Ozs7Ozs7Ozs7OztBQWxIZCxTQUFnQkEsZ0JBQWdCO0FBQ2hDO0FBQUEsRUFDRUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsRUFDQUM7QUFBQUEsT0FDSztBQUNQLFNBQVNDLG9CQUFvQjtBQU90QixhQUFNQyxnQkFBOENBLENBQUMsRUFBRUMsUUFBUUMsUUFBUSxNQUFNO0FBQUFDLEtBQUE7QUFDbEYsUUFBTUMsYUFBYUwsYUFBYTtBQUNoQyxRQUFNLENBQUNNLFdBQVdDLFlBQVksSUFBSW5CO0FBQUFBLElBQ2hDaUIsZUFBZSxRQUFRLFFBQVFBLGVBQWUsU0FBU0EsZUFBZSxZQUFZLFdBQVc7QUFBQSxFQUMvRjtBQUNBLFFBQU0sQ0FBQ0csaUJBQWlCQyxrQkFBa0IsSUFBSXJCLFNBQXdCLElBQUk7QUFDMUUsUUFBTSxDQUFDc0IsZ0JBQWdCQyxpQkFBaUIsSUFBSXZCLFNBQXdCLElBQUk7QUFFeEUsTUFBSSxDQUFDYyxPQUFRLFFBQU87QUFFcEIsUUFBTVUsaUJBQWlCQSxDQUFDQyxLQUFhQyxhQUFxQjtBQUN4RCxRQUFJLENBQUNELE9BQU9BLFFBQVEsT0FBT0wsZ0JBQWlCO0FBRTVDQyx1QkFBbUJLLFFBQVE7QUFFM0IsVUFBTUMsT0FBT0MsU0FBU0MsY0FBYyxHQUFHO0FBQ3ZDRixTQUFLRyxPQUFPTDtBQUNaRSxTQUFLSSxXQUFXTDtBQUNoQkUsYUFBU0ksS0FBS0MsWUFBWU4sSUFBSTtBQUM5QkEsU0FBS08sTUFBTTtBQUNYTixhQUFTSSxLQUFLRyxZQUFZUixJQUFJO0FBRTlCUyxlQUFXLE1BQU07QUFDZmYseUJBQW1CLElBQUk7QUFDdkJFLHdCQUFrQkcsUUFBUTtBQUMxQlUsaUJBQVcsTUFBTTtBQUNmYiwwQkFBa0IsSUFBSTtBQUFBLE1BQ3hCLEdBQUcsR0FBSTtBQUFBLElBQ1QsR0FBRyxJQUFJO0FBQUEsRUFDVDtBQUVBLFNBQ0U7QUFBQSxJQUFDO0FBQUE7QUFBQSxNQUNDLFdBQVU7QUFBQSxNQUNWLFNBQVNSO0FBQUFBLE1BQ1QsT0FBTztBQUFBLFFBQ0xzQixVQUFVO0FBQUEsUUFDVkMsS0FBSztBQUFBLFFBQ0xDLE1BQU07QUFBQSxRQUNOQyxPQUFPO0FBQUEsUUFDUEMsUUFBUTtBQUFBLFFBQ1JDLGlCQUFpQjtBQUFBLFFBQ2pCQyxnQkFBZ0I7QUFBQSxRQUNoQkMsc0JBQXNCO0FBQUEsUUFDdEJDLFFBQVE7QUFBQSxRQUNSQyxTQUFTO0FBQUEsUUFDVEMsWUFBWTtBQUFBLFFBQ1pDLGdCQUFnQjtBQUFBLFFBQ2hCQyxTQUFTO0FBQUEsUUFDVEMsV0FBVztBQUFBLE1BQ2I7QUFBQSxNQUVBO0FBQUEsUUFBQztBQUFBO0FBQUEsVUFDQyxXQUFVO0FBQUEsVUFDVixTQUFTLENBQUNDLE1BQU1BLEVBQUVDLGdCQUFnQjtBQUFBLFVBQ2xDLE9BQU87QUFBQSxZQUNMQyxVQUFVO0FBQUEsWUFDVkMsT0FBTztBQUFBLFlBQ1BDLFdBQVc7QUFBQSxZQUNYQyxXQUFXO0FBQUEsWUFDWEMsWUFBWTtBQUFBLFlBQ1pDLFFBQVE7QUFBQSxZQUNSQyxjQUFjO0FBQUEsWUFDZFYsU0FBUztBQUFBLFlBQ1RXLFdBQVc7QUFBQSxZQUNYdkIsVUFBVTtBQUFBLFlBQ1ZhLFdBQVc7QUFBQSxVQUNiO0FBQUEsVUFHQTtBQUFBO0FBQUEsY0FBQztBQUFBO0FBQUEsZ0JBQ0MsT0FBTztBQUFBLGtCQUNMSixTQUFTO0FBQUEsa0JBQ1RDLFlBQVk7QUFBQSxrQkFDWkMsZ0JBQWdCO0FBQUEsa0JBQ2hCYSxjQUFjO0FBQUEsa0JBQ2RDLGVBQWU7QUFBQSxnQkFDakI7QUFBQSxnQkFFQTtBQUFBLHlDQUFDLFNBQUksT0FBTyxFQUFFaEIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE9BQU8sR0FDL0Q7QUFBQTtBQUFBLHNCQUFDO0FBQUE7QUFBQSx3QkFDQyxPQUFPO0FBQUEsMEJBQ0xULE9BQU87QUFBQSwwQkFDUFUsUUFBUTtBQUFBLDBCQUNSTCxjQUFjO0FBQUEsMEJBQ2RGLFlBQVk7QUFBQSwwQkFDWlgsU0FBUztBQUFBLDBCQUNUQyxZQUFZO0FBQUEsMEJBQ1pDLGdCQUFnQjtBQUFBLDBCQUNoQmlCLE9BQU87QUFBQSwwQkFDUFAsUUFBUTtBQUFBLHdCQUNWO0FBQUEsd0JBRUEsaUNBQUMsWUFBUyxNQUFNLE1BQWhCO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBQW1CO0FBQUE7QUFBQSxzQkFickI7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLG9CQWNBO0FBQUEsb0JBQ0EsdUJBQUMsU0FDQztBQUFBLDZDQUFDLFFBQUcsT0FBTyxFQUFFUSxVQUFVLFFBQVFDLFlBQVksS0FBS0MsUUFBUSxHQUFHSCxPQUFPLFVBQVUsR0FBRSw2Q0FBOUU7QUFBQTtBQUFBO0FBQUE7QUFBQSw2QkFFQTtBQUFBLHNCQUNBLHVCQUFDLE9BQUUsT0FBTyxFQUFFRyxRQUFRLGFBQWFGLFVBQVUsVUFBVUQsT0FBTyxVQUFVLEdBQUUsOEVBQXhFO0FBQUE7QUFBQTtBQUFBO0FBQUEsNkJBRUE7QUFBQSx5QkFORjtBQUFBO0FBQUE7QUFBQTtBQUFBLDJCQU9BO0FBQUEsdUJBdkJGO0FBQUE7QUFBQTtBQUFBO0FBQUEseUJBd0JBO0FBQUEsa0JBQ0E7QUFBQSxvQkFBQztBQUFBO0FBQUEsc0JBQ0MsU0FBU2xEO0FBQUFBLHNCQUNULE9BQU87QUFBQSx3QkFDTDBDLFlBQVk7QUFBQSx3QkFDWkMsUUFBUTtBQUFBLHdCQUNSQyxjQUFjO0FBQUEsd0JBQ2RMLE9BQU87QUFBQSx3QkFDUFUsUUFBUTtBQUFBLHdCQUNSbEIsU0FBUztBQUFBLHdCQUNUQyxZQUFZO0FBQUEsd0JBQ1pDLGdCQUFnQjtBQUFBLHdCQUNoQmlCLE9BQU87QUFBQSx3QkFDUEksUUFBUTtBQUFBLHdCQUNSQyxZQUFZO0FBQUEsc0JBQ2Q7QUFBQSxzQkFDQSxjQUFjLENBQUNuQixNQUFNO0FBQ2xCQSwwQkFBRW9CLGNBQWNDLE1BQU1QLFFBQVE7QUFDOUJkLDBCQUFFb0IsY0FBY0MsTUFBTWYsYUFBYTtBQUFBLHNCQUN0QztBQUFBLHNCQUNBLGNBQWMsQ0FBQ04sTUFBTTtBQUNsQkEsMEJBQUVvQixjQUFjQyxNQUFNUCxRQUFRO0FBQzlCZCwwQkFBRW9CLGNBQWNDLE1BQU1mLGFBQWE7QUFBQSxzQkFDdEM7QUFBQSxzQkFFQSxpQ0FBQyxLQUFFLE1BQU0sTUFBVDtBQUFBO0FBQUE7QUFBQTtBQUFBLDZCQUFZO0FBQUE7QUFBQSxvQkF4QmQ7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGtCQXlCQTtBQUFBO0FBQUE7QUFBQSxjQTNERjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsWUE0REE7QUFBQSxZQUdBO0FBQUEsY0FBQztBQUFBO0FBQUEsZ0JBQ0MsT0FBTztBQUFBLGtCQUNMWCxTQUFTO0FBQUEsa0JBQ1RpQixLQUFLO0FBQUEsa0JBQ0xOLFlBQVk7QUFBQSxrQkFDWlIsU0FBUztBQUFBLGtCQUNUVSxjQUFjO0FBQUEsa0JBQ2RTLFFBQVE7QUFBQSxnQkFDVjtBQUFBLGdCQUVBO0FBQUE7QUFBQSxvQkFBQztBQUFBO0FBQUEsc0JBQ0MsU0FBUyxNQUFNakQsYUFBYSxTQUFTO0FBQUEsc0JBQ3JDLE9BQU87QUFBQSx3QkFDTHNELE1BQU07QUFBQSx3QkFDTnhCLFNBQVM7QUFBQSx3QkFDVFUsY0FBYztBQUFBLHdCQUNkRCxRQUFRO0FBQUEsd0JBQ1JXLFFBQVE7QUFBQSx3QkFDUkgsVUFBVTtBQUFBLHdCQUNWQyxZQUFZO0FBQUEsd0JBQ1pyQixTQUFTO0FBQUEsd0JBQ1RDLFlBQVk7QUFBQSx3QkFDWkMsZ0JBQWdCO0FBQUEsd0JBQ2hCZSxLQUFLO0FBQUEsd0JBQ0xPLFlBQVk7QUFBQSx3QkFDWmIsWUFBWXZDLGNBQWMsWUFBWSw4Q0FBOEM7QUFBQSx3QkFDcEYrQyxPQUFPL0MsY0FBYyxZQUFZLFlBQVk7QUFBQSx3QkFDN0MwQyxXQUFXMUMsY0FBYyxZQUFZLHNDQUFzQztBQUFBLHNCQUM3RTtBQUFBLHNCQUVBO0FBQUEsK0NBQUMsVUFBTyxNQUFNLE1BQWQ7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFBaUI7QUFBQSx3QkFDakIsdUJBQUMsVUFBSyx1QkFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQUFhO0FBQUEsd0JBQ1pELGVBQWUsYUFDZCx1QkFBQyxVQUFLLE9BQU8sRUFBRWlELFVBQVUsUUFBUVQsWUFBWSwwQkFBMEJSLFNBQVMsV0FBV1UsY0FBYyxPQUFPLEdBQUUsdUJBQWxIO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBRUE7QUFBQTtBQUFBO0FBQUEsb0JBekJKO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxrQkEyQkE7QUFBQSxrQkFFQTtBQUFBLG9CQUFDO0FBQUE7QUFBQSxzQkFDQyxTQUFTLE1BQU14QyxhQUFhLEtBQUs7QUFBQSxzQkFDakMsT0FBTztBQUFBLHdCQUNMc0QsTUFBTTtBQUFBLHdCQUNOeEIsU0FBUztBQUFBLHdCQUNUVSxjQUFjO0FBQUEsd0JBQ2RELFFBQVE7QUFBQSx3QkFDUlcsUUFBUTtBQUFBLHdCQUNSSCxVQUFVO0FBQUEsd0JBQ1ZDLFlBQVk7QUFBQSx3QkFDWnJCLFNBQVM7QUFBQSx3QkFDVEMsWUFBWTtBQUFBLHdCQUNaQyxnQkFBZ0I7QUFBQSx3QkFDaEJlLEtBQUs7QUFBQSx3QkFDTE8sWUFBWTtBQUFBLHdCQUNaYixZQUFZdkMsY0FBYyxRQUFRLDhDQUE4QztBQUFBLHdCQUNoRitDLE9BQU8vQyxjQUFjLFFBQVEsWUFBWTtBQUFBLHdCQUN6QzBDLFdBQVcxQyxjQUFjLFFBQVEsc0NBQXNDO0FBQUEsc0JBQ3pFO0FBQUEsc0JBRUE7QUFBQSwrQ0FBQyxTQUFNLE1BQU0sTUFBYjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQUFnQjtBQUFBLHdCQUNoQix1QkFBQyxVQUFLLHFCQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBQVc7QUFBQSx3QkFDVkQsZUFBZSxTQUNkLHVCQUFDLFVBQUssT0FBTyxFQUFFaUQsVUFBVSxRQUFRVCxZQUFZLDBCQUEwQlIsU0FBUyxXQUFXVSxjQUFjLE9BQU8sR0FBRSx1QkFBbEg7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFFQTtBQUFBO0FBQUE7QUFBQSxvQkF6Qko7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGtCQTJCQTtBQUFBLGtCQUVBO0FBQUEsb0JBQUM7QUFBQTtBQUFBLHNCQUNDLFNBQVMsTUFBTXhDLGFBQWEsUUFBUTtBQUFBLHNCQUNwQyxPQUFPO0FBQUEsd0JBQ0xzRCxNQUFNO0FBQUEsd0JBQ054QixTQUFTO0FBQUEsd0JBQ1RVLGNBQWM7QUFBQSx3QkFDZEQsUUFBUTtBQUFBLHdCQUNSVyxRQUFRO0FBQUEsd0JBQ1JILFVBQVU7QUFBQSx3QkFDVkMsWUFBWTtBQUFBLHdCQUNackIsU0FBUztBQUFBLHdCQUNUQyxZQUFZO0FBQUEsd0JBQ1pDLGdCQUFnQjtBQUFBLHdCQUNoQmUsS0FBSztBQUFBLHdCQUNMTyxZQUFZO0FBQUEsd0JBQ1piLFlBQVl2QyxjQUFjLFdBQVcsOENBQThDO0FBQUEsd0JBQ25GK0MsT0FBTy9DLGNBQWMsV0FBVyxZQUFZO0FBQUEsd0JBQzVDMEMsV0FBVzFDLGNBQWMsV0FBVyxzQ0FBc0M7QUFBQSxzQkFDNUU7QUFBQSxzQkFFQTtBQUFBLCtDQUFDLGNBQVcsTUFBTSxNQUFsQjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQUFxQjtBQUFBLHdCQUNyQix1QkFBQyxVQUFLLHNCQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBQVk7QUFBQSx5QkFDVkQsZUFBZSxTQUFTQSxlQUFlLGNBQ3ZDLHVCQUFDLFVBQUssT0FBTyxFQUFFaUQsVUFBVSxRQUFRVCxZQUFZLDBCQUEwQlIsU0FBUyxXQUFXVSxjQUFjLE9BQU8sR0FBRSx1QkFBbEg7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFFQTtBQUFBO0FBQUE7QUFBQSxvQkF6Qko7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGtCQTJCQTtBQUFBO0FBQUE7QUFBQSxjQS9GRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsWUFnR0E7QUFBQSxZQUdBLHVCQUFDLFNBQUksT0FBTyxFQUFFYixTQUFTLFFBQVE0QixxQkFBcUJ4RCxjQUFjLFdBQVcsWUFBWSxXQUFXNkMsS0FBSyxRQUFRWSxjQUFjLE9BQU8sR0FDbkl6RDtBQUFBQSw0QkFBYyxhQUNiLG1DQUVFO0FBQUE7QUFBQSxrQkFBQztBQUFBO0FBQUEsb0JBQ0MsT0FBTztBQUFBLHNCQUNMdUMsWUFBWTtBQUFBLHNCQUNaQyxRQUFRO0FBQUEsc0JBQ1JDLGNBQWM7QUFBQSxzQkFDZFYsU0FBUztBQUFBLHNCQUNUSCxTQUFTO0FBQUEsc0JBQ1Q4QixlQUFlO0FBQUEsc0JBQ2Y1QixnQkFBZ0I7QUFBQSxzQkFDaEJZLFdBQVc7QUFBQSxvQkFDYjtBQUFBLG9CQUVBO0FBQUEsNkNBQUMsU0FDQztBQUFBLCtDQUFDLFNBQUksT0FBTyxFQUFFZCxTQUFTLFFBQVFDLFlBQVksY0FBY0MsZ0JBQWdCLGlCQUFpQmUsS0FBSyxPQUFPWSxjQUFjLE1BQU0sR0FDeEg7QUFBQSxpREFBQyxTQUFJLE9BQU8sRUFBRTdCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxPQUFPYyxVQUFVLEVBQUUsR0FDM0U7QUFBQSxtREFBQyxPQUFJLE1BQU0sSUFBSSxPQUFNLFdBQVUsT0FBTyxFQUFFQyxZQUFZLEVBQUUsS0FBdEQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBd0Q7QUFBQSw0QkFDeEQsdUJBQUMsUUFBRyxPQUFPLEVBQUVaLFVBQVUsUUFBUUMsWUFBWSxLQUFLQyxRQUFRLEdBQUdILE9BQU8sVUFBVSxHQUFFLCtCQUE5RTtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUVBO0FBQUEsK0JBSkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FLQTtBQUFBLDBCQUNBO0FBQUEsNEJBQUM7QUFBQTtBQUFBLDhCQUNDLE9BQU87QUFBQSxnQ0FDTFIsWUFBWTtBQUFBLGdDQUNaUSxPQUFPO0FBQUEsZ0NBQ1BQLFFBQVE7QUFBQSxnQ0FDUlEsVUFBVTtBQUFBLGdDQUNWQyxZQUFZO0FBQUEsZ0NBQ1psQixTQUFTO0FBQUEsZ0NBQ1RVLGNBQWM7QUFBQSxnQ0FDZGIsU0FBUztBQUFBLGdDQUNUQyxZQUFZO0FBQUEsZ0NBQ1pnQixLQUFLO0FBQUEsZ0NBQ0xnQixZQUFZO0FBQUEsZ0NBQ1pELFlBQVk7QUFBQSw4QkFDZDtBQUFBLDhCQUVBO0FBQUEsdURBQUMsWUFBUyxNQUFNLE1BQWhCO0FBQUE7QUFBQTtBQUFBO0FBQUEsdUNBQW1CO0FBQUE7QUFBQTtBQUFBO0FBQUEsNEJBaEJyQjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsMEJBa0JBO0FBQUEsNkJBekJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBMEJBO0FBQUEsd0JBQ0EsdUJBQUMsT0FBRSxPQUFPLEVBQUVaLFVBQVUsUUFBUUQsT0FBTyxXQUFXRyxRQUFRLGNBQWNZLFlBQVksSUFBSSxHQUFFLGlGQUF4RjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQUVBO0FBQUEsd0JBRUEsdUJBQUMsUUFBRyxPQUFPLEVBQUVDLFdBQVcsUUFBUWhDLFNBQVMsR0FBR21CLFFBQVEsY0FBY0YsVUFBVSxRQUFRRCxPQUFPLFdBQVduQixTQUFTLFFBQVE4QixlQUFlLFVBQVViLEtBQUssTUFBTSxHQUN6SjtBQUFBLGlEQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLGlEQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsK0JBRnpDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSwwQkFDQSx1QkFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyw4Q0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFvQztBQUFBLCtCQUZ0QztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsMEJBQ0EsdUJBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssOENBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBb0M7QUFBQSwrQkFGdEM7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDBCQUNBLHVCQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLDZDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQW1DO0FBQUEsK0JBRnJDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSw2QkFoQkY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFpQkE7QUFBQSwyQkFqREY7QUFBQTtBQUFBO0FBQUE7QUFBQSw2QkFrREE7QUFBQSxzQkFFQTtBQUFBLHdCQUFDO0FBQUE7QUFBQSwwQkFDQyxTQUFTLE1BQU12QyxlQUFlLGtDQUFrQywrQkFBK0I7QUFBQSwwQkFDL0YsV0FBVTtBQUFBLDBCQUNWLE9BQU87QUFBQSw0QkFDTDhCLE9BQU87QUFBQSw0QkFDUEwsU0FBUztBQUFBLDRCQUNUaUIsVUFBVTtBQUFBLDRCQUNWQyxZQUFZO0FBQUEsNEJBQ1pSLGNBQWM7QUFBQSw0QkFDZGIsU0FBUztBQUFBLDRCQUNUQyxZQUFZO0FBQUEsNEJBQ1pDLGdCQUFnQjtBQUFBLDRCQUNoQmUsS0FBSztBQUFBLDRCQUNMTixZQUNFbkMsbUJBQW1CLGtDQUNmLFlBQ0E7QUFBQSw0QkFDTm9DLFFBQVE7QUFBQSw0QkFDUk8sT0FBTztBQUFBLDRCQUNQSSxRQUFRO0FBQUEsMEJBQ1Y7QUFBQSwwQkFFQ2pELDhCQUFvQixrQ0FDbkIsbUNBQ0U7QUFBQSxtREFBQyxTQUFJLFdBQVUsa0JBQWlCLE9BQU8sRUFBRWtDLE9BQU8sUUFBUVUsUUFBUSxRQUFRa0IsYUFBYSxPQUFPQyxnQkFBZ0IsVUFBVSxLQUF0SDtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF3SDtBQUFBLDRCQUN4SCx1QkFBQyxVQUFLLHVDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQTZCO0FBQUEsK0JBRi9CO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0EsSUFDRTdELG1CQUFtQixrQ0FDckIsbUNBQ0U7QUFBQSxtREFBQyxlQUFZLE1BQU0sTUFBbkI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBc0I7QUFBQSw0QkFDdEIsdUJBQUMsVUFBSywyQkFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFpQjtBQUFBLCtCQUZuQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBLElBRUEsbUNBQ0U7QUFBQSxtREFBQyxZQUFTLE1BQU0sTUFBaEI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBbUI7QUFBQSw0QkFDbkIsdUJBQUMsVUFBSyx5Q0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUErQjtBQUFBLCtCQUZqQztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUE7QUFBQSx3QkFwQ0o7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLHNCQXNDQTtBQUFBO0FBQUE7QUFBQSxrQkF0R0Y7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGdCQXVHQTtBQUFBLGdCQUdBO0FBQUEsa0JBQUM7QUFBQTtBQUFBLG9CQUNDLE9BQU87QUFBQSxzQkFDTG1DLFlBQVk7QUFBQSxzQkFDWkMsUUFBUTtBQUFBLHNCQUNSQyxjQUFjO0FBQUEsc0JBQ2RWLFNBQVM7QUFBQSxzQkFDVEgsU0FBUztBQUFBLHNCQUNUOEIsZUFBZTtBQUFBLHNCQUNmNUIsZ0JBQWdCO0FBQUEsb0JBQ2xCO0FBQUEsb0JBRUE7QUFBQSw2Q0FBQyxTQUNDO0FBQUEsK0NBQUMsU0FBSSxPQUFPLEVBQUVGLFNBQVMsUUFBUUMsWUFBWSxjQUFjQyxnQkFBZ0IsaUJBQWlCZSxLQUFLLE9BQU9ZLGNBQWMsTUFBTSxHQUN4SDtBQUFBLGlEQUFDLFNBQUksT0FBTyxFQUFFN0IsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE9BQU9jLFVBQVUsRUFBRSxHQUMzRTtBQUFBLG1EQUFDLGFBQVUsTUFBTSxJQUFJLE9BQU0sV0FBVSxPQUFPLEVBQUVDLFlBQVksRUFBRSxLQUE1RDtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUE4RDtBQUFBLDRCQUM5RCx1QkFBQyxRQUFHLE9BQU8sRUFBRVosVUFBVSxRQUFRQyxZQUFZLEtBQUtDLFFBQVEsR0FBR0gsT0FBTyxVQUFVLEdBQUUsZ0NBQTlFO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBRUE7QUFBQSwrQkFKRjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUtBO0FBQUEsMEJBQ0E7QUFBQSw0QkFBQztBQUFBO0FBQUEsOEJBQ0MsT0FBTztBQUFBLGdDQUNMUixZQUFZO0FBQUEsZ0NBQ1pRLE9BQU87QUFBQSxnQ0FDUEMsVUFBVTtBQUFBLGdDQUNWQyxZQUFZO0FBQUEsZ0NBQ1psQixTQUFTO0FBQUEsZ0NBQ1RVLGNBQWM7QUFBQSxnQ0FDZG9CLFlBQVk7QUFBQSxnQ0FDWkQsWUFBWTtBQUFBLDhCQUNkO0FBQUEsOEJBQUU7QUFBQTtBQUFBLDRCQVZKO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSwwQkFhQTtBQUFBLDZCQXBCRjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQXFCQTtBQUFBLHdCQUNBLHVCQUFDLE9BQUUsT0FBTyxFQUFFWixVQUFVLFFBQVFELE9BQU8sV0FBV0csUUFBUSxjQUFjWSxZQUFZLElBQUksR0FBRSw0RkFBeEY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFFQTtBQUFBLHdCQUVBLHVCQUFDLFFBQUcsT0FBTyxFQUFFQyxXQUFXLFFBQVFoQyxTQUFTLEdBQUdtQixRQUFRLGNBQWNGLFVBQVUsUUFBUUQsT0FBTyxXQUFXbkIsU0FBUyxRQUFROEIsZUFBZSxVQUFVYixLQUFLLE1BQU0sR0FDeko7QUFBQSxpREFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyx3REFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUE4QztBQUFBLCtCQUZoRDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsMEJBQ0EsdUJBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssbURBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBeUM7QUFBQSwrQkFGM0M7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDBCQUNBLHVCQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLHFEQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQTJDO0FBQUEsK0JBRjdDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSwwQkFDQSx1QkFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyw2Q0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFtQztBQUFBLCtCQUZyQztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsNkJBaEJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBaUJBO0FBQUEsMkJBNUNGO0FBQUE7QUFBQTtBQUFBO0FBQUEsNkJBNkNBO0FBQUEsc0JBRUE7QUFBQSx3QkFBQztBQUFBO0FBQUEsMEJBQ0MsU0FBUyxNQUFNdkMsZUFBZSxxQ0FBcUMsa0NBQWtDO0FBQUEsMEJBQ3JHLFdBQVU7QUFBQSwwQkFDVixPQUFPO0FBQUEsNEJBQ0w4QixPQUFPO0FBQUEsNEJBQ1BMLFNBQVM7QUFBQSw0QkFDVGlCLFVBQVU7QUFBQSw0QkFDVkMsWUFBWTtBQUFBLDRCQUNaUixjQUFjO0FBQUEsNEJBQ2RiLFNBQVM7QUFBQSw0QkFDVEMsWUFBWTtBQUFBLDRCQUNaQyxnQkFBZ0I7QUFBQSw0QkFDaEJlLEtBQUs7QUFBQSw0QkFDTE4sWUFDRW5DLG1CQUFtQixxQ0FDZiw2QkFDQTtBQUFBLDRCQUNOOEQsYUFDRTlELG1CQUFtQixxQ0FDZixZQUNBO0FBQUEsNEJBQ04yQyxPQUNFM0MsbUJBQW1CLHFDQUNmLFlBQ0E7QUFBQSw0QkFDTitDLFFBQVE7QUFBQSwwQkFDVjtBQUFBLDBCQUVDakQsOEJBQW9CLHFDQUNuQixtQ0FDRTtBQUFBLG1EQUFDLFNBQUksV0FBVSxrQkFBaUIsT0FBTyxFQUFFa0MsT0FBTyxRQUFRVSxRQUFRLFFBQVFrQixhQUFhLE9BQU9DLGdCQUFnQixVQUFVLEtBQXRIO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXdIO0FBQUEsNEJBQ3hILHVCQUFDLFVBQUssdUNBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBNkI7QUFBQSwrQkFGL0I7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQSxJQUNFN0QsbUJBQW1CLHFDQUNyQixtQ0FDRTtBQUFBLG1EQUFDLGVBQVksTUFBTSxNQUFuQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFzQjtBQUFBLDRCQUN0Qix1QkFBQyxVQUFLLDJCQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQWlCO0FBQUEsK0JBRm5CO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0EsSUFFQSxtQ0FDRTtBQUFBLG1EQUFDLFlBQVMsTUFBTSxNQUFoQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFtQjtBQUFBLDRCQUNuQix1QkFBQyxVQUFLLHdDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQThCO0FBQUEsK0JBRmhDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQTtBQUFBLHdCQTFDSjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsc0JBNENBO0FBQUE7QUFBQTtBQUFBLGtCQXRHRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsZ0JBdUdBO0FBQUEsbUJBbk5GO0FBQUE7QUFBQTtBQUFBO0FBQUEscUJBb05BO0FBQUEsY0FHREosY0FBYyxTQUNiLG1DQUVFO0FBQUE7QUFBQSxrQkFBQztBQUFBO0FBQUEsb0JBQ0MsT0FBTztBQUFBLHNCQUNMdUMsWUFBWTtBQUFBLHNCQUNaQyxRQUFRO0FBQUEsc0JBQ1JDLGNBQWM7QUFBQSxzQkFDZFYsU0FBUztBQUFBLHNCQUNUSCxTQUFTO0FBQUEsc0JBQ1Q4QixlQUFlO0FBQUEsc0JBQ2Y1QixnQkFBZ0I7QUFBQSxzQkFDaEJZLFdBQVc7QUFBQSxvQkFDYjtBQUFBLG9CQUVBO0FBQUEsNkNBQUMsU0FDQztBQUFBLCtDQUFDLFNBQUksT0FBTyxFQUFFZCxTQUFTLFFBQVFDLFlBQVksY0FBY0MsZ0JBQWdCLGlCQUFpQmUsS0FBSyxPQUFPWSxjQUFjLE1BQU0sR0FDeEg7QUFBQSxpREFBQyxTQUFJLE9BQU8sRUFBRTdCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxPQUFPYyxVQUFVLEVBQUUsR0FDM0U7QUFBQSxtREFBQyxTQUFNLE1BQU0sSUFBSSxPQUFNLFdBQVUsT0FBTyxFQUFFQyxZQUFZLEVBQUUsS0FBeEQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBMEQ7QUFBQSw0QkFDMUQsdUJBQUMsUUFBRyxPQUFPLEVBQUVaLFVBQVUsUUFBUUMsWUFBWSxLQUFLQyxRQUFRLEdBQUdILE9BQU8sVUFBVSxHQUFFLHFDQUE5RTtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUVBO0FBQUEsK0JBSkY7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FLQTtBQUFBLDBCQUNBO0FBQUEsNEJBQUM7QUFBQTtBQUFBLDhCQUNDLE9BQU87QUFBQSxnQ0FDTFIsWUFBWTtBQUFBLGdDQUNaUSxPQUFPO0FBQUEsZ0NBQ1BQLFFBQVE7QUFBQSxnQ0FDUlEsVUFBVTtBQUFBLGdDQUNWQyxZQUFZO0FBQUEsZ0NBQ1psQixTQUFTO0FBQUEsZ0NBQ1RVLGNBQWM7QUFBQSxnQ0FDZGIsU0FBUztBQUFBLGdDQUNUQyxZQUFZO0FBQUEsZ0NBQ1pnQixLQUFLO0FBQUEsZ0NBQ0xnQixZQUFZO0FBQUEsZ0NBQ1pELFlBQVk7QUFBQSw4QkFDZDtBQUFBLDhCQUVBO0FBQUEsdURBQUMsWUFBUyxNQUFNLE1BQWhCO0FBQUE7QUFBQTtBQUFBO0FBQUEsdUNBQW1CO0FBQUE7QUFBQTtBQUFBO0FBQUEsNEJBaEJyQjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsMEJBa0JBO0FBQUEsNkJBekJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBMEJBO0FBQUEsd0JBQ0EsdUJBQUMsT0FBRSxPQUFPLEVBQUVaLFVBQVUsUUFBUUQsT0FBTyxXQUFXRyxRQUFRLGNBQWNZLFlBQVksSUFBSSxHQUFFLHFHQUF4RjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQUVBO0FBQUEsd0JBRUEsdUJBQUMsUUFBRyxPQUFPLEVBQUVDLFdBQVcsUUFBUWhDLFNBQVMsR0FBR21CLFFBQVEsY0FBY0YsVUFBVSxRQUFRRCxPQUFPLFdBQVduQixTQUFTLFFBQVE4QixlQUFlLFVBQVViLEtBQUssTUFBTSxHQUN6SjtBQUFBLGlEQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLG9EQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQTBDO0FBQUEsK0JBRjVDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSwwQkFDQSx1QkFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyxzREFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUE0QztBQUFBLCtCQUY5QztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsMEJBQ0EsdUJBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssK0RBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBcUQ7QUFBQSwrQkFGdkQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDBCQUNBLHVCQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLDREQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQWtEO0FBQUEsK0JBRnBEO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSw2QkFoQkY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFpQkE7QUFBQSwyQkFqREY7QUFBQTtBQUFBO0FBQUE7QUFBQSw2QkFrREE7QUFBQSxzQkFFQTtBQUFBLHdCQUFDO0FBQUE7QUFBQSwwQkFDQyxTQUFTLE1BQU12QyxlQUFlLHlDQUF5QyxzQ0FBc0M7QUFBQSwwQkFDN0csV0FBVTtBQUFBLDBCQUNWLE9BQU87QUFBQSw0QkFDTDhCLE9BQU87QUFBQSw0QkFDUEwsU0FBUztBQUFBLDRCQUNUaUIsVUFBVTtBQUFBLDRCQUNWQyxZQUFZO0FBQUEsNEJBQ1pSLGNBQWM7QUFBQSw0QkFDZGIsU0FBUztBQUFBLDRCQUNUQyxZQUFZO0FBQUEsNEJBQ1pDLGdCQUFnQjtBQUFBLDRCQUNoQmUsS0FBSztBQUFBLDRCQUNMTixZQUNFbkMsbUJBQW1CLHlDQUNmLFlBQ0E7QUFBQSw0QkFDTm9DLFFBQVE7QUFBQSw0QkFDUk8sT0FBTztBQUFBLDRCQUNQSSxRQUFRO0FBQUEsMEJBQ1Y7QUFBQSwwQkFFQ2pELDhCQUFvQix5Q0FDbkIsbUNBQ0U7QUFBQSxtREFBQyxTQUFJLFdBQVUsa0JBQWlCLE9BQU8sRUFBRWtDLE9BQU8sUUFBUVUsUUFBUSxRQUFRa0IsYUFBYSxPQUFPQyxnQkFBZ0IsVUFBVSxLQUF0SDtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF3SDtBQUFBLDRCQUN4SCx1QkFBQyxVQUFLLDRDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQWtDO0FBQUEsK0JBRnBDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0EsSUFDRTdELG1CQUFtQix5Q0FDckIsbUNBQ0U7QUFBQSxtREFBQyxlQUFZLE1BQU0sTUFBbkI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBc0I7QUFBQSw0QkFDdEIsdUJBQUMsVUFBSywyQkFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFpQjtBQUFBLCtCQUZuQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBLElBRUEsbUNBQ0U7QUFBQSxtREFBQyxZQUFTLE1BQU0sTUFBaEI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBbUI7QUFBQSw0QkFDbkIsdUJBQUMsVUFBSyw2Q0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFtQztBQUFBLCtCQUZyQztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUE7QUFBQSx3QkFwQ0o7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLHNCQXNDQTtBQUFBO0FBQUE7QUFBQSxrQkF0R0Y7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGdCQXVHQTtBQUFBLGdCQUdBO0FBQUEsa0JBQUM7QUFBQTtBQUFBLG9CQUNDLE9BQU87QUFBQSxzQkFDTG1DLFlBQVk7QUFBQSxzQkFDWkMsUUFBUTtBQUFBLHNCQUNSQyxjQUFjO0FBQUEsc0JBQ2RWLFNBQVM7QUFBQSxzQkFDVEgsU0FBUztBQUFBLHNCQUNUOEIsZUFBZTtBQUFBLHNCQUNmNUIsZ0JBQWdCO0FBQUEsb0JBQ2xCO0FBQUEsb0JBRUE7QUFBQSw2Q0FBQyxTQUNDO0FBQUEsK0NBQUMsU0FBSSxPQUFPLEVBQUVGLFNBQVMsUUFBUUMsWUFBWSxjQUFjQyxnQkFBZ0IsaUJBQWlCZSxLQUFLLE9BQU9ZLGNBQWMsTUFBTSxHQUN4SDtBQUFBLGlEQUFDLFNBQUksT0FBTyxFQUFFN0IsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE9BQU9jLFVBQVUsRUFBRSxHQUMzRTtBQUFBLG1EQUFDLFVBQU8sTUFBTSxJQUFJLE9BQU0sV0FBVSxPQUFPLEVBQUVDLFlBQVksRUFBRSxLQUF6RDtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUEyRDtBQUFBLDRCQUMzRCx1QkFBQyxRQUFHLE9BQU8sRUFBRVosVUFBVSxRQUFRQyxZQUFZLEtBQUtDLFFBQVEsR0FBR0gsT0FBTyxVQUFVLEdBQUUsOENBQTlFO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBRUE7QUFBQSwrQkFKRjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUtBO0FBQUEsMEJBQ0E7QUFBQSw0QkFBQztBQUFBO0FBQUEsOEJBQ0MsT0FBTztBQUFBLGdDQUNMUixZQUFZO0FBQUEsZ0NBQ1pRLE9BQU87QUFBQSxnQ0FDUEMsVUFBVTtBQUFBLGdDQUNWQyxZQUFZO0FBQUEsZ0NBQ1psQixTQUFTO0FBQUEsZ0NBQ1RVLGNBQWM7QUFBQSxnQ0FDZG9CLFlBQVk7QUFBQSxnQ0FDWkQsWUFBWTtBQUFBLDhCQUNkO0FBQUEsOEJBQUU7QUFBQTtBQUFBLDRCQVZKO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSwwQkFhQTtBQUFBLDZCQXBCRjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQXFCQTtBQUFBLHdCQUNBLHVCQUFDLE9BQUUsT0FBTyxFQUFFWixVQUFVLFFBQVFELE9BQU8sV0FBV0csUUFBUSxjQUFjWSxZQUFZLElBQUksR0FBRSw0RUFBeEY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFFQTtBQUFBLHdCQUVBLHVCQUFDLFFBQUcsT0FBTyxFQUFFQyxXQUFXLFFBQVFoQyxTQUFTLEdBQUdtQixRQUFRLGNBQWNGLFVBQVUsUUFBUUQsT0FBTyxXQUFXbkIsU0FBUyxRQUFROEIsZUFBZSxVQUFVYixLQUFLLE1BQU0sR0FDeko7QUFBQSxpREFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyx1REFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUE2QztBQUFBLCtCQUYvQztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsMEJBQ0EsdUJBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssc0RBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBNEM7QUFBQSwrQkFGOUM7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDBCQUNBLHVCQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLCtEQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXFEO0FBQUEsK0JBRnZEO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSwwQkFDQSx1QkFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyw0REFBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFrRDtBQUFBLCtCQUZwRDtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsNkJBaEJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBaUJBO0FBQUEsMkJBNUNGO0FBQUE7QUFBQTtBQUFBO0FBQUEsNkJBNkNBO0FBQUEsc0JBRUE7QUFBQSx3QkFBQztBQUFBO0FBQUEsMEJBQ0MsU0FBUyxNQUFNdkMsZUFBZSxrQ0FBa0MsK0JBQStCO0FBQUEsMEJBQy9GLFdBQVU7QUFBQSwwQkFDVixPQUFPO0FBQUEsNEJBQ0w4QixPQUFPO0FBQUEsNEJBQ1BMLFNBQVM7QUFBQSw0QkFDVGlCLFVBQVU7QUFBQSw0QkFDVkMsWUFBWTtBQUFBLDRCQUNaUixjQUFjO0FBQUEsNEJBQ2RiLFNBQVM7QUFBQSw0QkFDVEMsWUFBWTtBQUFBLDRCQUNaQyxnQkFBZ0I7QUFBQSw0QkFDaEJlLEtBQUs7QUFBQSw0QkFDTE4sWUFDRW5DLG1CQUFtQixrQ0FDZiw2QkFDQTtBQUFBLDRCQUNOOEQsYUFDRTlELG1CQUFtQixrQ0FDZixZQUNBO0FBQUEsNEJBQ04yQyxPQUNFM0MsbUJBQW1CLGtDQUNmLFlBQ0E7QUFBQSw0QkFDTitDLFFBQVE7QUFBQSwwQkFDVjtBQUFBLDBCQUVDakQsOEJBQW9CLGtDQUNuQixtQ0FDRTtBQUFBLG1EQUFDLFNBQUksV0FBVSxrQkFBaUIsT0FBTyxFQUFFa0MsT0FBTyxRQUFRVSxRQUFRLFFBQVFrQixhQUFhLE9BQU9DLGdCQUFnQixVQUFVLEtBQXRIO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXdIO0FBQUEsNEJBQ3hILHVCQUFDLFVBQUssb0NBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBMEI7QUFBQSwrQkFGNUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQSxJQUNFN0QsbUJBQW1CLGtDQUNyQixtQ0FDRTtBQUFBLG1EQUFDLGVBQVksTUFBTSxNQUFuQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFzQjtBQUFBLDRCQUN0Qix1QkFBQyxVQUFLLDJCQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQWlCO0FBQUEsK0JBRm5CO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0EsSUFFQSxtQ0FDRTtBQUFBLG1EQUFDLFlBQVMsTUFBTSxNQUFoQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFtQjtBQUFBLDRCQUNuQix1QkFBQyxVQUFLLHFDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQTJCO0FBQUEsK0JBRjdCO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQTtBQUFBLHdCQTFDSjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsc0JBNENBO0FBQUE7QUFBQTtBQUFBLGtCQXRHRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsZ0JBdUdBO0FBQUEsbUJBbk5GO0FBQUE7QUFBQTtBQUFBO0FBQUEscUJBb05BO0FBQUEsY0FHREosY0FBYyxZQUNiLG1DQUVFO0FBQUE7QUFBQSxrQkFBQztBQUFBO0FBQUEsb0JBQ0MsT0FBTztBQUFBLHNCQUNMdUMsWUFBWTtBQUFBLHNCQUNaQyxRQUFRO0FBQUEsc0JBQ1JDLGNBQWM7QUFBQSxzQkFDZFYsU0FBUztBQUFBLHNCQUNUSCxTQUFTO0FBQUEsc0JBQ1Q4QixlQUFlO0FBQUEsc0JBQ2Y1QixnQkFBZ0I7QUFBQSxvQkFDbEI7QUFBQSxvQkFFQTtBQUFBLDZDQUFDLFNBQ0M7QUFBQSwrQ0FBQyxTQUFJLE9BQU8sRUFBRUYsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE9BQU9ZLGNBQWMsTUFBTSxHQUNuRjtBQUFBLGlEQUFDLGNBQVcsTUFBTSxJQUFJLE9BQU0sYUFBNUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FBcUM7QUFBQSwwQkFDckMsdUJBQUMsUUFBRyxPQUFPLEVBQUVULFVBQVUsUUFBUUMsWUFBWSxLQUFLQyxRQUFRLEdBQUdILE9BQU8sVUFBVSxHQUFFLG1DQUE5RTtBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUVBO0FBQUEsNkJBSkY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFLQTtBQUFBLHdCQUNBLHVCQUFDLE9BQUUsT0FBTyxFQUFFQyxVQUFVLFFBQVFELE9BQU8sV0FBV0csUUFBUSxjQUFjWSxZQUFZLElBQUksR0FBRSxrRkFBeEY7QUFBQTtBQUFBO0FBQUE7QUFBQSwrQkFFQTtBQUFBLHdCQUVBLHVCQUFDLFFBQUcsT0FBTyxFQUFFQyxXQUFXLFFBQVFoQyxTQUFTLEdBQUdtQixRQUFRLGNBQWNGLFVBQVUsUUFBUUQsT0FBTyxXQUFXbkIsU0FBUyxRQUFROEIsZUFBZSxVQUFVYixLQUFLLE1BQU0sR0FDeko7QUFBQSxpREFBQyxRQUFHLE9BQU8sRUFBRWpCLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxNQUFNLEdBQzdEO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxJQUFJLE9BQU0sYUFBOUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBdUM7QUFBQSw0QkFDdkMsdUJBQUMsVUFBSyw0Q0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUFrQztBQUFBLCtCQUZwQztBQUFBO0FBQUE7QUFBQTtBQUFBLGlDQUdBO0FBQUEsMEJBQ0EsdUJBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssNENBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBa0M7QUFBQSwrQkFGcEM7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDZCQVJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBU0E7QUFBQSwyQkFwQkY7QUFBQTtBQUFBO0FBQUE7QUFBQSw2QkFxQkE7QUFBQSxzQkFFQTtBQUFBLHdCQUFDO0FBQUE7QUFBQSwwQkFDQyxNQUFLO0FBQUEsMEJBQ0wsV0FBVTtBQUFBLDBCQUNWLE9BQU87QUFBQSw0QkFDTFQsT0FBTztBQUFBLDRCQUNQTCxTQUFTO0FBQUEsNEJBQ1RpQixVQUFVO0FBQUEsNEJBQ1ZDLFlBQVk7QUFBQSw0QkFDWlIsY0FBYztBQUFBLDRCQUNkYixTQUFTO0FBQUEsNEJBQ1RDLFlBQVk7QUFBQSw0QkFDWkMsZ0JBQWdCO0FBQUEsNEJBQ2hCZSxLQUFLO0FBQUEsNEJBQ0xzQixnQkFBZ0I7QUFBQSw0QkFDaEI1QixZQUFZO0FBQUEsNEJBQ1pRLE9BQU87QUFBQSw0QkFDUHFCLFdBQVc7QUFBQSwwQkFDYjtBQUFBLDBCQUVBO0FBQUEsbURBQUMsZ0JBQWEsTUFBTSxNQUFwQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QjtBQUFBLDRCQUN2Qix1QkFBQyxVQUFLLHNDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQTRCO0FBQUE7QUFBQTtBQUFBLHdCQXBCOUI7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLHNCQXFCQTtBQUFBO0FBQUE7QUFBQSxrQkF2REY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGdCQXdEQTtBQUFBLGdCQUdBO0FBQUEsa0JBQUM7QUFBQTtBQUFBLG9CQUNDLE9BQU87QUFBQSxzQkFDTDdCLFlBQVk7QUFBQSxzQkFDWkMsUUFBUTtBQUFBLHNCQUNSQyxjQUFjO0FBQUEsc0JBQ2RWLFNBQVM7QUFBQSxzQkFDVEgsU0FBUztBQUFBLHNCQUNUOEIsZUFBZTtBQUFBLHNCQUNmNUIsZ0JBQWdCO0FBQUEsb0JBQ2xCO0FBQUEsb0JBRUE7QUFBQSw2Q0FBQyxTQUNDO0FBQUEsK0NBQUMsU0FBSSxPQUFPLEVBQUVGLFNBQVMsUUFBUUMsWUFBWSxVQUFVZ0IsS0FBSyxPQUFPWSxjQUFjLE1BQU0sR0FDbkY7QUFBQSxpREFBQyxjQUFXLE1BQU0sSUFBSSxPQUFNLGFBQTVCO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBQXFDO0FBQUEsMEJBQ3JDLHVCQUFDLFFBQUcsT0FBTyxFQUFFVCxVQUFVLFFBQVFDLFlBQVksS0FBS0MsUUFBUSxHQUFHSCxPQUFPLFVBQVUsR0FBRSwrQkFBOUU7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FFQTtBQUFBLDZCQUpGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBS0E7QUFBQSx3QkFDQSx1QkFBQyxPQUFFLE9BQU8sRUFBRUMsVUFBVSxRQUFRRCxPQUFPLFdBQVdHLFFBQVEsY0FBY1ksWUFBWSxJQUFJLEdBQUUsZ0ZBQXhGO0FBQUE7QUFBQTtBQUFBO0FBQUEsK0JBRUE7QUFBQSx3QkFFQSx1QkFBQyxRQUFHLE9BQU8sRUFBRUMsV0FBVyxRQUFRaEMsU0FBUyxHQUFHbUIsUUFBUSxjQUFjRixVQUFVLFFBQVFELE9BQU8sV0FBV25CLFNBQVMsUUFBUThCLGVBQWUsVUFBVWIsS0FBSyxNQUFNLEdBQ3pKO0FBQUEsaURBQUMsUUFBRyxPQUFPLEVBQUVqQixTQUFTLFFBQVFDLFlBQVksVUFBVWdCLEtBQUssTUFBTSxHQUM3RDtBQUFBLG1EQUFDLGdCQUFhLE1BQU0sSUFBSSxPQUFNLGFBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQXVDO0FBQUEsNEJBQ3ZDLHVCQUFDLFVBQUssMkNBQU47QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBaUM7QUFBQSwrQkFGbkM7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQ0FHQTtBQUFBLDBCQUNBLHVCQUFDLFFBQUcsT0FBTyxFQUFFakIsU0FBUyxRQUFRQyxZQUFZLFVBQVVnQixLQUFLLE1BQU0sR0FDN0Q7QUFBQSxtREFBQyxnQkFBYSxNQUFNLElBQUksT0FBTSxhQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUF1QztBQUFBLDRCQUN2Qyx1QkFBQyxVQUFLLDhDQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUNBQW9DO0FBQUEsK0JBRnRDO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUNBR0E7QUFBQSw2QkFSRjtBQUFBO0FBQUE7QUFBQTtBQUFBLCtCQVNBO0FBQUEsMkJBcEJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsNkJBcUJBO0FBQUEsc0JBRUE7QUFBQSx3QkFBQztBQUFBO0FBQUEsMEJBQ0MsTUFBSztBQUFBLDBCQUNMLFVBQVM7QUFBQSwwQkFDVCxXQUFVO0FBQUEsMEJBQ1YsT0FBTztBQUFBLDRCQUNMVCxPQUFPO0FBQUEsNEJBQ1BMLFNBQVM7QUFBQSw0QkFDVGlCLFVBQVU7QUFBQSw0QkFDVkMsWUFBWTtBQUFBLDRCQUNaUixjQUFjO0FBQUEsNEJBQ2RiLFNBQVM7QUFBQSw0QkFDVEMsWUFBWTtBQUFBLDRCQUNaQyxnQkFBZ0I7QUFBQSw0QkFDaEJlLEtBQUs7QUFBQSw0QkFDTHNCLGdCQUFnQjtBQUFBLDRCQUNoQjVCLFlBQVk7QUFBQSw0QkFDWlEsT0FBTztBQUFBLDRCQUNQcUIsV0FBVztBQUFBLDBCQUNiO0FBQUEsMEJBRUE7QUFBQSxtREFBQyxZQUFTLE1BQU0sTUFBaEI7QUFBQTtBQUFBO0FBQUE7QUFBQSxtQ0FBbUI7QUFBQSw0QkFDbkIsdUJBQUMsVUFBSyxvQ0FBTjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1DQUEwQjtBQUFBO0FBQUE7QUFBQSx3QkFyQjVCO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxzQkFzQkE7QUFBQTtBQUFBO0FBQUEsa0JBeERGO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxnQkF5REE7QUFBQSxtQkF0SEY7QUFBQTtBQUFBO0FBQUE7QUFBQSxxQkF1SEE7QUFBQSxpQkF6aUJKO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUJBMmlCQTtBQUFBLFlBR0E7QUFBQSxjQUFDO0FBQUE7QUFBQSxnQkFDQyxPQUFPO0FBQUEsa0JBQ0xDLFdBQVc7QUFBQSxrQkFDWEMsWUFBWTtBQUFBLGtCQUNaMUMsU0FBUztBQUFBLGtCQUNUQyxZQUFZO0FBQUEsa0JBQ1pDLGdCQUFnQjtBQUFBLGtCQUNoQmUsS0FBSztBQUFBLGtCQUNMRyxVQUFVO0FBQUEsa0JBQ1ZELE9BQU87QUFBQSxrQkFDUHdCLFdBQVc7QUFBQSxnQkFDYjtBQUFBLGdCQUVBO0FBQUEseUNBQUMsZUFBWSxNQUFNLElBQUksT0FBTSxhQUE3QjtBQUFBO0FBQUE7QUFBQTtBQUFBLHlCQUFzQztBQUFBLGtCQUN0Qyx1QkFBQyxVQUFLLDhHQUFOO0FBQUE7QUFBQTtBQUFBO0FBQUEseUJBQW9HO0FBQUE7QUFBQTtBQUFBLGNBZHRHO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxZQWVBO0FBQUE7QUFBQTtBQUFBLFFBanZCRjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsTUFrdkJBO0FBQUE7QUFBQSxJQXR3QkY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLEVBdXdCQTtBQUVKO0FBQUV6RSxHQXp5QldILGVBQTJDO0FBQUEsS0FBM0NBO0FBQTJDLElBQUE2RTtBQUFBLGFBQUFBLElBQUEiLCJuYW1lcyI6WyJ1c2VTdGF0ZSIsIlgiLCJMYXB0b3AiLCJBcHBsZSIsIlNtYXJ0cGhvbmUiLCJEb3dubG9hZCIsIlNoaWVsZENoZWNrIiwiQ2hlY2tDaXJjbGUyIiwiU3BhcmtsZXMiLCJaYXAiLCJIYXJkRHJpdmUiLCJFeHRlcm5hbExpbmsiLCJkZXRlY3RVc2VyT1MiLCJEb3dubG9hZE1vZGFsIiwiaXNPcGVuIiwib25DbG9zZSIsIl9zIiwiZGV0ZWN0ZWRPUyIsImFjdGl2ZVRhYiIsInNldEFjdGl2ZVRhYiIsImRvd25sb2FkaW5nRmlsZSIsInNldERvd25sb2FkaW5nRmlsZSIsImRvd25sb2FkZWRGaWxlIiwic2V0RG93bmxvYWRlZEZpbGUiLCJoYW5kbGVEb3dubG9hZCIsInVybCIsImZpbGVuYW1lIiwibGluayIsImRvY3VtZW50IiwiY3JlYXRlRWxlbWVudCIsImhyZWYiLCJkb3dubG9hZCIsImJvZHkiLCJhcHBlbmRDaGlsZCIsImNsaWNrIiwicmVtb3ZlQ2hpbGQiLCJzZXRUaW1lb3V0IiwicG9zaXRpb24iLCJ0b3AiLCJsZWZ0IiwicmlnaHQiLCJib3R0b20iLCJiYWNrZ3JvdW5kQ29sb3IiLCJiYWNrZHJvcEZpbHRlciIsIldlYmtpdEJhY2tkcm9wRmlsdGVyIiwiekluZGV4IiwiZGlzcGxheSIsImFsaWduSXRlbXMiLCJqdXN0aWZ5Q29udGVudCIsInBhZGRpbmciLCJhbmltYXRpb24iLCJlIiwic3RvcFByb3BhZ2F0aW9uIiwibWF4V2lkdGgiLCJ3aWR0aCIsIm1heEhlaWdodCIsIm92ZXJmbG93WSIsImJhY2tncm91bmQiLCJib3JkZXIiLCJib3JkZXJSYWRpdXMiLCJib3hTaGFkb3ciLCJib3JkZXJCb3R0b20iLCJwYWRkaW5nQm90dG9tIiwiZ2FwIiwiaGVpZ2h0IiwiY29sb3IiLCJmb250U2l6ZSIsImZvbnRXZWlnaHQiLCJtYXJnaW4iLCJjdXJzb3IiLCJ0cmFuc2l0aW9uIiwiY3VycmVudFRhcmdldCIsInN0eWxlIiwiZmxleCIsImdyaWRUZW1wbGF0ZUNvbHVtbnMiLCJtYXJnaW5Cb3R0b20iLCJmbGV4RGlyZWN0aW9uIiwibWluV2lkdGgiLCJmbGV4U2hyaW5rIiwid2hpdGVTcGFjZSIsImxpbmVIZWlnaHQiLCJsaXN0U3R5bGUiLCJib3JkZXJXaWR0aCIsImJvcmRlclRvcENvbG9yIiwiYm9yZGVyQ29sb3IiLCJ0ZXh0RGVjb3JhdGlvbiIsImJveFNpemluZyIsImJvcmRlclRvcCIsInBhZGRpbmdUb3AiLCJ0ZXh0QWxpZ24iLCJfYyJdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJEb3dubG9hZE1vZGFsLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QsIHsgdXNlU3RhdGUgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQge1xuICBYLFxuICBMYXB0b3AsXG4gIEFwcGxlLFxuICBTbWFydHBob25lLFxuICBEb3dubG9hZCxcbiAgU2hpZWxkQ2hlY2ssXG4gIENoZWNrQ2lyY2xlMixcbiAgU3BhcmtsZXMsXG4gIFphcCxcbiAgSGFyZERyaXZlLFxuICBFeHRlcm5hbExpbmssXG59IGZyb20gJ2x1Y2lkZS1yZWFjdCc7XG5pbXBvcnQgeyBkZXRlY3RVc2VyT1MgfSBmcm9tICcuLi9wbGF5ZXIvc2VjdXJpdHkvZmluZ2VycHJpbnQnO1xuXG5pbnRlcmZhY2UgRG93bmxvYWRNb2RhbFByb3BzIHtcbiAgaXNPcGVuOiBib29sZWFuO1xuICBvbkNsb3NlOiAoKSA9PiB2b2lkO1xufVxuXG5leHBvcnQgY29uc3QgRG93bmxvYWRNb2RhbDogUmVhY3QuRkM8RG93bmxvYWRNb2RhbFByb3BzPiA9ICh7IGlzT3Blbiwgb25DbG9zZSB9KSA9PiB7XG4gIGNvbnN0IGRldGVjdGVkT1MgPSBkZXRlY3RVc2VyT1MoKTtcbiAgY29uc3QgW2FjdGl2ZVRhYiwgc2V0QWN0aXZlVGFiXSA9IHVzZVN0YXRlPCd3aW5kb3dzJyB8ICdtYWMnIHwgJ21vYmlsZSc+KFxuICAgIGRldGVjdGVkT1MgPT09ICdtYWMnID8gJ21hYycgOiBkZXRlY3RlZE9TID09PSAnaW9zJyB8fCBkZXRlY3RlZE9TID09PSAnYW5kcm9pZCcgPyAnbW9iaWxlJyA6ICd3aW5kb3dzJ1xuICApO1xuICBjb25zdCBbZG93bmxvYWRpbmdGaWxlLCBzZXREb3dubG9hZGluZ0ZpbGVdID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7XG4gIGNvbnN0IFtkb3dubG9hZGVkRmlsZSwgc2V0RG93bmxvYWRlZEZpbGVdID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7XG5cbiAgaWYgKCFpc09wZW4pIHJldHVybiBudWxsO1xuXG4gIGNvbnN0IGhhbmRsZURvd25sb2FkID0gKHVybDogc3RyaW5nLCBmaWxlbmFtZTogc3RyaW5nKSA9PiB7XG4gICAgaWYgKCF1cmwgfHwgdXJsID09PSAnIycgfHwgZG93bmxvYWRpbmdGaWxlKSByZXR1cm47XG5cbiAgICBzZXREb3dubG9hZGluZ0ZpbGUoZmlsZW5hbWUpO1xuXG4gICAgY29uc3QgbGluayA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ2EnKTtcbiAgICBsaW5rLmhyZWYgPSB1cmw7XG4gICAgbGluay5kb3dubG9hZCA9IGZpbGVuYW1lO1xuICAgIGRvY3VtZW50LmJvZHkuYXBwZW5kQ2hpbGQobGluayk7XG4gICAgbGluay5jbGljaygpO1xuICAgIGRvY3VtZW50LmJvZHkucmVtb3ZlQ2hpbGQobGluayk7XG5cbiAgICBzZXRUaW1lb3V0KCgpID0+IHtcbiAgICAgIHNldERvd25sb2FkaW5nRmlsZShudWxsKTtcbiAgICAgIHNldERvd25sb2FkZWRGaWxlKGZpbGVuYW1lKTtcbiAgICAgIHNldFRpbWVvdXQoKCkgPT4ge1xuICAgICAgICBzZXREb3dubG9hZGVkRmlsZShudWxsKTtcbiAgICAgIH0sIDQwMDApO1xuICAgIH0sIDEyMDApO1xuICB9O1xuXG4gIHJldHVybiAoXG4gICAgPGRpdlxuICAgICAgY2xhc3NOYW1lPVwibW9kYWwtYmFja2Ryb3Atb3ZlcmxheVwiXG4gICAgICBvbkNsaWNrPXtvbkNsb3NlfVxuICAgICAgc3R5bGU9e3tcbiAgICAgICAgcG9zaXRpb246ICdmaXhlZCcsXG4gICAgICAgIHRvcDogMCxcbiAgICAgICAgbGVmdDogMCxcbiAgICAgICAgcmlnaHQ6IDAsXG4gICAgICAgIGJvdHRvbTogMCxcbiAgICAgICAgYmFja2dyb3VuZENvbG9yOiAncmdiYSgwLCAwLCAwLCAwLjc4KScsXG4gICAgICAgIGJhY2tkcm9wRmlsdGVyOiAnYmx1cig4cHgpJyxcbiAgICAgICAgV2Via2l0QmFja2Ryb3BGaWx0ZXI6ICdibHVyKDhweCknLFxuICAgICAgICB6SW5kZXg6IDk5OTk5OSxcbiAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdjZW50ZXInLFxuICAgICAgICBwYWRkaW5nOiAnMTZweCcsXG4gICAgICAgIGFuaW1hdGlvbjogJ2ZhZGVJbiAwLjJzIGVhc2Utb3V0JyxcbiAgICAgIH19XG4gICAgPlxuICAgICAgPGRpdlxuICAgICAgICBjbGFzc05hbWU9XCJkb3dubG9hZC1tb2RhbC1jYXJkXCJcbiAgICAgICAgb25DbGljaz17KGUpID0+IGUuc3RvcFByb3BhZ2F0aW9uKCl9XG4gICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgbWF4V2lkdGg6ICc3NjBweCcsXG4gICAgICAgICAgd2lkdGg6ICcxMDAlJyxcbiAgICAgICAgICBtYXhIZWlnaHQ6ICc5MHZoJyxcbiAgICAgICAgICBvdmVyZmxvd1k6ICdhdXRvJyxcbiAgICAgICAgICBiYWNrZ3JvdW5kOiAnIzBiMTMyOScsXG4gICAgICAgICAgYm9yZGVyOiAnMXB4IHNvbGlkIHJnYmEoMjQ5LCAxMTUsIDIyLCAwLjM1KScsXG4gICAgICAgICAgYm9yZGVyUmFkaXVzOiAnMThweCcsXG4gICAgICAgICAgcGFkZGluZzogJzI0cHgnLFxuICAgICAgICAgIGJveFNoYWRvdzogJzAgMjVweCA2MHB4IC0xNXB4IHJnYmEoMCwgMCwgMCwgMC45KSwgMCAwIDM1cHggcmdiYSgyNDksIDExNSwgMjIsIDAuMiknLFxuICAgICAgICAgIHBvc2l0aW9uOiAncmVsYXRpdmUnLFxuICAgICAgICAgIGFuaW1hdGlvbjogJ3NsaWRlVXAgMC4yNXMgY3ViaWMtYmV6aWVyKDAuMTYsIDEsIDAuMywgMSknLFxuICAgICAgICB9fVxuICAgICAgPlxuICAgICAgICB7LyogSGVhZGVyICovfVxuICAgICAgICA8ZGl2XG4gICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJyxcbiAgICAgICAgICAgIGJvcmRlckJvdHRvbTogJzFweCBzb2xpZCByZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDgpJyxcbiAgICAgICAgICAgIHBhZGRpbmdCb3R0b206ICcxNnB4JyxcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICcxMnB4JyB9fT5cbiAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICB3aWR0aDogJzQycHgnLFxuICAgICAgICAgICAgICAgIGhlaWdodDogJzQycHgnLFxuICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzEycHgnLFxuICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICdsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCByZ2JhKDI0OSwgMTE1LCAyMiwgMC4yKSwgcmdiYSgyMzQsIDg4LCAxMiwgMC4zNSkpJyxcbiAgICAgICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICAgICAgYWxpZ25JdGVtczogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgIGNvbG9yOiAnI2Y5NzMxNicsXG4gICAgICAgICAgICAgICAgYm9yZGVyOiAnMXB4IHNvbGlkIHJnYmEoMjQ5LCAxMTUsIDIyLCAwLjMpJyxcbiAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPERvd25sb2FkIHNpemU9ezIyfSAvPlxuICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICA8aDIgc3R5bGU9e3sgZm9udFNpemU6ICcxOXB4JywgZm9udFdlaWdodDogNzAwLCBtYXJnaW46IDAsIGNvbG9yOiAnI2Y4ZmFmYycgfX0+XG4gICAgICAgICAgICAgICAgRG93bmxvYWQgRWR1T25lIFNlY3VyZSBQbGF5ZXJcbiAgICAgICAgICAgICAgPC9oMj5cbiAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgbWFyZ2luOiAnMnB4IDAgMCAwJywgZm9udFNpemU6ICcxMi41cHgnLCBjb2xvcjogJyM5NGEzYjgnIH19PlxuICAgICAgICAgICAgICAgIFNlbGVjdCB0aGUgYmVzdCBlZGl0aW9uIGZvciB5b3VyIG9wZXJhdGluZyBzeXN0ZW0gYW5kIHdvcmtmbG93XG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgIG9uQ2xpY2s9e29uQ2xvc2V9XG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA4KScsXG4gICAgICAgICAgICAgIGJvcmRlcjogJ25vbmUnLFxuICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc4cHgnLFxuICAgICAgICAgICAgICB3aWR0aDogJzMycHgnLFxuICAgICAgICAgICAgICBoZWlnaHQ6ICczMnB4JyxcbiAgICAgICAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICAgICAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdjZW50ZXInLFxuICAgICAgICAgICAgICBjb2xvcjogJyM5NGEzYjgnLFxuICAgICAgICAgICAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICAgICAgICAgICAgdHJhbnNpdGlvbjogJ2FsbCAwLjJzIGVhc2UnLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICAgIG9uTW91c2VFbnRlcj17KGUpID0+IHtcbiAgICAgICAgICAgICAgKGUuY3VycmVudFRhcmdldC5zdHlsZS5jb2xvciA9ICcjZmZmZmZmJyk7XG4gICAgICAgICAgICAgIChlLmN1cnJlbnRUYXJnZXQuc3R5bGUuYmFja2dyb3VuZCA9ICdyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMTUpJyk7XG4gICAgICAgICAgICB9fVxuICAgICAgICAgICAgb25Nb3VzZUxlYXZlPXsoZSkgPT4ge1xuICAgICAgICAgICAgICAoZS5jdXJyZW50VGFyZ2V0LnN0eWxlLmNvbG9yID0gJyM5NGEzYjgnKTtcbiAgICAgICAgICAgICAgKGUuY3VycmVudFRhcmdldC5zdHlsZS5iYWNrZ3JvdW5kID0gJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wOCknKTtcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgPFggc2l6ZT17MTh9IC8+XG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIHsvKiBQbGF0Zm9ybSBTZWxlY3RvciBUYWJzICovfVxuICAgICAgICA8ZGl2XG4gICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgIGdhcDogJzhweCcsXG4gICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA0KScsXG4gICAgICAgICAgICBwYWRkaW5nOiAnNXB4JyxcbiAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzEycHgnLFxuICAgICAgICAgICAgbWFyZ2luOiAnMjBweCAwJyxcbiAgICAgICAgICB9fVxuICAgICAgICA+XG4gICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0QWN0aXZlVGFiKCd3aW5kb3dzJyl9XG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBmbGV4OiAxLFxuICAgICAgICAgICAgICBwYWRkaW5nOiAnMTBweCAxNHB4JyxcbiAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiAnOXB4JyxcbiAgICAgICAgICAgICAgYm9yZGVyOiAnbm9uZScsXG4gICAgICAgICAgICAgIGN1cnNvcjogJ3BvaW50ZXInLFxuICAgICAgICAgICAgICBmb250U2l6ZTogJzEzcHgnLFxuICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgYWxpZ25JdGVtczogJ2NlbnRlcicsXG4gICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgICAgICAgZ2FwOiAnN3B4JyxcbiAgICAgICAgICAgICAgdHJhbnNpdGlvbjogJ2FsbCAwLjJzIGVhc2UnLFxuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBhY3RpdmVUYWIgPT09ICd3aW5kb3dzJyA/ICdsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZWE1ODBjLCAjZjk3MzE2KScgOiAndHJhbnNwYXJlbnQnLFxuICAgICAgICAgICAgICBjb2xvcjogYWN0aXZlVGFiID09PSAnd2luZG93cycgPyAnI2ZmZmZmZicgOiAnIzk0YTNiOCcsXG4gICAgICAgICAgICAgIGJveFNoYWRvdzogYWN0aXZlVGFiID09PSAnd2luZG93cycgPyAnMCA0cHggMTJweCByZ2JhKDIzNCwgODgsIDEyLCAwLjMpJyA6ICdub25lJyxcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgPExhcHRvcCBzaXplPXsxNn0gLz5cbiAgICAgICAgICAgIDxzcGFuPldpbmRvd3M8L3NwYW4+XG4gICAgICAgICAgICB7ZGV0ZWN0ZWRPUyA9PT0gJ3dpbmRvd3MnICYmIChcbiAgICAgICAgICAgICAgPHNwYW4gc3R5bGU9e3sgZm9udFNpemU6ICcxMHB4JywgYmFja2dyb3VuZDogJ3JnYmEoMjU1LDI1NSwyNTUsMC4yNSknLCBwYWRkaW5nOiAnMnB4IDZweCcsIGJvcmRlclJhZGl1czogJzEwcHgnIH19PlxuICAgICAgICAgICAgICAgIFlvdXIgT1NcbiAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgKX1cbiAgICAgICAgICA8L2J1dHRvbj5cblxuICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNldEFjdGl2ZVRhYignbWFjJyl9XG4gICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICBmbGV4OiAxLFxuICAgICAgICAgICAgICBwYWRkaW5nOiAnMTBweCAxNHB4JyxcbiAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiAnOXB4JyxcbiAgICAgICAgICAgICAgYm9yZGVyOiAnbm9uZScsXG4gICAgICAgICAgICAgIGN1cnNvcjogJ3BvaW50ZXInLFxuICAgICAgICAgICAgICBmb250U2l6ZTogJzEzcHgnLFxuICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgYWxpZ25JdGVtczogJ2NlbnRlcicsXG4gICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgICAgICAgZ2FwOiAnN3B4JyxcbiAgICAgICAgICAgICAgdHJhbnNpdGlvbjogJ2FsbCAwLjJzIGVhc2UnLFxuICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiBhY3RpdmVUYWIgPT09ICdtYWMnID8gJ2xpbmVhci1ncmFkaWVudCgxMzVkZWcsICNlYTU4MGMsICNmOTczMTYpJyA6ICd0cmFuc3BhcmVudCcsXG4gICAgICAgICAgICAgIGNvbG9yOiBhY3RpdmVUYWIgPT09ICdtYWMnID8gJyNmZmZmZmYnIDogJyM5NGEzYjgnLFxuICAgICAgICAgICAgICBib3hTaGFkb3c6IGFjdGl2ZVRhYiA9PT0gJ21hYycgPyAnMCA0cHggMTJweCByZ2JhKDIzNCwgODgsIDEyLCAwLjMpJyA6ICdub25lJyxcbiAgICAgICAgICAgIH19XG4gICAgICAgICAgPlxuICAgICAgICAgICAgPEFwcGxlIHNpemU9ezE2fSAvPlxuICAgICAgICAgICAgPHNwYW4+bWFjT1M8L3NwYW4+XG4gICAgICAgICAgICB7ZGV0ZWN0ZWRPUyA9PT0gJ21hYycgJiYgKFxuICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17eyBmb250U2l6ZTogJzEwcHgnLCBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsMjU1LDI1NSwwLjI1KScsIHBhZGRpbmc6ICcycHggNnB4JywgYm9yZGVyUmFkaXVzOiAnMTBweCcgfX0+XG4gICAgICAgICAgICAgICAgWW91ciBPU1xuICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICApfVxuICAgICAgICAgIDwvYnV0dG9uPlxuXG4gICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0QWN0aXZlVGFiKCdtb2JpbGUnKX1cbiAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgIGZsZXg6IDEsXG4gICAgICAgICAgICAgIHBhZGRpbmc6ICcxMHB4IDE0cHgnLFxuICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc5cHgnLFxuICAgICAgICAgICAgICBib3JkZXI6ICdub25lJyxcbiAgICAgICAgICAgICAgY3Vyc29yOiAncG9pbnRlcicsXG4gICAgICAgICAgICAgIGZvbnRTaXplOiAnMTNweCcsXG4gICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMCxcbiAgICAgICAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICAgICAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdjZW50ZXInLFxuICAgICAgICAgICAgICBnYXA6ICc3cHgnLFxuICAgICAgICAgICAgICB0cmFuc2l0aW9uOiAnYWxsIDAuMnMgZWFzZScsXG4gICAgICAgICAgICAgIGJhY2tncm91bmQ6IGFjdGl2ZVRhYiA9PT0gJ21vYmlsZScgPyAnbGluZWFyLWdyYWRpZW50KDEzNWRlZywgI2VhNTgwYywgI2Y5NzMxNiknIDogJ3RyYW5zcGFyZW50JyxcbiAgICAgICAgICAgICAgY29sb3I6IGFjdGl2ZVRhYiA9PT0gJ21vYmlsZScgPyAnI2ZmZmZmZicgOiAnIzk0YTNiOCcsXG4gICAgICAgICAgICAgIGJveFNoYWRvdzogYWN0aXZlVGFiID09PSAnbW9iaWxlJyA/ICcwIDRweCAxMnB4IHJnYmEoMjM0LCA4OCwgMTIsIDAuMyknIDogJ25vbmUnLFxuICAgICAgICAgICAgfX1cbiAgICAgICAgICA+XG4gICAgICAgICAgICA8U21hcnRwaG9uZSBzaXplPXsxNn0gLz5cbiAgICAgICAgICAgIDxzcGFuPk1vYmlsZTwvc3Bhbj5cbiAgICAgICAgICAgIHsoZGV0ZWN0ZWRPUyA9PT0gJ2lvcycgfHwgZGV0ZWN0ZWRPUyA9PT0gJ2FuZHJvaWQnKSAmJiAoXG4gICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGZvbnRTaXplOiAnMTBweCcsIGJhY2tncm91bmQ6ICdyZ2JhKDI1NSwyNTUsMjU1LDAuMjUpJywgcGFkZGluZzogJzJweCA2cHgnLCBib3JkZXJSYWRpdXM6ICcxMHB4JyB9fT5cbiAgICAgICAgICAgICAgICBZb3VyIE9TXG4gICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICl9XG4gICAgICAgICAgPC9idXR0b24+XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIHsvKiBFZGl0aW9uIE9wdGlvbnMgR3JpZCAqL31cbiAgICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAnZ3JpZCcsIGdyaWRUZW1wbGF0ZUNvbHVtbnM6IGFjdGl2ZVRhYiA9PT0gJ21vYmlsZScgPyAnMWZyIDFmcicgOiAnMWZyIDFmcicsIGdhcDogJzE0cHgnLCBtYXJnaW5Cb3R0b206ICcyMHB4JyB9fT5cbiAgICAgICAgICB7YWN0aXZlVGFiID09PSAnd2luZG93cycgJiYgKFxuICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgey8qIFdpbmRvd3MgT3B0aW9uIDE6IEluc3RhbGxlciAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNDksIDExNSwgMjIsIDAuMzUpJyxcbiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzE0cHgnLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZzogJzE4cHgnLFxuICAgICAgICAgICAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICAgICAgICAgICAgZmxleERpcmVjdGlvbjogJ2NvbHVtbicsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLFxuICAgICAgICAgICAgICAgICAgYm94U2hhZG93OiAnMCA0cHggMjBweCByZ2JhKDAsIDAsIDAsIDAuMjUpJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnZmxleC1zdGFydCcsIGp1c3RpZnlDb250ZW50OiAnc3BhY2UtYmV0d2VlbicsIGdhcDogJzhweCcsIG1hcmdpbkJvdHRvbTogJzhweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnOHB4JywgbWluV2lkdGg6IDAgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPFphcCBzaXplPXsxOH0gY29sb3I9XCIjZjk3MzE2XCIgc3R5bGU9e3sgZmxleFNocmluazogMCB9fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxoMyBzdHlsZT17eyBmb250U2l6ZTogJzE1cHgnLCBmb250V2VpZ2h0OiA3MDAsIG1hcmdpbjogMCwgY29sb3I6ICcjZjhmYWZjJyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICAgIFNldHVwIEluc3RhbGxlclxuICAgICAgICAgICAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICA8c3BhblxuICAgICAgICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNDksIDExNSwgMjIsIDAuMiknLFxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICcjZjk3MzE2JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlcjogJzFweCBzb2xpZCByZ2JhKDI0OSwgMTE1LCAyMiwgMC40KScsXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogJzEwLjVweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiA3MDAsXG4gICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMnB4IDhweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc2cHgnLFxuICAgICAgICAgICAgICAgICAgICAgICAgZGlzcGxheTogJ2lubGluZS1mbGV4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgICAgICAgICAgZ2FwOiAnNHB4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIHdoaXRlU3BhY2U6ICdub3dyYXAnLFxuICAgICAgICAgICAgICAgICAgICAgICAgZmxleFNocmluazogMCxcbiAgICAgICAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICAgICAgPFNwYXJrbGVzIHNpemU9ezExfSAvPlxuICAgICAgICAgICAgICAgICAgICAgIFJlY29tbWVuZGVkXG4gICAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjOTRhM2I4JywgbWFyZ2luOiAnMCAwIDE0cHggMCcsIGxpbmVIZWlnaHQ6IDEuNSB9fT5cbiAgICAgICAgICAgICAgICAgICAgU3RhbmRhcmQgaW5zdGFsbGF0aW9uIHBhY2thZ2UuIEJlc3QgZm9yIHBlcnNvbmFsIGxhcHRvcHMgYW5kIFBDcy5cbiAgICAgICAgICAgICAgICAgIDwvcD5cblxuICAgICAgICAgICAgICAgICAgPHVsIHN0eWxlPXt7IGxpc3RTdHlsZTogJ25vbmUnLCBwYWRkaW5nOiAwLCBtYXJnaW46ICcwIDAgMThweCAwJywgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjY2JkNWUxJywgZGlzcGxheTogJ2ZsZXgnLCBmbGV4RGlyZWN0aW9uOiAnY29sdW1uJywgZ2FwOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj4xLUNsaWNrIExhdW5jaCBmcm9tIENocm9tZSAvIEVkZ2U8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RGVza3RvcCAmIFN0YXJ0IE1lbnUgc2hvcnRjdXRzPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkF1dG9tYXRpYyBwcm90b2NvbCBpbnRlZ3JhdGlvbjwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5GdWxsIGhhcmR3YXJlIHNjcmVlbiBibGFja291dDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBoYW5kbGVEb3dubG9hZCgnL0VkdU9uZS1TZWN1cmVQbGF5ZXItU2V0dXAuZXhlJywgJ0VkdU9uZS1TZWN1cmVQbGF5ZXItU2V0dXAuZXhlJyl9XG4gICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJwcmltYXJ5LWJ0blwiXG4gICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICB3aWR0aDogJzEwMCUnLFxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMTFweCAxNnB4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6ICcxM3B4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc5cHgnLFxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGdhcDogJzdweCcsXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6XG4gICAgICAgICAgICAgICAgICAgICAgZG93bmxvYWRlZEZpbGUgPT09ICdFZHVPbmUtU2VjdXJlUGxheWVyLVNldHVwLmV4ZSdcbiAgICAgICAgICAgICAgICAgICAgICAgID8gJyMwNTk2NjknXG4gICAgICAgICAgICAgICAgICAgICAgICA6ICdsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZWE1ODBjLCAjZjk3MzE2KScsXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlcjogJ25vbmUnLFxuICAgICAgICAgICAgICAgICAgICBjb2xvcjogJyNmZmZmZmYnLFxuICAgICAgICAgICAgICAgICAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAge2Rvd25sb2FkaW5nRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItU2V0dXAuZXhlJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImJ1dHRvbi1zcGlubmVyXCIgc3R5bGU9e3sgd2lkdGg6ICcxM3B4JywgaGVpZ2h0OiAnMTNweCcsIGJvcmRlcldpZHRoOiAnMnB4JywgYm9yZGVyVG9wQ29sb3I6ICcjZmZmZmZmJyB9fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkRvd25sb2FkaW5nICgxODggTUIpLi4uPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICkgOiBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItU2V0dXAuZXhlJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8U2hpZWxkQ2hlY2sgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWRlZCE8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvPlxuICAgICAgICAgICAgICAgICAgKSA6IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8RG93bmxvYWQgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWQgSW5zdGFsbGVyICguZXhlKTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC8+XG4gICAgICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICA8L2Rpdj5cblxuICAgICAgICAgICAgICB7LyogV2luZG93cyBPcHRpb24gMjogUG9ydGFibGUgKi99XG4gICAgICAgICAgICAgIDxkaXZcbiAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wMiknLFxuICAgICAgICAgICAgICAgICAgYm9yZGVyOiAnMXB4IHNvbGlkIHJnYmEoMjU1LCAyNTUsIDI1NSwgMC4xKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICcxNHB4JyxcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcxOHB4JyxcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgICAgIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnZmxleC1zdGFydCcsIGp1c3RpZnlDb250ZW50OiAnc3BhY2UtYmV0d2VlbicsIGdhcDogJzhweCcsIG1hcmdpbkJvdHRvbTogJzhweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnOHB4JywgbWluV2lkdGg6IDAgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPEhhcmREcml2ZSBzaXplPXsxOH0gY29sb3I9XCIjOTRhM2I4XCIgc3R5bGU9e3sgZmxleFNocmluazogMCB9fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxoMyBzdHlsZT17eyBmb250U2l6ZTogJzE1cHgnLCBmb250V2VpZ2h0OiA3MDAsIG1hcmdpbjogMCwgY29sb3I6ICcjZjhmYWZjJyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICAgIFBvcnRhYmxlIEVkaXRpb25cbiAgICAgICAgICAgICAgICAgICAgICA8L2gzPlxuICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPHNwYW5cbiAgICAgICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wOCknLFxuICAgICAgICAgICAgICAgICAgICAgICAgY29sb3I6ICcjOTRhM2I4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRTaXplOiAnMTAuNXB4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGZvbnRXZWlnaHQ6IDYwMCxcbiAgICAgICAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcycHggOHB4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzZweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgIFplcm8tSW5zdGFsbFxuICAgICAgICAgICAgICAgICAgICA8L3NwYW4+XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDxwIHN0eWxlPXt7IGZvbnRTaXplOiAnMTJweCcsIGNvbG9yOiAnIzk0YTNiOCcsIG1hcmdpbjogJzAgMCAxNHB4IDAnLCBsaW5lSGVpZ2h0OiAxLjUgfX0+XG4gICAgICAgICAgICAgICAgICAgIFN0YW5kYWxvbmUgZXhlY3V0YWJsZS4gR3JlYXQgZm9yIGxhYiAvIHNoYXJlZCBQQ3Mgd2l0aG91dCBhZG1pbiBwZXJtaXNzaW9ucy5cbiAgICAgICAgICAgICAgICAgIDwvcD5cblxuICAgICAgICAgICAgICAgICAgPHVsIHN0eWxlPXt7IGxpc3RTdHlsZTogJ25vbmUnLCBwYWRkaW5nOiAwLCBtYXJnaW46ICcwIDAgMThweCAwJywgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjY2JkNWUxJywgZGlzcGxheTogJ2ZsZXgnLCBmbGV4RGlyZWN0aW9uOiAnY29sdW1uJywgZ2FwOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5ObyBpbnN0YWxsYXRpb24gb3IgYWRtaW4gcmlnaHRzIHJlcXVpcmVkPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPlJ1bnMgZGlyZWN0bHkgZnJvbSBVU0Igb3IgRG93bmxvYWRzPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8L2xpPlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPldhdGNoIGxlY3R1cmVzIGRpcmVjdGx5IGluc2lkZSBwbGF5ZXI8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RnVsbCBoYXJkd2FyZSBzY3JlZW4gYmxhY2tvdXQ8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICA8L3VsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gaGFuZGxlRG93bmxvYWQoJy9FZHVPbmUtU2VjdXJlUGxheWVyLVBvcnRhYmxlLmV4ZScsICdFZHVPbmUtU2VjdXJlUGxheWVyLVBvcnRhYmxlLmV4ZScpfVxuICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwic2Vjb25kYXJ5LWJ0blwiXG4gICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICB3aWR0aDogJzEwMCUnLFxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMTFweCAxNnB4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6ICcxM3B4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc5cHgnLFxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGdhcDogJzdweCcsXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6XG4gICAgICAgICAgICAgICAgICAgICAgZG93bmxvYWRlZEZpbGUgPT09ICdFZHVPbmUtU2VjdXJlUGxheWVyLVBvcnRhYmxlLmV4ZSdcbiAgICAgICAgICAgICAgICAgICAgICAgID8gJ3JnYmEoMTYsIDE4NSwgMTI5LCAwLjE1KSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNiknLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJDb2xvcjpcbiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItUG9ydGFibGUuZXhlJ1xuICAgICAgICAgICAgICAgICAgICAgICAgPyAnIzEwYjk4MSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4xNSknLFxuICAgICAgICAgICAgICAgICAgICBjb2xvcjpcbiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItUG9ydGFibGUuZXhlJ1xuICAgICAgICAgICAgICAgICAgICAgICAgPyAnIzEwYjk4MSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJyNmOGZhZmMnLFxuICAgICAgICAgICAgICAgICAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAge2Rvd25sb2FkaW5nRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItUG9ydGFibGUuZXhlJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImJ1dHRvbi1zcGlubmVyXCIgc3R5bGU9e3sgd2lkdGg6ICcxM3B4JywgaGVpZ2h0OiAnMTNweCcsIGJvcmRlcldpZHRoOiAnMnB4JywgYm9yZGVyVG9wQ29sb3I6ICcjZjhmYWZjJyB9fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkRvd25sb2FkaW5nICgxODcgTUIpLi4uPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICkgOiBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItUG9ydGFibGUuZXhlJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8U2hpZWxkQ2hlY2sgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWRlZCE8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvPlxuICAgICAgICAgICAgICAgICAgKSA6IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8RG93bmxvYWQgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWQgUG9ydGFibGUgKC5leGUpPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC8+XG4gICAgICAgICAgKX1cblxuICAgICAgICAgIHthY3RpdmVUYWIgPT09ICdtYWMnICYmIChcbiAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgIHsvKiBtYWNPUyBPcHRpb24gMTogQXBwbGUgU2lsaWNvbiBETUcgKE0xL00yL00zL000KSAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNDksIDExNSwgMjIsIDAuMzUpJyxcbiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzE0cHgnLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZzogJzE4cHgnLFxuICAgICAgICAgICAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICAgICAgICAgICAgZmxleERpcmVjdGlvbjogJ2NvbHVtbicsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLFxuICAgICAgICAgICAgICAgICAgYm94U2hhZG93OiAnMCA0cHggMjBweCByZ2JhKDAsIDAsIDAsIDAuMjUpJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnZmxleC1zdGFydCcsIGp1c3RpZnlDb250ZW50OiAnc3BhY2UtYmV0d2VlbicsIGdhcDogJzhweCcsIG1hcmdpbkJvdHRvbTogJzhweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnOHB4JywgbWluV2lkdGg6IDAgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPEFwcGxlIHNpemU9ezE4fSBjb2xvcj1cIiNmOTczMTZcIiBzdHlsZT17eyBmbGV4U2hyaW5rOiAwIH19IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPGgzIHN0eWxlPXt7IGZvbnRTaXplOiAnMTVweCcsIGZvbnRXZWlnaHQ6IDcwMCwgbWFyZ2luOiAwLCBjb2xvcjogJyNmOGZhZmMnIH19PlxuICAgICAgICAgICAgICAgICAgICAgICAgQXBwbGUgU2lsaWNvbiAoTTHigJNNNClcbiAgICAgICAgICAgICAgICAgICAgICA8L2gzPlxuICAgICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgICAgPHNwYW5cbiAgICAgICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogJ3JnYmEoMjQ5LCAxMTUsIDIyLCAwLjIpJyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAnI2Y5NzMxNicsXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNDksIDExNSwgMjIsIDAuNCknLFxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6ICcxMC41cHgnLFxuICAgICAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogNzAwLFxuICAgICAgICAgICAgICAgICAgICAgICAgcGFkZGluZzogJzJweCA4cHgnLFxuICAgICAgICAgICAgICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiAnNnB4JyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdpbmxpbmUtZmxleCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGdhcDogJzRweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICB3aGl0ZVNwYWNlOiAnbm93cmFwJyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGZsZXhTaHJpbms6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgICAgIDxTcGFya2xlcyBzaXplPXsxMX0gLz5cbiAgICAgICAgICAgICAgICAgICAgICBBcHBsZSBTaWxpY29uXG4gICAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjOTRhM2I4JywgbWFyZ2luOiAnMCAwIDE0cHggMCcsIGxpbmVIZWlnaHQ6IDEuNSB9fT5cbiAgICAgICAgICAgICAgICAgICAgTmF0aXZlIEFSTTY0IGJ1aWxkIGZvciBtb2Rlcm4gQXBwbGUgU2lsaWNvbiBNYWNCb29rcywgaU1hY3MsIE1hYyBTdHVkaW9zICYgTWFjIE1pbmlzLlxuICAgICAgICAgICAgICAgICAgPC9wPlxuXG4gICAgICAgICAgICAgICAgICA8dWwgc3R5bGU9e3sgbGlzdFN0eWxlOiAnbm9uZScsIHBhZGRpbmc6IDAsIG1hcmdpbjogJzAgMCAxOHB4IDAnLCBmb250U2l6ZTogJzEycHgnLCBjb2xvcjogJyNjYmQ1ZTEnLCBkaXNwbGF5OiAnZmxleCcsIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLCBnYXA6ICc4cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPk9wdGltaXplZCBmb3IgTS1TZXJpZXMgQXBwbGUgU2lsaWNvbjwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5EcmFnLWFuZC1Ecm9wIGluc3RhbGwgdG8gL0FwcGxpY2F0aW9uczwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj4xLUNsaWNrIExhdW5jaCBmcm9tIFNhZmFyaSAvIENocm9tZSAoZWR1b25lOi8vKTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5IYXJkd2FyZSBOU1dpbmRvd1NoYXJpbmdOb25lIHNjcmVlbiBibGFja291dDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBoYW5kbGVEb3dubG9hZCgnL0VkdU9uZS1TZWN1cmVQbGF5ZXItQXBwbGVTaWxpY29uLmRtZycsICdFZHVPbmUtU2VjdXJlUGxheWVyLUFwcGxlU2lsaWNvbi5kbWcnKX1cbiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cInByaW1hcnktYnRuXCJcbiAgICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiAnMTAwJScsXG4gICAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcxMXB4IDE2cHgnLFxuICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogJzEzcHgnLFxuICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzlweCcsXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgICAgICAgYWxpZ25JdGVtczogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgICAgICAgICAgICAgZ2FwOiAnN3B4JyxcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDpcbiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItQXBwbGVTaWxpY29uLmRtZydcbiAgICAgICAgICAgICAgICAgICAgICAgID8gJyMwNTk2NjknXG4gICAgICAgICAgICAgICAgICAgICAgICA6ICdsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjZWE1ODBjLCAjZjk3MzE2KScsXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlcjogJ25vbmUnLFxuICAgICAgICAgICAgICAgICAgICBjb2xvcjogJyNmZmZmZmYnLFxuICAgICAgICAgICAgICAgICAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAge2Rvd25sb2FkaW5nRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItQXBwbGVTaWxpY29uLmRtZycgPyAoXG4gICAgICAgICAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJidXR0b24tc3Bpbm5lclwiIHN0eWxlPXt7IHdpZHRoOiAnMTNweCcsIGhlaWdodDogJzEzcHgnLCBib3JkZXJXaWR0aDogJzJweCcsIGJvcmRlclRvcENvbG9yOiAnI2ZmZmZmZicgfX0gLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5Eb3dubG9hZGluZyBBcHBsZSBTaWxpY29uLi4uPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICkgOiBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItQXBwbGVTaWxpY29uLmRtZycgPyAoXG4gICAgICAgICAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgICAgICAgICAgPFNoaWVsZENoZWNrIHNpemU9ezE1fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkRvd25sb2FkZWQhPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICkgOiAoXG4gICAgICAgICAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgICAgICAgICAgPERvd25sb2FkIHNpemU9ezE1fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkRvd25sb2FkIEFwcGxlIFNpbGljb24gKC5kbWcpPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgIHsvKiBtYWNPUyBPcHRpb24gMjogSW50ZWwgTWFjIERNRyAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAyKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEpJyxcbiAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzE0cHgnLFxuICAgICAgICAgICAgICAgICAgcGFkZGluZzogJzE4cHgnLFxuICAgICAgICAgICAgICAgICAgZGlzcGxheTogJ2ZsZXgnLFxuICAgICAgICAgICAgICAgICAgZmxleERpcmVjdGlvbjogJ2NvbHVtbicsXG4gICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLFxuICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICA8ZGl2PlxuICAgICAgICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdmbGV4LXN0YXJ0JywganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJywgZ2FwOiAnOHB4JywgbWFyZ2luQm90dG9tOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc4cHgnLCBtaW5XaWR0aDogMCB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8TGFwdG9wIHNpemU9ezE4fSBjb2xvcj1cIiM5NGEzYjhcIiBzdHlsZT17eyBmbGV4U2hyaW5rOiAwIH19IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPGgzIHN0eWxlPXt7IGZvbnRTaXplOiAnMTVweCcsIGZvbnRXZWlnaHQ6IDcwMCwgbWFyZ2luOiAwLCBjb2xvcjogJyNmOGZhZmMnIH19PlxuICAgICAgICAgICAgICAgICAgICAgICAgSW50ZWwgTWFjcyAoQ29yZSBpNSAvIGk3IC8gaTkpXG4gICAgICAgICAgICAgICAgICAgICAgPC9oMz5cbiAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgIDxzcGFuXG4gICAgICAgICAgICAgICAgICAgICAgc3R5bGU9e3tcbiAgICAgICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICdyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDgpJyxcbiAgICAgICAgICAgICAgICAgICAgICAgIGNvbG9yOiAnIzk0YTNiOCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogJzEwLjVweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMnB4IDhweCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc2cHgnLFxuICAgICAgICAgICAgICAgICAgICAgICAgd2hpdGVTcGFjZTogJ25vd3JhcCcsXG4gICAgICAgICAgICAgICAgICAgICAgICBmbGV4U2hyaW5rOiAwLFxuICAgICAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgICBJbnRlbCB4NjRcbiAgICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICA8cCBzdHlsZT17eyBmb250U2l6ZTogJzEycHgnLCBjb2xvcjogJyM5NGEzYjgnLCBtYXJnaW46ICcwIDAgMTRweCAwJywgbGluZUhlaWdodDogMS41IH19PlxuICAgICAgICAgICAgICAgICAgICBOYXRpdmUgNjQtYml0IERNRyBpbnN0YWxsZXIgZm9yIEludGVsLXBvd2VyZWQgTWFjIGNvbXB1dGVycy5cbiAgICAgICAgICAgICAgICAgIDwvcD5cblxuICAgICAgICAgICAgICAgICAgPHVsIHN0eWxlPXt7IGxpc3RTdHlsZTogJ25vbmUnLCBwYWRkaW5nOiAwLCBtYXJnaW46ICcwIDAgMThweCAwJywgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjY2JkNWUxJywgZGlzcGxheTogJ2ZsZXgnLCBmbGV4RGlyZWN0aW9uOiAnY29sdW1uJywgZ2FwOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5PcHRpbWl6ZWQgZm9yIEludGVsIDY0LWJpdCBhcmNoaXRlY3R1cmU8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RHJhZy1hbmQtRHJvcCBpbnN0YWxsIHRvIC9BcHBsaWNhdGlvbnM8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+MS1DbGljayBMYXVuY2ggZnJvbSBTYWZhcmkgLyBDaHJvbWUgKGVkdW9uZTovLyk8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+SGFyZHdhcmUgTlNXaW5kb3dTaGFyaW5nTm9uZSBzY3JlZW4gYmxhY2tvdXQ8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICA8L3VsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gaGFuZGxlRG93bmxvYWQoJy9FZHVPbmUtU2VjdXJlUGxheWVyLUludGVsLmRtZycsICdFZHVPbmUtU2VjdXJlUGxheWVyLUludGVsLmRtZycpfVxuICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwic2Vjb25kYXJ5LWJ0blwiXG4gICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICB3aWR0aDogJzEwMCUnLFxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMTFweCAxNnB4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6ICcxM3B4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc5cHgnLFxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGdhcDogJzdweCcsXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6XG4gICAgICAgICAgICAgICAgICAgICAgZG93bmxvYWRlZEZpbGUgPT09ICdFZHVPbmUtU2VjdXJlUGxheWVyLUludGVsLmRtZydcbiAgICAgICAgICAgICAgICAgICAgICAgID8gJ3JnYmEoMTYsIDE4NSwgMTI5LCAwLjE1KSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNiknLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJDb2xvcjpcbiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItSW50ZWwuZG1nJ1xuICAgICAgICAgICAgICAgICAgICAgICAgPyAnIzEwYjk4MSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4xNSknLFxuICAgICAgICAgICAgICAgICAgICBjb2xvcjpcbiAgICAgICAgICAgICAgICAgICAgICBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItSW50ZWwuZG1nJ1xuICAgICAgICAgICAgICAgICAgICAgICAgPyAnIzEwYjk4MSdcbiAgICAgICAgICAgICAgICAgICAgICAgIDogJyNmOGZhZmMnLFxuICAgICAgICAgICAgICAgICAgICBjdXJzb3I6ICdwb2ludGVyJyxcbiAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAge2Rvd25sb2FkaW5nRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItSW50ZWwuZG1nJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImJ1dHRvbi1zcGlubmVyXCIgc3R5bGU9e3sgd2lkdGg6ICcxM3B4JywgaGVpZ2h0OiAnMTNweCcsIGJvcmRlcldpZHRoOiAnMnB4JywgYm9yZGVyVG9wQ29sb3I6ICcjZjhmYWZjJyB9fSAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkRvd25sb2FkaW5nIEludGVsLi4uPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICkgOiBkb3dubG9hZGVkRmlsZSA9PT0gJ0VkdU9uZS1TZWN1cmVQbGF5ZXItSW50ZWwuZG1nJyA/IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8U2hpZWxkQ2hlY2sgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWRlZCE8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvPlxuICAgICAgICAgICAgICAgICAgKSA6IChcbiAgICAgICAgICAgICAgICAgICAgPD5cbiAgICAgICAgICAgICAgICAgICAgICA8RG93bmxvYWQgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWQgSW50ZWwgKC5kbWcpPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgICA8Lz5cbiAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgPC9idXR0b24+XG4gICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC8+XG4gICAgICAgICAgKX1cblxuICAgICAgICAgIHthY3RpdmVUYWIgPT09ICdtb2JpbGUnICYmIChcbiAgICAgICAgICAgIDw+XG4gICAgICAgICAgICAgIHsvKiBpT1MgQ2FyZCAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEyKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICcxNHB4JyxcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcxOHB4JyxcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgICAgIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnOHB4JywgbWFyZ2luQm90dG9tOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPFNtYXJ0cGhvbmUgc2l6ZT17MTh9IGNvbG9yPVwiI2Y5NzMxNlwiIC8+XG4gICAgICAgICAgICAgICAgICAgIDxoMyBzdHlsZT17eyBmb250U2l6ZTogJzE2cHgnLCBmb250V2VpZ2h0OiA3MDAsIG1hcmdpbjogMCwgY29sb3I6ICcjZjhmYWZjJyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICBpUGhvbmUgJiBpUGFkIChpT1MpXG4gICAgICAgICAgICAgICAgICAgIDwvaDM+XG4gICAgICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICAgICAgIDxwIHN0eWxlPXt7IGZvbnRTaXplOiAnMTJweCcsIGNvbG9yOiAnIzk0YTNiOCcsIG1hcmdpbjogJzAgMCAxNHB4IDAnLCBsaW5lSGVpZ2h0OiAxLjUgfX0+XG4gICAgICAgICAgICAgICAgICAgIE9mZmljaWFsIEVkdU9uZSBpT1MgYXBwIHdpdGggQXBwbGUgRmFpclBsYXkgRFJNIHN0cmVhbSBlbmNyeXB0aW9uLlxuICAgICAgICAgICAgICAgICAgPC9wPlxuXG4gICAgICAgICAgICAgICAgICA8dWwgc3R5bGU9e3sgbGlzdFN0eWxlOiAnbm9uZScsIHBhZGRpbmc6IDAsIG1hcmdpbjogJzAgMCAxOHB4IDAnLCBmb250U2l6ZTogJzEycHgnLCBjb2xvcjogJyNjYmQ1ZTEnLCBkaXNwbGF5OiAnZmxleCcsIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLCBnYXA6ICc4cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPmlPUyBTY3JlZW4gUmVjb3JkaW5nIEJsb2NrZXI8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICAgIDxsaSBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBnYXA6ICc2cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICAgIDxDaGVja0NpcmNsZTIgc2l6ZT17MTN9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgICAgPHNwYW4+QWlyUGxheSBtaXJyb3JpbmcgcHJvdGVjdGlvbjwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgIDwvdWw+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgICA8YVxuICAgICAgICAgICAgICAgICAgaHJlZj1cIiNhcHAtc3RvcmVcIlxuICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwic2Vjb25kYXJ5LWJ0blwiXG4gICAgICAgICAgICAgICAgICBzdHlsZT17e1xuICAgICAgICAgICAgICAgICAgICB3aWR0aDogJzEwMCUnLFxuICAgICAgICAgICAgICAgICAgICBwYWRkaW5nOiAnMTFweCAxNnB4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFNpemU6ICcxM3B4JyxcbiAgICAgICAgICAgICAgICAgICAgZm9udFdlaWdodDogNjAwLFxuICAgICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICc5cHgnLFxuICAgICAgICAgICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLFxuICAgICAgICAgICAgICAgICAgICBqdXN0aWZ5Q29udGVudDogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGdhcDogJzdweCcsXG4gICAgICAgICAgICAgICAgICAgIHRleHREZWNvcmF0aW9uOiAnbm9uZScsXG4gICAgICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6ICdyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDYpJyxcbiAgICAgICAgICAgICAgICAgICAgY29sb3I6ICcjZjhmYWZjJyxcbiAgICAgICAgICAgICAgICAgICAgYm94U2l6aW5nOiAnYm9yZGVyLWJveCcsXG4gICAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgIDxFeHRlcm5hbExpbmsgc2l6ZT17MTV9IC8+XG4gICAgICAgICAgICAgICAgICA8c3Bhbj5HZXQgb24gQXBwbGUgQXBwIFN0b3JlPC9zcGFuPlxuICAgICAgICAgICAgICAgIDwvYT5cbiAgICAgICAgICAgICAgPC9kaXY+XG5cbiAgICAgICAgICAgICAgey8qIEFuZHJvaWQgQ2FyZCAqL31cbiAgICAgICAgICAgICAgPGRpdlxuICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kOiAncmdiYSgyNTUsIDI1NSwgMjU1LCAwLjAzKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXI6ICcxcHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjEyKScsXG4gICAgICAgICAgICAgICAgICBib3JkZXJSYWRpdXM6ICcxNHB4JyxcbiAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcxOHB4JyxcbiAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgICAgIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLFxuICAgICAgICAgICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJyxcbiAgICAgICAgICAgICAgICB9fVxuICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgPGRpdj5cbiAgICAgICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnOHB4JywgbWFyZ2luQm90dG9tOiAnOHB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgPFNtYXJ0cGhvbmUgc2l6ZT17MTh9IGNvbG9yPVwiIzEwYjk4MVwiIC8+XG4gICAgICAgICAgICAgICAgICAgIDxoMyBzdHlsZT17eyBmb250U2l6ZTogJzE2cHgnLCBmb250V2VpZ2h0OiA3MDAsIG1hcmdpbjogMCwgY29sb3I6ICcjZjhmYWZjJyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICBBbmRyb2lkIERldmljZXNcbiAgICAgICAgICAgICAgICAgICAgPC9oMz5cbiAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgPHAgc3R5bGU9e3sgZm9udFNpemU6ICcxMnB4JywgY29sb3I6ICcjOTRhM2I4JywgbWFyZ2luOiAnMCAwIDE0cHggMCcsIGxpbmVIZWlnaHQ6IDEuNSB9fT5cbiAgICAgICAgICAgICAgICAgICAgRWR1T25lIEFuZHJvaWQgY2xpZW50IGZlYXR1cmluZyBGTEFHX1NFQ1VSRSBoYXJkd2FyZSBwcm90ZWN0aW9uLlxuICAgICAgICAgICAgICAgICAgPC9wPlxuXG4gICAgICAgICAgICAgICAgICA8dWwgc3R5bGU9e3sgbGlzdFN0eWxlOiAnbm9uZScsIHBhZGRpbmc6IDAsIG1hcmdpbjogJzAgMCAxOHB4IDAnLCBmb250U2l6ZTogJzEycHgnLCBjb2xvcjogJyNjYmQ1ZTEnLCBkaXNwbGF5OiAnZmxleCcsIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLCBnYXA6ICc4cHgnIH19PlxuICAgICAgICAgICAgICAgICAgICA8bGkgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiAnNnB4JyB9fT5cbiAgICAgICAgICAgICAgICAgICAgICA8Q2hlY2tDaXJjbGUyIHNpemU9ezEzfSBjb2xvcj1cIiMxMGI5ODFcIiAvPlxuICAgICAgICAgICAgICAgICAgICAgIDxzcGFuPkZMQUdfU0VDVVJFIEJsYWNrb3V0IEFjdGl2ZTwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgICAgPC9saT5cbiAgICAgICAgICAgICAgICAgICAgPGxpIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogJzZweCcgfX0+XG4gICAgICAgICAgICAgICAgICAgICAgPENoZWNrQ2lyY2xlMiBzaXplPXsxM30gY29sb3I9XCIjMTBiOTgxXCIgLz5cbiAgICAgICAgICAgICAgICAgICAgICA8c3Bhbj5BbmRyb2lkIFNjcmVlbiBDYXB0dXJlIEJsb2NrZWQ8L3NwYW4+XG4gICAgICAgICAgICAgICAgICAgIDwvbGk+XG4gICAgICAgICAgICAgICAgICA8L3VsPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuXG4gICAgICAgICAgICAgICAgPGFcbiAgICAgICAgICAgICAgICAgIGhyZWY9XCIvRWR1T25lLVNlY3VyZVBsYXllci5hcGtcIlxuICAgICAgICAgICAgICAgICAgZG93bmxvYWQ9XCJFZHVPbmUtU2VjdXJlUGxheWVyLmFwa1wiXG4gICAgICAgICAgICAgICAgICBjbGFzc05hbWU9XCJzZWNvbmRhcnktYnRuXCJcbiAgICAgICAgICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICAgICAgICAgIHdpZHRoOiAnMTAwJScsXG4gICAgICAgICAgICAgICAgICAgIHBhZGRpbmc6ICcxMXB4IDE2cHgnLFxuICAgICAgICAgICAgICAgICAgICBmb250U2l6ZTogJzEzcHgnLFxuICAgICAgICAgICAgICAgICAgICBmb250V2VpZ2h0OiA2MDAsXG4gICAgICAgICAgICAgICAgICAgIGJvcmRlclJhZGl1czogJzlweCcsXG4gICAgICAgICAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JyxcbiAgICAgICAgICAgICAgICAgICAgYWxpZ25JdGVtczogJ2NlbnRlcicsXG4gICAgICAgICAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgICAgICAgICAgICAgZ2FwOiAnN3B4JyxcbiAgICAgICAgICAgICAgICAgICAgdGV4dERlY29yYXRpb246ICdub25lJyxcbiAgICAgICAgICAgICAgICAgICAgYmFja2dyb3VuZDogJ3JnYmEoMjU1LCAyNTUsIDI1NSwgMC4wNiknLFxuICAgICAgICAgICAgICAgICAgICBjb2xvcjogJyNmOGZhZmMnLFxuICAgICAgICAgICAgICAgICAgICBib3hTaXppbmc6ICdib3JkZXItYm94JyxcbiAgICAgICAgICAgICAgICAgIH19XG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgPERvd25sb2FkIHNpemU9ezE1fSAvPlxuICAgICAgICAgICAgICAgICAgPHNwYW4+RG93bmxvYWQgQVBLIFBhY2thZ2U8L3NwYW4+XG4gICAgICAgICAgICAgICAgPC9hPlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgIDwvPlxuICAgICAgICAgICl9XG4gICAgICAgIDwvZGl2PlxuXG4gICAgICAgIHsvKiBGb290ZXIgU2VjdXJpdHkgTm90ZSAqL31cbiAgICAgICAgPGRpdlxuICAgICAgICAgIHN0eWxlPXt7XG4gICAgICAgICAgICBib3JkZXJUb3A6ICcxcHggc29saWQgcmdiYSgyNTUsIDI1NSwgMjU1LCAwLjA4KScsXG4gICAgICAgICAgICBwYWRkaW5nVG9wOiAnMTRweCcsXG4gICAgICAgICAgICBkaXNwbGF5OiAnZmxleCcsXG4gICAgICAgICAgICBhbGlnbkl0ZW1zOiAnY2VudGVyJyxcbiAgICAgICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJyxcbiAgICAgICAgICAgIGdhcDogJzhweCcsXG4gICAgICAgICAgICBmb250U2l6ZTogJzEycHgnLFxuICAgICAgICAgICAgY29sb3I6ICcjNjQ3NDhiJyxcbiAgICAgICAgICAgIHRleHRBbGlnbjogJ2NlbnRlcicsXG4gICAgICAgICAgfX1cbiAgICAgICAgPlxuICAgICAgICAgIDxTaGllbGRDaGVjayBzaXplPXsxNn0gY29sb3I9XCIjMDU5NjY5XCIgLz5cbiAgICAgICAgICA8c3Bhbj5BbGwgZWRpdGlvbnMgaW5jbHVkZSBBRVMtMTI4IGNyeXB0b2dyYXBoaWMga2V5IGRlbGl2ZXJ5ICYgbmF0aXZlIE9TIHNjcmVlbiByZWNvcmRpbmcgYmxhY2tvdXQuPC9zcGFuPlxuICAgICAgICA8L2Rpdj5cbiAgICAgIDwvZGl2PlxuICAgIDwvZGl2PlxuICApO1xufTtcbiJdLCJmaWxlIjoiRDovRm9uaXhFZHUgUmVwb3Mvc2VjdXJlIHBsYXllci9mcm9udGVuZC9zcmMvY29tcG9uZW50cy9Eb3dubG9hZE1vZGFsLnRzeCJ9

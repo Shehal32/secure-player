@@ -1,0 +1,264 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/src/components/Navbar.tsx");import __vite__cjsImport0_react_jsxDevRuntime from "/node_modules/.vite/deps/react_jsx-dev-runtime.js?v=cf072edf"; const Fragment = __vite__cjsImport0_react_jsxDevRuntime["Fragment"]; const jsxDEV = __vite__cjsImport0_react_jsxDevRuntime["jsxDEV"];
+import * as RefreshRuntime from "/@react-refresh";
+const inWebWorker = typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope;
+let prevRefreshReg;
+let prevRefreshSig;
+if (import.meta.hot && !inWebWorker) {
+  if (!window.$RefreshReg$) {
+    throw new Error(
+      "@vitejs/plugin-react can't detect preamble. Something is wrong."
+    );
+  }
+  prevRefreshReg = window.$RefreshReg$;
+  prevRefreshSig = window.$RefreshSig$;
+  window.$RefreshReg$ = RefreshRuntime.getRefreshReg("D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx");
+  window.$RefreshSig$ = RefreshRuntime.createSignatureFunctionForTransform;
+}
+import { ShieldCheck, ShieldAlert, User, LogOut, LogIn, ArrowLeft } from "/node_modules/.vite/deps/lucide-react.js?v=f35704ce";
+export const Navbar = ({
+  currentUser,
+  isAdminRoute,
+  onNavigateRoute,
+  onOpenAuthModal,
+  onLogout
+}) => {
+  return /* @__PURE__ */ jsxDEV("header", { className: "app-header", children: [
+    /* @__PURE__ */ jsxDEV("div", { className: "brand", children: [
+      /* @__PURE__ */ jsxDEV("div", { className: "brand-icon-wrapper", children: isAdminRoute ? /* @__PURE__ */ jsxDEV(ShieldAlert, { size: 28, className: "brand-icon admin" }, void 0, false, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 54,
+        columnNumber: 11
+      }, this) : /* @__PURE__ */ jsxDEV(ShieldCheck, { size: 28, className: "brand-icon" }, void 0, false, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 56,
+        columnNumber: 11
+      }, this) }, void 0, false, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 52,
+        columnNumber: 9
+      }, this),
+      /* @__PURE__ */ jsxDEV("div", { children: [
+        /* @__PURE__ */ jsxDEV("h1", { children: isAdminRoute ? "EduOne SecOps Admin" : "EduOne Learning Portal" }, void 0, false, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 60,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ jsxDEV("span", { className: "brand-subtitle", children: isAdminRoute ? "Forensic Watermarking & Stream Security Console" : "Secure Video On Demand • AES-128 Protected" }, void 0, false, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 61,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 59,
+        columnNumber: 9
+      }, this)
+    ] }, void 0, true, {
+      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+      lineNumber: 51,
+      columnNumber: 7
+    }, this),
+    /* @__PURE__ */ jsxDEV("div", { className: "header-actions", children: isAdminRoute ? (
+      // Admin Route Header Controls
+      /* @__PURE__ */ jsxDEV(Fragment, { children: [
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            className: "secondary-btn",
+            onClick: () => onNavigateRoute("student"),
+            style: { fontSize: "12px", padding: "8px 14px" },
+            children: [
+              /* @__PURE__ */ jsxDEV(ArrowLeft, { size: 14 }, void 0, false, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+                lineNumber: 79,
+                columnNumber: 15
+              }, this),
+              /* @__PURE__ */ jsxDEV("span", { children: "Student Portal" }, void 0, false, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+                lineNumber: 80,
+                columnNumber: 15
+              }, this)
+            ]
+          },
+          void 0,
+          true,
+          {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 74,
+            columnNumber: 13
+          },
+          this
+        ),
+        currentUser && currentUser.role === "ADMIN" && /* @__PURE__ */ jsxDEV("div", { className: "user-profile-badge", children: [
+          /* @__PURE__ */ jsxDEV("div", { className: "avatar-circle admin", children: /* @__PURE__ */ jsxDEV(ShieldAlert, { size: 15, color: "#ea580c" }, void 0, false, {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 86,
+            columnNumber: 19
+          }, this) }, void 0, false, {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 85,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV("div", { className: "user-text-info", children: [
+            /* @__PURE__ */ jsxDEV("span", { className: "user-name", children: "SecOps Admin" }, void 0, false, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 89,
+              columnNumber: 19
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { className: "user-role-tag", children: currentUser.email }, void 0, false, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 90,
+              columnNumber: 19
+            }, this)
+          ] }, void 0, true, {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 88,
+            columnNumber: 17
+          }, this),
+          /* @__PURE__ */ jsxDEV(
+            "button",
+            {
+              className: "logout-action-btn",
+              onClick: onLogout,
+              title: "Sign Out",
+              children: /* @__PURE__ */ jsxDEV(LogOut, { size: 15 }, void 0, false, {
+                fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+                lineNumber: 97,
+                columnNumber: 19
+              }, this)
+            },
+            void 0,
+            false,
+            {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 92,
+              columnNumber: 17
+            },
+            this
+          )
+        ] }, void 0, true, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 84,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 73,
+        columnNumber: 9
+      }, this)
+    ) : (
+      // Student Route Header Controls
+      /* @__PURE__ */ jsxDEV(Fragment, { children: currentUser && currentUser.role === "STUDENT" ? /* @__PURE__ */ jsxDEV("div", { className: "user-profile-badge", children: [
+        /* @__PURE__ */ jsxDEV("div", { className: "avatar-circle", children: /* @__PURE__ */ jsxDEV(User, { size: 15, color: "#ea580c" }, void 0, false, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 108,
+          columnNumber: 19
+        }, this) }, void 0, false, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 107,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV("div", { className: "user-text-info", children: [
+          /* @__PURE__ */ jsxDEV("span", { className: "user-name", children: currentUser.studentId || currentUser.userId }, void 0, false, {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 111,
+            columnNumber: 19
+          }, this),
+          /* @__PURE__ */ jsxDEV("span", { className: "user-role-tag", children: currentUser.name || "Student" }, void 0, false, {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 114,
+            columnNumber: 19
+          }, this)
+        ] }, void 0, true, {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 110,
+          columnNumber: 17
+        }, this),
+        /* @__PURE__ */ jsxDEV(
+          "button",
+          {
+            className: "logout-action-btn",
+            onClick: onLogout,
+            title: "Sign Out",
+            children: /* @__PURE__ */ jsxDEV(LogOut, { size: 15 }, void 0, false, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 123,
+              columnNumber: 19
+            }, this)
+          },
+          void 0,
+          false,
+          {
+            fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+            lineNumber: 118,
+            columnNumber: 17
+          },
+          this
+        )
+      ] }, void 0, true, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 106,
+        columnNumber: 11
+      }, this) : /* @__PURE__ */ jsxDEV(
+        "button",
+        {
+          className: "primary-btn",
+          onClick: () => onOpenAuthModal("student-login"),
+          style: { padding: "8px 16px", fontSize: "13px" },
+          children: [
+            /* @__PURE__ */ jsxDEV(LogIn, { size: 15 }, void 0, false, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 132,
+              columnNumber: 17
+            }, this),
+            /* @__PURE__ */ jsxDEV("span", { children: "Student Sign In" }, void 0, false, {
+              fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+              lineNumber: 133,
+              columnNumber: 17
+            }, this)
+          ]
+        },
+        void 0,
+        true,
+        {
+          fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+          lineNumber: 127,
+          columnNumber: 11
+        },
+        this
+      ) }, void 0, false, {
+        fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+        lineNumber: 104,
+        columnNumber: 9
+      }, this)
+    ) }, void 0, false, {
+      fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+      lineNumber: 70,
+      columnNumber: 7
+    }, this)
+  ] }, void 0, true, {
+    fileName: "D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx",
+    lineNumber: 49,
+    columnNumber: 5
+  }, this);
+};
+_c = Navbar;
+export default Navbar;
+var _c;
+$RefreshReg$(_c, "Navbar");
+if (import.meta.hot && !inWebWorker) {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+if (import.meta.hot && !inWebWorker) {
+  RefreshRuntime.__hmr_import(import.meta.url).then((currentExports) => {
+    RefreshRuntime.registerExportsForReactRefresh("D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx", currentExports);
+    import.meta.hot.accept((nextExports) => {
+      if (!nextExports) return;
+      const invalidateMessage = RefreshRuntime.validateRefreshBoundaryAndEnqueueUpdate("D:/FonixEdu Repos/secure player/frontend/src/components/Navbar.tsx", currentExports, nextExports);
+      if (invalidateMessage) import.meta.hot.invalidate(invalidateMessage);
+    });
+  });
+}
+
+//# sourceMappingURL=data:application/json;base64,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QUFBQTtBQUFBLFNBMEZBO0FBRUo7QUFBRU8sS0FwR1diO0FBc0diLGVBQWVBO0FBQU8sSUFBQWE7QUFBQSxhQUFBQSxJQUFBIiwibmFtZXMiOlsiU2hpZWxkQ2hlY2siLCJTaGllbGRBbGVydCIsIlVzZXIiLCJMb2dPdXQiLCJMb2dJbiIsIkFycm93TGVmdCIsIk5hdmJhciIsImN1cnJlbnRVc2VyIiwiaXNBZG1pblJvdXRlIiwib25OYXZpZ2F0ZVJvdXRlIiwib25PcGVuQXV0aE1vZGFsIiwib25Mb2dvdXQiLCJmb250U2l6ZSIsInBhZGRpbmciLCJyb2xlIiwiZW1haWwiLCJzdHVkZW50SWQiLCJ1c2VySWQiLCJuYW1lIiwiX2MiXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiTmF2YmFyLnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgUmVhY3QgZnJvbSAncmVhY3QnO1xuaW1wb3J0IHsgU2hpZWxkQ2hlY2ssIFNoaWVsZEFsZXJ0LCBVc2VyLCBMb2dPdXQsIExvZ0luLCBBcnJvd0xlZnQgfSBmcm9tICdsdWNpZGUtcmVhY3QnO1xuXG5leHBvcnQgaW50ZXJmYWNlIEN1cnJlbnRVc2VyIHtcbiAgdXNlcklkOiBzdHJpbmc7XG4gIHN0dWRlbnRJZD86IHN0cmluZyB8IG51bGw7XG4gIG5hbWU6IHN0cmluZztcbiAgZW1haWw6IHN0cmluZztcbiAgcm9sZTogJ1NUVURFTlQnIHwgJ0FETUlOJztcbiAgc2Vzc2lvbklkOiBzdHJpbmc7XG4gIHRva2VuPzogc3RyaW5nO1xufVxuXG5pbnRlcmZhY2UgTmF2YmFyUHJvcHMge1xuICBjdXJyZW50VXNlcjogQ3VycmVudFVzZXIgfCBudWxsO1xuICBpc0FkbWluUm91dGU6IGJvb2xlYW47XG4gIG9uTmF2aWdhdGVSb3V0ZTogKHJvdXRlOiAnc3R1ZGVudCcgfCAnYWRtaW4nKSA9PiB2b2lkO1xuICBvbk9wZW5BdXRoTW9kYWw6IChpbml0aWFsVGFiPzogJ3N0dWRlbnQtbG9naW4nIHwgJ3N0dWRlbnQtc2lnbnVwJyB8ICdhZG1pbi1sb2dpbicpID0+IHZvaWQ7XG4gIG9uTG9nb3V0OiAoKSA9PiB2b2lkO1xufVxuXG5leHBvcnQgY29uc3QgTmF2YmFyOiBSZWFjdC5GQzxOYXZiYXJQcm9wcz4gPSAoe1xuICBjdXJyZW50VXNlcixcbiAgaXNBZG1pblJvdXRlLFxuICBvbk5hdmlnYXRlUm91dGUsXG4gIG9uT3BlbkF1dGhNb2RhbCxcbiAgb25Mb2dvdXQsXG59KSA9PiB7XG4gIHJldHVybiAoXG4gICAgPGhlYWRlciBjbGFzc05hbWU9XCJhcHAtaGVhZGVyXCI+XG4gICAgICB7LyogQnJhbmQgTG9nbyAmIENvbnRleHQgKi99XG4gICAgICA8ZGl2IGNsYXNzTmFtZT1cImJyYW5kXCI+XG4gICAgICAgIDxkaXYgY2xhc3NOYW1lPVwiYnJhbmQtaWNvbi13cmFwcGVyXCI+XG4gICAgICAgICAge2lzQWRtaW5Sb3V0ZSA/IChcbiAgICAgICAgICAgIDxTaGllbGRBbGVydCBzaXplPXsyOH0gY2xhc3NOYW1lPVwiYnJhbmQtaWNvbiBhZG1pblwiIC8+XG4gICAgICAgICAgKSA6IChcbiAgICAgICAgICAgIDxTaGllbGRDaGVjayBzaXplPXsyOH0gY2xhc3NOYW1lPVwiYnJhbmQtaWNvblwiIC8+XG4gICAgICAgICAgKX1cbiAgICAgICAgPC9kaXY+XG4gICAgICAgIDxkaXY+XG4gICAgICAgICAgPGgxPntpc0FkbWluUm91dGUgPyAnRWR1T25lIFNlY09wcyBBZG1pbicgOiAnRWR1T25lIExlYXJuaW5nIFBvcnRhbCd9PC9oMT5cbiAgICAgICAgICA8c3BhbiBjbGFzc05hbWU9XCJicmFuZC1zdWJ0aXRsZVwiPlxuICAgICAgICAgICAge2lzQWRtaW5Sb3V0ZVxuICAgICAgICAgICAgICA/ICdGb3JlbnNpYyBXYXRlcm1hcmtpbmcgJiBTdHJlYW0gU2VjdXJpdHkgQ29uc29sZSdcbiAgICAgICAgICAgICAgOiAnU2VjdXJlIFZpZGVvIE9uIERlbWFuZCDigKIgQUVTLTEyOCBQcm90ZWN0ZWQnfVxuICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgPC9kaXY+XG4gICAgICA8L2Rpdj5cblxuICAgICAgey8qIEhlYWRlciBBY3Rpb25zICovfVxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJoZWFkZXItYWN0aW9uc1wiPlxuICAgICAgICB7aXNBZG1pblJvdXRlID8gKFxuICAgICAgICAgIC8vIEFkbWluIFJvdXRlIEhlYWRlciBDb250cm9sc1xuICAgICAgICAgIDw+XG4gICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgIGNsYXNzTmFtZT1cInNlY29uZGFyeS1idG5cIlxuICAgICAgICAgICAgICBvbkNsaWNrPXsoKSA9PiBvbk5hdmlnYXRlUm91dGUoJ3N0dWRlbnQnKX1cbiAgICAgICAgICAgICAgc3R5bGU9e3sgZm9udFNpemU6ICcxMnB4JywgcGFkZGluZzogJzhweCAxNHB4JyB9fVxuICAgICAgICAgICAgPlxuICAgICAgICAgICAgICA8QXJyb3dMZWZ0IHNpemU9ezE0fSAvPlxuICAgICAgICAgICAgICA8c3Bhbj5TdHVkZW50IFBvcnRhbDwvc3Bhbj5cbiAgICAgICAgICAgIDwvYnV0dG9uPlxuXG4gICAgICAgICAgICB7Y3VycmVudFVzZXIgJiYgY3VycmVudFVzZXIucm9sZSA9PT0gJ0FETUlOJyAmJiAoXG4gICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwidXNlci1wcm9maWxlLWJhZGdlXCI+XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJhdmF0YXItY2lyY2xlIGFkbWluXCI+XG4gICAgICAgICAgICAgICAgICA8U2hpZWxkQWxlcnQgc2l6ZT17MTV9IGNvbG9yPVwiI2VhNTgwY1wiIC8+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJ1c2VyLXRleHQtaW5mb1wiPlxuICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwidXNlci1uYW1lXCI+U2VjT3BzIEFkbWluPC9zcGFuPlxuICAgICAgICAgICAgICAgICAgPHNwYW4gY2xhc3NOYW1lPVwidXNlci1yb2xlLXRhZ1wiPntjdXJyZW50VXNlci5lbWFpbH08L3NwYW4+XG4gICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgPGJ1dHRvblxuICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwibG9nb3V0LWFjdGlvbi1idG5cIlxuICAgICAgICAgICAgICAgICAgb25DbGljaz17b25Mb2dvdXR9XG4gICAgICAgICAgICAgICAgICB0aXRsZT1cIlNpZ24gT3V0XCJcbiAgICAgICAgICAgICAgICA+XG4gICAgICAgICAgICAgICAgICA8TG9nT3V0IHNpemU9ezE1fSAvPlxuICAgICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgICAgICl9XG4gICAgICAgICAgPC8+XG4gICAgICAgICkgOiAoXG4gICAgICAgICAgLy8gU3R1ZGVudCBSb3V0ZSBIZWFkZXIgQ29udHJvbHNcbiAgICAgICAgICA8PlxuICAgICAgICAgICAge2N1cnJlbnRVc2VyICYmIGN1cnJlbnRVc2VyLnJvbGUgPT09ICdTVFVERU5UJyA/IChcbiAgICAgICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJ1c2VyLXByb2ZpbGUtYmFkZ2VcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cImF2YXRhci1jaXJjbGVcIj5cbiAgICAgICAgICAgICAgICAgIDxVc2VyIHNpemU9ezE1fSBjb2xvcj1cIiNlYTU4MGNcIiAvPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3NOYW1lPVwidXNlci10ZXh0LWluZm9cIj5cbiAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cInVzZXItbmFtZVwiPlxuICAgICAgICAgICAgICAgICAgICB7Y3VycmVudFVzZXIuc3R1ZGVudElkIHx8IGN1cnJlbnRVc2VyLnVzZXJJZH1cbiAgICAgICAgICAgICAgICAgIDwvc3Bhbj5cbiAgICAgICAgICAgICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cInVzZXItcm9sZS10YWdcIj5cbiAgICAgICAgICAgICAgICAgICAge2N1cnJlbnRVc2VyLm5hbWUgfHwgJ1N0dWRlbnQnfVxuICAgICAgICAgICAgICAgICAgPC9zcGFuPlxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgIDxidXR0b25cbiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImxvZ291dC1hY3Rpb24tYnRuXCJcbiAgICAgICAgICAgICAgICAgIG9uQ2xpY2s9e29uTG9nb3V0fVxuICAgICAgICAgICAgICAgICAgdGl0bGU9XCJTaWduIE91dFwiXG4gICAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgICAgPExvZ091dCBzaXplPXsxNX0gLz5cbiAgICAgICAgICAgICAgICA8L2J1dHRvbj5cbiAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICApIDogKFxuICAgICAgICAgICAgICA8YnV0dG9uXG4gICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwicHJpbWFyeS1idG5cIlxuICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IG9uT3BlbkF1dGhNb2RhbCgnc3R1ZGVudC1sb2dpbicpfVxuICAgICAgICAgICAgICAgIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHggMTZweCcsIGZvbnRTaXplOiAnMTNweCcgfX1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIDxMb2dJbiBzaXplPXsxNX0gLz5cbiAgICAgICAgICAgICAgICA8c3Bhbj5TdHVkZW50IFNpZ24gSW48L3NwYW4+XG4gICAgICAgICAgICAgIDwvYnV0dG9uPlxuICAgICAgICAgICAgKX1cbiAgICAgICAgICA8Lz5cbiAgICAgICAgKX1cbiAgICAgIDwvZGl2PlxuICAgIDwvaGVhZGVyPlxuICApO1xufTtcblxuZXhwb3J0IGRlZmF1bHQgTmF2YmFyO1xuIl0sImZpbGUiOiJEOi9Gb25peEVkdSBSZXBvcy9zZWN1cmUgcGxheWVyL2Zyb250ZW5kL3NyYy9jb21wb25lbnRzL05hdmJhci50c3gifQ==
