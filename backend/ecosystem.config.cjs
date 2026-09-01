@@ -3,8 +3,8 @@ module.exports = {
     {
       name: 'eduone-secure-player-backend',
       script: 'dist/src/main.js',
-      instances: 'max',
-      exec_mode: 'cluster',
+      instances: 1,
+      exec_mode: 'fork',
       env: {
         NODE_ENV: 'production',
       },
