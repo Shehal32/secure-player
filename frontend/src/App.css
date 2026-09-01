@@ -595,6 +595,36 @@ body,
   }
 }
 
+/* Modal Backdrop & Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 640px) {
+  .download-modal-card {
+    padding: 16px !important;
+  }
+  .download-modal-card > div:nth-child(3) {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 .placeholder-icon {
   color: var(--accent-orange);
 }

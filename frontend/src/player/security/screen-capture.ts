@@ -65,7 +65,7 @@ export class WebScreenCaptureGuard implements ScreenCaptureGuard {
       // Intercept PrintScreen
       if (e.key === 'PrintScreen' || e.keyCode === 44) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText('🔒 Protected Content - FonixEdu');
+          navigator.clipboard.writeText('🔒 Protected Content - EduOne');
         }
         this.notify();
       }

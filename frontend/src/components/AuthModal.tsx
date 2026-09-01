@@ -42,7 +42,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const [signupPassword, setSignupPassword] = useState('');
 
   // Admin Sign In State
-  const [adminEmail, setAdminEmail] = useState('admin@fonixedu.com');
+  const [adminEmail, setAdminEmail] = useState('admin@eduone.com');
   const [adminPassword, setAdminPassword] = useState('Admin@Secure2026!');
 
   // Status & Error
@@ -211,7 +211,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="modal-header">
           <div className="modal-title-group">
             <Lock size={20} className="modal-sparkle" />
-            <h3>FonixEdu Security Authentication</h3>
+            <h3>EduOne Security Authentication</h3>
           </div>
           <button className="modal-close-btn" onClick={onClose}>
             <X size={18} />
@@ -286,7 +286,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Mail size={16} className="input-icon" />
                 <input
                   type="text"
-                  placeholder="e.g. SID-1029384756 or student@fonixedu.com"
+                  placeholder="e.g. SID-1029384756 or student@eduone.com"
                   value={studentIdentifier}
                   onChange={(e) => setStudentIdentifier(e.target.value)}
                   required
@@ -365,7 +365,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Mail size={16} className="input-icon" />
                 <input
                   type="email"
-                  placeholder="e.g. student@fonixedu.com"
+                  placeholder="e.g. student@eduone.com"
                   value={signupEmail}
                   onChange={(e) => setSignupEmail(e.target.value)}
                   required
@@ -428,7 +428,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                 <Mail size={16} className="input-icon" />
                 <input
                   type="text"
-                  placeholder="admin@fonixedu.com"
+                  placeholder="admin@eduone.com"
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
                   required
@@ -454,13 +454,13 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <div
               className="default-creds-helper"
               onClick={() => {
-                setAdminEmail('admin@fonixedu.com');
+                setAdminEmail('admin@eduone.com');
                 setAdminPassword('Admin@Secure2026!');
               }}
             >
               <KeyRound size={14} color="#38bdf8" />
               <div>
-                <strong>Default Admin Account:</strong> <code>admin@fonixedu.com</code> / <code>Admin@Secure2026!</code>
+                <strong>Default Admin Account:</strong> <code>admin@eduone.com</code> / <code>Admin@Secure2026!</code>
                 <div style={{ fontSize: '11px', color: '#38bdf8', marginTop: '2px' }}>Click to auto-fill credentials</div>
               </div>
             </div>

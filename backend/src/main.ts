@@ -85,6 +85,7 @@ async function bootstrap() {
       'Accept',
       'Authorization',
       'x-device-fingerprint',
+      'x-device-coords',
       'x-user-id',
       'Range',
     ],

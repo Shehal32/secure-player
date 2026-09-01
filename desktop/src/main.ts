@@ -57,8 +57,8 @@ function createWindow() {
     height: 860,
     minWidth: 900,
     minHeight: 600,
-    title: 'FonixEdu Secure Player — Desktop Enterprise Client',
-    icon: path.join(__dirname, '../assets/icon.svg'),
+    title: 'EduOne Secure Player — Desktop Enterprise Client',
+    icon: path.join(__dirname, '../assets/icon.png'),
     backgroundColor: '#0f172a',
     show: false,
     webPreferences: {
@@ -73,7 +73,7 @@ function createWindow() {
 
   // Set custom desktop identifier in User-Agent
   const currentUA = mainWindow.webContents.userAgent;
-  mainWindow.webContents.userAgent = `${currentUA} FonixEduDesktop/1.0.0`;
+  mainWindow.webContents.userAgent = `${currentUA} EduOneDesktop/1.0.0 FonixEduDesktop/1.0.0`;
 
   // 1. 🛡️ HARDWARE SCREEN BLACKOUT
   applyNativeHardwareProtection(mainWindow);
@@ -81,13 +81,13 @@ function createWindow() {
   // 2. Remove default application menu
   Menu.setApplicationMenu(null);
 
-  // 3. Load Application (Point to Local Frontend http://localhost:3000)
+  // 3. Load Application (Point to Local Frontend http://localhost:3000 or bundled dist/index.html)
   const localFrontendUrl = 'http://localhost:3000';
-  const targetUrl = process.env.FONIX_LIVE_URL || localFrontendUrl;
+  const targetUrl = process.env.FONIX_LIVE_URL || process.env.EDUONE_LIVE_URL || localFrontendUrl;
 
   mainWindow.loadURL(targetUrl).catch(() => {
     mainWindow?.loadFile(path.join(__dirname, '../../frontend/dist/index.html')).catch((err) => {
-      console.error('[FONIX-ERROR] Failed to load local frontend application:', err);
+      console.error('[EDUONE-ERROR] Failed to load local frontend application:', err);
     });
   });
 
@@ -133,13 +133,15 @@ function createWindow() {
   });
 }
 
-// Register custom OS protocol for one-click deep linking (fonixedu://play?videoId=...)
+// Register custom OS protocol for one-click deep linking (eduone://play?videoId=... or fonixedu://play?videoId=...)
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
+    app.setAsDefaultProtocolClient('eduone', process.execPath, [path.resolve(process.argv[1])]);
     app.setAsDefaultProtocolClient('fonixedu', process.execPath, [path.resolve(process.argv[1])]);
   }
 } else {
-  app.setAsDefaultProtocolClient('fonixedu');
+  app.setAsDefaultProtocolClient('eduone', process.execPath);
+  app.setAsDefaultProtocolClient('fonixedu', process.execPath);
 }
 
 app.on('second-instance', (_event, commandLine) => {
@@ -147,7 +149,7 @@ app.on('second-instance', (_event, commandLine) => {
     if (mainWindow.isMinimized()) mainWindow.restore();
     mainWindow.focus();
 
-    const deepLink = commandLine.find((arg) => arg.startsWith('fonixedu://'));
+    const deepLink = commandLine.find((arg) => arg.startsWith('eduone://') || arg.startsWith('fonixedu://'));
     if (deepLink) {
       mainWindow.webContents.send('open-deep-link', deepLink);
     }

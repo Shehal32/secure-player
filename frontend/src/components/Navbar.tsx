@@ -1,6 +1,5 @@
 import React from 'react';
 import { ShieldCheck, ShieldAlert, User, LogOut, LogIn, ArrowLeft } from 'lucide-react';
-import { detectUserOS } from '../player/security/fingerprint';
 
 export interface CurrentUser {
   userId: string;
@@ -27,33 +26,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenAuthModal,
   onLogout,
 }) => {
-  const userOS = detectUserOS();
-  const isMac = userOS === 'mac';
-  const isIOS = userOS === 'ios';
-  const isAndroid = userOS === 'android';
-
-  let downloadUrl = '/FonixEdu-SecurePlayer-Setup.exe';
-  let downloadFileName = 'FonixEdu-SecurePlayer-Setup.exe';
-  let appLabel = 'Windows App';
-  let appIcon = '💻';
-
-  if (isMac) {
-    downloadUrl = '/FonixEdu-SecurePlayer.dmg';
-    downloadFileName = 'FonixEdu-SecurePlayer.dmg';
-    appLabel = 'Mac App';
-    appIcon = '🍏';
-  } else if (isIOS) {
-    downloadUrl = '#';
-    downloadFileName = '';
-    appLabel = 'iOS App';
-    appIcon = '📱';
-  } else if (isAndroid) {
-    downloadUrl = '/FonixEdu-SecurePlayer.apk';
-    downloadFileName = 'FonixEdu-SecurePlayer.apk';
-    appLabel = 'Android App';
-    appIcon = '🤖';
-  }
-
   return (
     <header className="app-header">
       {/* Brand Logo & Context */}
@@ -66,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           )}
         </div>
         <div>
-          <h1>{isAdminRoute ? 'FonixEdu SecOps Admin' : 'FonixEdu Learning Portal'}</h1>
+          <h1>{isAdminRoute ? 'EduOne SecOps Admin' : 'EduOne Learning Portal'}</h1>
           <span className="brand-subtitle">
             {isAdminRoute
               ? 'Forensic Watermarking & Stream Security Console'
@@ -111,36 +83,6 @@ export const Navbar: React.FC<NavbarProps> = ({
         ) : (
           // Student Route Header Controls
           <>
-            {!(
-              typeof window !== 'undefined' &&
-              (Boolean((window as any).fonixDesktopAPI?.isDesktop) ||
-                Boolean(navigator.userAgent && navigator.userAgent.includes('FonixEduDesktop')))
-            ) && (
-              <a
-                href={downloadUrl}
-                download={downloadFileName}
-                className="download-app-btn"
-                style={{
-                  fontSize: '12px',
-                  padding: '7px 12px',
-                  textDecoration: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '6px',
-                  border: '1px solid rgba(249, 115, 22, 0.4)',
-                  color: '#f97316',
-                  borderRadius: '8px',
-                  background: 'rgba(249, 115, 22, 0.08)',
-                  fontWeight: 600,
-                  transition: 'all 0.2s ease',
-                }}
-                title={`Download FonixEdu ${appLabel} with Hardware Blackout Protection`}
-              >
-                <span>{appIcon}</span>
-                <span>{appLabel}</span>
-              </a>
-            )}
-
             {currentUser && currentUser.role === 'STUDENT' ? (
               <div className="user-profile-badge">
                 <div className="avatar-circle">
@@ -178,4 +120,5 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+
 export default Navbar;

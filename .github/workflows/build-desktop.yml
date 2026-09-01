@@ -1,4 +1,4 @@
-name: Build FonixEdu Desktop Applications (Windows & macOS)
+name: Build EduOne Desktop Applications (Windows & macOS)
 
 on:
   push:
@@ -43,5 +43,5 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: fonixedu-desktop-${{ matrix.os }}
+          name: eduone-desktop-${{ matrix.os }}
           path: desktop/release/*

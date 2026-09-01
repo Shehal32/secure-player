@@ -17,10 +17,10 @@ import {
 } from 'lucide-react';
 import './App.css';
 
-const AUTH_STORAGE_KEY = 'fonixedu_auth_user_v2';
+const AUTH_STORAGE_KEY = 'eduone_auth_user_v2';
 
 export function App() {
-  const apiBaseUrl = (import.meta as any).env?.VITE_API_URL || '';
+  const apiBaseUrl = ((import.meta as any).env?.VITE_API_URL || 'https://fonixedu.southeastasia.cloudapp.azure.com/secure-api').replace(/\/+$/, '');
 
   // Route State: 'student' (/) vs 'admin' (/admin)
   const [currentRoute, setCurrentRoute] = useState<'student' | 'admin'>(() => {
@@ -58,13 +58,15 @@ export function App() {
     }
   };
 
-  // Active User State loaded from localStorage
+  // Auth User State
   const [currentUser, setCurrentUser] = useState<CurrentUser | null>(() => {
-    try {
-      const saved = localStorage.getItem(AUTH_STORAGE_KEY);
-      if (saved) return JSON.parse(saved);
-    } catch {
-      // Ignore
+    const stored = localStorage.getItem(AUTH_STORAGE_KEY) || localStorage.getItem('fonixedu_auth_user_v2');
+    if (stored) {
+      try {
+        return JSON.parse(stored);
+      } catch {
+        return null;
+      }
     }
     return null;
   });
@@ -81,7 +83,7 @@ export function App() {
   const [createdStudentId, setCreatedStudentId] = useState<string | null>(null);
 
   // Embedded Auth Form States for Admin
-  const [adminEmail, setAdminEmail] = useState('admin@fonixedu.com');
+  const [adminEmail, setAdminEmail] = useState('admin@eduone.com');
   const [adminPassword, setAdminPassword] = useState('Admin@Secure2026!');
   const [adminAuthLoading, setAdminAuthLoading] = useState(false);
   const [adminAuthError, setAdminAuthError] = useState<string | null>(null);
@@ -92,7 +94,7 @@ export function App() {
       id: 'init-1',
       time: new Date().toLocaleTimeString(),
       type: 'security',
-      message: 'FonixEdu DRM & Forensic Security Engine active.',
+      message: 'EduOne DRM & Forensic Security Engine active.',
       details: 'AES-128 HLS Key Delivery • Dynamic HMAC Watermarking Ready',
     },
   ]);
@@ -338,7 +340,7 @@ export function App() {
                     <Mail size={16} className="input-icon" />
                     <input
                       type="text"
-                      placeholder="admin@fonixedu.com"
+                      placeholder="admin@eduone.com"
                       value={adminEmail}
                       onChange={(e) => setAdminEmail(e.target.value)}
                       required
@@ -364,13 +366,13 @@ export function App() {
                 <div
                   className="default-creds-helper"
                   onClick={() => {
-                    setAdminEmail('admin@fonixedu.com');
+                    setAdminEmail('admin@eduone.com');
                     setAdminPassword('Admin@Secure2026!');
                   }}
                 >
                   <KeyRound size={14} color="#ea580c" />
                   <div>
-                    <strong>Default Credentials:</strong> <code>admin@fonixedu.com</code> / <code>Admin@Secure2026!</code>
+                    <strong>Default Credentials:</strong> <code>admin@eduone.com</code> / <code>Admin@Secure2026!</code>
                     <div style={{ fontSize: '11px', color: '#ea580c', marginTop: '2px' }}>Click here to auto-fill</div>
                   </div>
                 </div>
@@ -452,7 +454,7 @@ export function App() {
                 <div className="auth-success-box">
                   <CheckCircle2 size={20} color="#047857" />
                   <div>
-                    <strong>Welcome to FonixEdu!</strong>
+                    <strong>Welcome to EduOne!</strong>
                     <div style={{ marginTop: '2px', fontSize: '13px' }}>
                       Your assigned Student ID is: <code className="sid-highlight">{createdStudentId}</code>
                     </div>
@@ -472,7 +474,7 @@ export function App() {
                       <Mail size={16} className="input-icon" />
                       <input
                         type="text"
-                        placeholder="e.g. SID-4820194820 or student@fonixedu.com"
+                        placeholder="e.g. SID-4820194820 or student@eduone.com"
                         value={studentIdentifier}
                         onChange={(e) => setStudentIdentifier(e.target.value)}
                         required
@@ -555,7 +557,7 @@ export function App() {
                       <Mail size={16} className="input-icon" />
                       <input
                         type="email"
-                        placeholder="e.g. student@fonixedu.com"
+                        placeholder="e.g. student@eduone.com"
                         value={signupEmail}
                         onChange={(e) => setSignupEmail(e.target.value)}
                         required
@@ -618,7 +620,7 @@ export function App() {
 
       {/* Subtle Footer */}
       <footer className="app-footer">
-        <span>FonixEdu SecureStream Protected Video Delivery Engine</span>
+        <span>EduOne SecureStream Protected Video Delivery Engine</span>
         {currentRoute !== 'admin' && (
           <button
             className="footer-admin-link"

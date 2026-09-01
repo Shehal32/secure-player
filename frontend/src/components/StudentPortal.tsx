@@ -14,6 +14,7 @@ import {
 import { CurrentUser } from './Navbar';
 import SecurePlayer from '../player/SecurePlayer';
 import { generateDeviceFingerprint, getDeviceLocationCoords, detectUserOS } from '../player/security/fingerprint';
+import { DownloadModal } from './DownloadModal';
 
 export interface VideoItem {
   id: string;
@@ -39,11 +40,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const [isLoadingToken, setIsLoadingToken] = useState(false);
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [fingerprint, setFingerprint] = useState<string>('');
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
 
   const isDesktop =
     typeof window !== 'undefined' &&
-    (Boolean((window as any).fonixDesktopAPI?.isDesktop) ||
-      Boolean(navigator.userAgent && navigator.userAgent.includes('FonixEduDesktop')));
+    (Boolean((window as any).eduOneDesktopAPI?.isDesktop) ||
+      Boolean((window as any).fonixDesktopAPI?.isDesktop) ||
+      Boolean(
+        navigator.userAgent &&
+          (navigator.userAgent.includes('EduOneDesktop') || navigator.userAgent.includes('FonixEduDesktop'))
+      ));
 
   const userOS = detectUserOS();
   const isMac = userOS === 'mac';
@@ -51,29 +57,17 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const isAndroid = userOS === 'android';
   const isMobile = isIOS || isAndroid;
 
-  let appName = 'FonixEdu Windows App';
-  let downloadUrl = '/FonixEdu-SecurePlayer-Setup.exe';
-  let downloadFileName = 'FonixEdu-SecurePlayer-Setup.exe';
-  let downloadBtnText = 'Download Portable (.exe)';
+  let appName = 'EduOne Windows App';
   let launchBtnText = 'Launch in Windows App';
 
   if (isMac) {
-    appName = 'FonixEdu macOS App';
-    downloadUrl = '/FonixEdu-SecurePlayer.dmg';
-    downloadFileName = 'FonixEdu-SecurePlayer.dmg';
-    downloadBtnText = 'Download Mac App (.dmg)';
+    appName = 'EduOne macOS App';
     launchBtnText = 'Launch in macOS App';
   } else if (isIOS) {
-    appName = 'FonixEdu iOS App';
-    downloadUrl = '#';
-    downloadFileName = '';
-    downloadBtnText = 'Get on App Store';
+    appName = 'EduOne iOS App';
     launchBtnText = 'Open in iOS App';
   } else if (isAndroid) {
-    appName = 'FonixEdu Android App';
-    downloadUrl = '/FonixEdu-SecurePlayer.apk';
-    downloadFileName = 'FonixEdu-SecurePlayer.apk';
-    downloadBtnText = 'Download Android (.apk)';
+    appName = 'EduOne Android App';
     launchBtnText = 'Open in Android App';
   }
 
@@ -234,23 +228,28 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 <div className="lock-actions-group">
                   {selectedVideo && (
                     <a
-                      href={`fonixedu://play?videoId=${selectedVideo.id}`}
+                      href={`eduone://play?videoId=${selectedVideo.id}`}
                       className="primary-btn lock-action-btn launch"
                     >
                       <ExternalLink size={16} />
                       <span>{launchBtnText}</span>
                     </a>
                   )}
-                  {downloadUrl !== '#' && (
-                    <a
-                      href={downloadUrl}
-                      download={downloadFileName}
-                      className="secondary-btn lock-action-btn download"
-                    >
-                      <Download size={16} />
-                      <span>{downloadBtnText}</span>
-                    </a>
-                  )}
+
+                  <button
+                    onClick={() => setIsDownloadModalOpen(true)}
+                    className="secondary-btn lock-action-btn download"
+                    style={{
+                      background: 'rgba(249, 115, 22, 0.12)',
+                      borderColor: 'rgba(249, 115, 22, 0.45)',
+                      color: '#f97316',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <Download size={16} />
+                    <span>Download App (Select Edition)</span>
+                  </button>
                 </div>
 
                 <div className="lock-security-badge">
@@ -371,6 +370,11 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
           </div>
         </aside>
       </div>
+
+      <DownloadModal
+        isOpen={isDownloadModalOpen}
+        onClose={() => setIsDownloadModalOpen(false)}
+      />
     </div>
   );
 };

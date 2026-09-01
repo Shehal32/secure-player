@@ -12,6 +12,11 @@ build/
 # Binary executables & scratch scripts
 ngrok.exe
 desktop/scratch_test_affinity.js
+frontend/public/*.exe
+frontend/public/*.dmg
+frontend/public/*.zip
+frontend/public/*.apk
+frontend/public/fonixedu-*
 
 # Environment variables & secrets
 .env

@@ -1,7 +1,7 @@
 {
   "name": "@secure-player/desktop",
   "version": "1.0.0",
-  "description": "FonixEdu Secure Player Enterprise Desktop Client with Hardware Screen Protection",
+  "description": "EduOne Secure Player Enterprise Desktop Client with Hardware Screen Protection",
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
@@ -12,13 +12,14 @@
     "package:mac": "npm run build && electron-builder --mac"
   },
   "keywords": [
+    "eduone",
     "fonixedu",
     "electron",
     "video-security",
     "drm",
     "screen-protection"
   ],
-  "author": "FonixEdu Security Team",
+  "author": "EduOne Security Team",
   "license": "UNLICENSED",
   "private": true,
   "devDependencies": {
@@ -27,15 +28,25 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
-    "koffi": "^3.1.6"
+    "koffi": "^3.1.6",
+    "secure-player-monorepo": "file:.."
   },
   "build": {
-    "appId": "com.fonixedu.secureplayer",
-    "productName": "FonixEdu Secure Player",
+    "appId": "com.eduone.secureplayer",
+    "productName": "EduOne Secure Player",
     "electronVersion": "33.2.1",
     "directories": {
       "output": "release"
     },
+    "protocols": [
+      {
+        "name": "EduOne Secure Player Protocol",
+        "schemes": [
+          "eduone",
+          "fonixedu"
+        ]
+      }
+    ],
     "icon": "assets/icon.png",
     "files": [
       "dist/**/*",
@@ -65,7 +76,7 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "FonixEdu Secure Player"
+      "shortcutName": "EduOne Secure Player"
     },
     "mac": {
       "category": "public.app-category.education",
@@ -85,7 +96,7 @@
       ]
     },
     "dmg": {
-      "title": "FonixEdu Secure Player",
+      "title": "EduOne Secure Player",
       "contents": [
         {
           "x": 130,

@@ -569,8 +569,12 @@ export const SecurePlayer: React.FC<SecurePlayerProps> = ({
         <ShieldCheck size={14} className="badge-icon" />
         <span>
           {typeof window !== 'undefined' &&
-          ((window as any).fonixDesktopAPI?.isDesktop ||
-            (navigator.userAgent && navigator.userAgent.includes('FonixEduDesktop')))
+          (Boolean((window as any).eduOneDesktopAPI?.isDesktop) ||
+            Boolean((window as any).fonixDesktopAPI?.isDesktop) ||
+            Boolean(
+              navigator.userAgent &&
+                (navigator.userAgent.includes('EduOneDesktop') || navigator.userAgent.includes('FonixEduDesktop'))
+            ))
             ? '🛡️ Hardware Blackout Active • OBS Blocked • AES-128'
             : 'AES-128 • Device Bound • Forensic A/B Protected'}
         </span>

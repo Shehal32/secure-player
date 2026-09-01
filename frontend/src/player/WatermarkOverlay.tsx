@@ -140,7 +140,7 @@ export const WatermarkOverlay: React.FC<WatermarkOverlayProps> = ({
       ctx.shadowBlur = 3;
       ctx.font = '500 10px monospace';
       ctx.fillStyle = `rgba(255, 255, 255, ${Math.max(0.18, opacity * 0.75)})`;
-      ctx.fillText(`🔒 FonixEdu Protected • ${userId} • ${sessionId?.slice(-8) || ''}`, width - 260, height - 12);
+      ctx.fillText(`🔒 EduOne Protected • ${userId} • ${sessionId?.slice(-8) || ''}`, width - 260, height - 12);
       ctx.restore();
 
       animFrameIdRef.current = requestAnimationFrame(render);
