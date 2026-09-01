@@ -43,7 +43,7 @@ export class AuthService implements OnModuleInit {
   async onModuleInit() {
     try {
       // 1. Ensure Default Admin Account
-      const adminEmail = 'admin@fonixedu.com';
+      const adminEmail = 'admin@eduone.com';
       let admin = await this.userRepository.findOne({ where: { email: adminEmail } });
       if (!admin) {
         const adminPasswordHash = this.hashPassword('Admin@Secure2026!');

@@ -1,0 +1,112 @@
+name: Deploy EduOne Secure Player Backend (Production)
+
+trigger:
+  branches:
+    include:
+      - production
+      - main
+      - master
+
+variables:
+  - group: eduone-vm-secrets
+  - group: eduone_secure_player_backend_production_secrets
+
+pool:
+  name: "FonixEduBuildVM"
+
+steps:
+  - checkout: self
+
+  - task: NodeTool@0
+    inputs:
+      versionSpec: "22.x"
+    displayName: "Setup Node.js 22.x"
+
+  - task: Cache@2
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(Pipeline.Workspace)/.npm
+    displayName: "Cache npm dependencies"
+
+  - script: |
+      set -e
+      echo "=== Building EduOne Secure Player Backend ==="
+      npm install --cache $(Pipeline.Workspace)/.npm --include=dev --prefer-offline --no-audit --no-fund
+      npx nest build
+      tar -czf build.tar.gz dist package.json package-lock.json ecosystem.config.cjs
+      ls -lh build.tar.gz
+    displayName: "Build NestJS Production Bundle"
+
+  - task: InstallSSHKey@0
+    inputs:
+      knownHostsEntry: "$(SSH_HOST)"
+      sshPublicKey: ""
+      sshKeySecureFile: "fonixedu.pem"
+    displayName: "Setup Production SSH Key"
+
+  - script: |
+      echo "Uploading build artifact to Production VM..."
+      scp -o StrictHostKeyChecking=no build.tar.gz $(SSH_USER)@$(SSH_HOST):$(PROJECT_DIR)/
+    displayName: "Upload Artifact to Azure VM"
+
+  - script: |
+      echo "Cleaning up build agent workspace..."
+      df -h
+      rm -rf node_modules dist build.tar.gz || true
+      echo "Cleanup completed."
+      df -h
+    displayName: "Clean up Build Agent"
+
+  - script: |
+      set -e
+      ssh -o StrictHostKeyChecking=no $(SSH_USER)@$(SSH_HOST) '
+        set -e
+        cd $(PROJECT_DIR)
+
+        echo "=== [1/5] Writing Production Environment Variables (.env) ==="
+        
+        # Server & Runtime Configuration
+        echo "PORT=$(PORT)" > .env
+        echo "NODE_ENV=production" >> .env
+
+        # Database Configuration (PostgreSQL / TypeORM)
+        echo "DATABASE_URL=$(DATABASE_URL)" >> .env
+
+        # Cryptographic Key Delivery & DRM HMAC Secrets
+        echo "JWT_SECRET=$(JWT_SECRET)" >> .env
+        echo "KEY_SESSION_SECRET=$(KEY_SESSION_SECRET)" >> .env
+        echo "KEY_SESSION_TTL_SECONDS=$(KEY_SESSION_TTL_SECONDS)" >> .env
+        echo "WATERMARK_SECRET=$(WATERMARK_SECRET)" >> .env
+
+        # Azure Blob Storage (Encrypted Video Repository)
+        echo "AZURE_STORAGE_CONNECTION_STRING=$(AZURE_STORAGE_CONNECTION_STRING)" >> .env
+        echo "AZURE_STORAGE_ACCOUNT_NAME=$(AZURE_STORAGE_ACCOUNT_NAME)" >> .env
+        echo "AZURE_STORAGE_ACCOUNT_KEY=$(AZURE_STORAGE_ACCOUNT_KEY)" >> .env
+        echo "AZURE_STORAGE_CONTAINER_NAME=$(AZURE_STORAGE_CONTAINER_NAME)" >> .env
+        echo "AZURE_STORAGE_CUSTOM_DOMAIN=$(AZURE_STORAGE_CUSTOM_DOMAIN)" >> .env
+
+        # Edge CORS Allowlist & SAS Token TTL
+        echo "ALLOWED_ORIGINS=$(ALLOWED_ORIGINS)" >> .env
+        echo "SEGMENT_SAS_TTL_SECONDS=$(SEGMENT_SAS_TTL_SECONDS)" >> .env
+
+        echo "=== [2/5] Cleaning Stale Release Files ==="
+        rm -rf dist
+
+        echo "=== [3/5] Extracting Fresh Production Bundle ==="
+        tar -xzf build.tar.gz
+
+        echo "=== [4/5] Installing Production Dependencies ==="
+        npm install --production --omit=dev --no-audit --no-fund
+        mkdir -p logs
+
+        echo "=== [5/5] Reloading PM2 Cluster with Zero Downtime ==="
+        npx pm2 reload ecosystem.config.cjs --env production || npx pm2 start ecosystem.config.cjs --env production
+
+        # Cleanup tarball
+        rm -f build.tar.gz
+
+        echo "=== EduOne Secure Player Backend Deployed Successfully ==="
+      '
+    displayName: "Deploy & Reload on Production Azure VM"
