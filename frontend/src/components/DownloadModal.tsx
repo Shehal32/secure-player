@@ -75,7 +75,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
         className="download-modal-card"
         onClick={(e) => e.stopPropagation()}
         style={{
-          maxWidth: '680px',
+          maxWidth: '760px',
           width: '100%',
           maxHeight: '90vh',
           overflowY: 'auto',
@@ -264,36 +264,36 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  position: 'relative',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
                 }}
               >
-                <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-                  <span
-                    style={{
-                      background: 'rgba(249, 115, 22, 0.2)',
-                      color: '#f97316',
-                      border: '1px solid rgba(249, 115, 22, 0.4)',
-                      fontSize: '10.5px',
-                      fontWeight: 700,
-                      padding: '3px 8px',
-                      borderRadius: '6px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}
-                  >
-                    <Sparkles size={11} />
-                    Recommended
-                  </span>
-                </div>
-
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <Zap size={18} color="#f97316" />
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Setup Installer
-                    </h3>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                      <Zap size={18} color="#f97316" style={{ flexShrink: 0 }} />
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        Setup Installer
+                      </h3>
+                    </div>
+                    <span
+                      style={{
+                        background: 'rgba(249, 115, 22, 0.2)',
+                        color: '#f97316',
+                        border: '1px solid rgba(249, 115, 22, 0.4)',
+                        fontSize: '10.5px',
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Sparkles size={11} />
+                      Recommended
+                    </span>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
                     Standard installation package. Best for personal laptops and PCs.
@@ -344,7 +344,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   {downloadingFile === 'EduOne-SecurePlayer-Setup.exe' ? (
                     <>
                       <div className="button-spinner" style={{ width: '13px', height: '13px', borderWidth: '2px', borderTopColor: '#ffffff' }} />
-                      <span>Downloading (81.6 MB)...</span>
+                      <span>Downloading (188 MB)...</span>
                     </>
                   ) : downloadedFile === 'EduOne-SecurePlayer-Setup.exe' ? (
                     <>
@@ -370,30 +370,30 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  position: 'relative',
                 }}
               >
-                <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-                  <span
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      color: '#94a3b8',
-                      fontSize: '10.5px',
-                      fontWeight: 600,
-                      padding: '3px 8px',
-                      borderRadius: '6px',
-                    }}
-                  >
-                    Zero-Install
-                  </span>
-                </div>
-
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <HardDrive size={18} color="#94a3b8" />
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Portable Edition
-                    </h3>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                      <HardDrive size={18} color="#94a3b8" style={{ flexShrink: 0 }} />
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        Portable Edition
+                      </h3>
+                    </div>
+                    <span
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        color: '#94a3b8',
+                        fontSize: '10.5px',
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                      }}
+                    >
+                      Zero-Install
+                    </span>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
                     Standalone executable. Great for lab / shared PCs without admin permissions.
@@ -450,7 +450,7 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   {downloadingFile === 'EduOne-SecurePlayer-Portable.exe' ? (
                     <>
                       <div className="button-spinner" style={{ width: '13px', height: '13px', borderWidth: '2px', borderTopColor: '#f8fafc' }} />
-                      <span>Downloading (81.4 MB)...</span>
+                      <span>Downloading (187 MB)...</span>
                     </>
                   ) : downloadedFile === 'EduOne-SecurePlayer-Portable.exe' ? (
                     <>
@@ -480,36 +480,36 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  position: 'relative',
                   boxShadow: '0 4px 20px rgba(0, 0, 0, 0.25)',
                 }}
               >
-                <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-                  <span
-                    style={{
-                      background: 'rgba(249, 115, 22, 0.2)',
-                      color: '#f97316',
-                      border: '1px solid rgba(249, 115, 22, 0.4)',
-                      fontSize: '10.5px',
-                      fontWeight: 700,
-                      padding: '3px 8px',
-                      borderRadius: '6px',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                    }}
-                  >
-                    <Sparkles size={11} />
-                    Apple Silicon
-                  </span>
-                </div>
-
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <Apple size={18} color="#f97316" />
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Apple Silicon (M1 / M2 / M3 / M4)
-                    </h3>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                      <Apple size={18} color="#f97316" style={{ flexShrink: 0 }} />
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        Apple Silicon (M1–M4)
+                      </h3>
+                    </div>
+                    <span
+                      style={{
+                        background: 'rgba(249, 115, 22, 0.2)',
+                        color: '#f97316',
+                        border: '1px solid rgba(249, 115, 22, 0.4)',
+                        fontSize: '10.5px',
+                        fontWeight: 700,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <Sparkles size={11} />
+                      Apple Silicon
+                    </span>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
                     Native ARM64 build for modern Apple Silicon MacBooks, iMacs, Mac Studios & Mac Minis.
@@ -586,30 +586,30 @@ export const DownloadModal: React.FC<DownloadModalProps> = ({ isOpen, onClose })
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  position: 'relative',
                 }}
               >
-                <div style={{ position: 'absolute', top: '12px', right: '12px' }}>
-                  <span
-                    style={{
-                      background: 'rgba(255, 255, 255, 0.08)',
-                      color: '#94a3b8',
-                      fontSize: '10.5px',
-                      fontWeight: 600,
-                      padding: '3px 8px',
-                      borderRadius: '6px',
-                    }}
-                  >
-                    Intel x64
-                  </span>
-                </div>
-
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
-                    <Laptop size={18} color="#94a3b8" />
-                    <h3 style={{ fontSize: '16px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
-                      Intel Macs (Core i5 / i7 / i9)
-                    </h3>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '8px', marginBottom: '8px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', minWidth: 0 }}>
+                      <Laptop size={18} color="#94a3b8" style={{ flexShrink: 0 }} />
+                      <h3 style={{ fontSize: '15px', fontWeight: 700, margin: 0, color: '#f8fafc' }}>
+                        Intel Macs (Core i5 / i7 / i9)
+                      </h3>
+                    </div>
+                    <span
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.08)',
+                        color: '#94a3b8',
+                        fontSize: '10.5px',
+                        fontWeight: 600,
+                        padding: '2px 8px',
+                        borderRadius: '6px',
+                        whiteSpace: 'nowrap',
+                        flexShrink: 0,
+                      }}
+                    >
+                      Intel x64
+                    </span>
                   </div>
                   <p style={{ fontSize: '12px', color: '#94a3b8', margin: '0 0 14px 0', lineHeight: 1.5 }}>
                     Native 64-bit DMG installer for Intel-powered Mac computers.
