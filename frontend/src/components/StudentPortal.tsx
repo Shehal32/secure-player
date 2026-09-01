@@ -7,6 +7,7 @@ import {
   AlertCircle,
   GraduationCap,
   Laptop,
+  Smartphone,
   Download,
   ExternalLink,
 } from 'lucide-react';
@@ -46,11 +47,35 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
   const userOS = detectUserOS();
   const isMac = userOS === 'mac';
-  const appName = isMac ? 'FonixEdu macOS App' : 'FonixEdu Windows App';
-  const downloadUrl = isMac ? '/FonixEdu-SecurePlayer.dmg' : '/FonixEdu-SecurePlayer-Setup.exe';
-  const downloadFileName = isMac ? 'FonixEdu-SecurePlayer.dmg' : 'FonixEdu-SecurePlayer-Setup.exe';
-  const downloadBtnText = isMac ? 'Download Mac App (.dmg)' : 'Download Portable (.exe)';
-  const launchBtnText = isMac ? 'Launch in macOS App' : 'Launch in Windows App';
+  const isIOS = userOS === 'ios';
+  const isAndroid = userOS === 'android';
+  const isMobile = isIOS || isAndroid;
+
+  let appName = 'FonixEdu Windows App';
+  let downloadUrl = '/FonixEdu-SecurePlayer-Setup.exe';
+  let downloadFileName = 'FonixEdu-SecurePlayer-Setup.exe';
+  let downloadBtnText = 'Download Portable (.exe)';
+  let launchBtnText = 'Launch in Windows App';
+
+  if (isMac) {
+    appName = 'FonixEdu macOS App';
+    downloadUrl = '/FonixEdu-SecurePlayer.dmg';
+    downloadFileName = 'FonixEdu-SecurePlayer.dmg';
+    downloadBtnText = 'Download Mac App (.dmg)';
+    launchBtnText = 'Launch in macOS App';
+  } else if (isIOS) {
+    appName = 'FonixEdu iOS App';
+    downloadUrl = '#';
+    downloadFileName = '';
+    downloadBtnText = 'Get on App Store';
+    launchBtnText = 'Open in iOS App';
+  } else if (isAndroid) {
+    appName = 'FonixEdu Android App';
+    downloadUrl = '/FonixEdu-SecurePlayer.apk';
+    downloadFileName = 'FonixEdu-SecurePlayer.apk';
+    downloadBtnText = 'Download Android (.apk)';
+    launchBtnText = 'Open in Android App';
+  }
 
   // Deep link listener if running inside Electron
   useEffect(() => {
@@ -193,89 +218,48 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 </p>
               </div>
             ) : !isDesktop ? (
-              <div
-                className="player-placeholder"
-                style={{
-                  padding: '50px 30px',
-                  background: 'radial-gradient(circle at center, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 1))',
-                  textAlign: 'center',
-                  minHeight: '440px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <div
-                  style={{
-                    width: '68px',
-                    height: '68px',
-                    borderRadius: '16px',
-                    background: 'rgba(249, 115, 22, 0.15)',
-                    border: '1px solid rgba(249, 115, 22, 0.4)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: '#f97316',
-                    marginBottom: '20px',
-                  }}
-                >
-                  <Laptop size={36} />
+              <div className="player-placeholder desktop-lock-placeholder">
+                <div className="lock-icon-box">
+                  {isMobile ? <Smartphone size={32} /> : <Laptop size={32} />}
                 </div>
-                <h3 style={{ fontSize: '20px', fontWeight: 700, margin: '0 0 10px 0', color: '#f8fafc' }}>
+                <h3 className="lock-title">
                   {appName} Required
                 </h3>
-                <p style={{ maxWidth: '480px', margin: '0 0 24px 0', color: '#94a3b8', fontSize: '13.5px', lineHeight: 1.6 }}>
-                  To prevent screen recording and protect educational material, video playback is exclusively permitted through the official <strong>{appName}</strong> with hardware screen protection.
+                <p className="lock-description">
+                  {isMobile
+                    ? `To prevent unauthorized screen recording and enforce mobile DRM protection, video playback is exclusively permitted through the official ${appName}.`
+                    : `To prevent screen recording and protect educational material, video playback is exclusively permitted through the official ${appName} with hardware screen protection.`}
                 </p>
 
-                <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', justifyContent: 'center' }}>
+                <div className="lock-actions-group">
                   {selectedVideo && (
                     <a
                       href={`fonixedu://play?videoId=${selectedVideo.id}`}
-                      className="primary-btn"
-                      style={{
-                        padding: '12px 24px',
-                        fontSize: '14px',
-                        fontWeight: 600,
-                        textDecoration: 'none',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '8px',
-                        borderRadius: '10px',
-                        background: 'linear-gradient(135deg, #ea580c, #f97316)',
-                        boxShadow: '0 4px 14px rgba(234, 88, 12, 0.35)',
-                      }}
+                      className="primary-btn lock-action-btn launch"
                     >
                       <ExternalLink size={16} />
                       <span>{launchBtnText}</span>
                     </a>
                   )}
-                  <a
-                    href={downloadUrl}
-                    download={downloadFileName}
-                    className="secondary-btn"
-                    style={{
-                      padding: '12px 22px',
-                      fontSize: '14px',
-                      fontWeight: 600,
-                      textDecoration: 'none',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      borderRadius: '10px',
-                      border: '1px solid rgba(255, 255, 255, 0.15)',
-                      background: 'rgba(255, 255, 255, 0.06)',
-                    }}
-                  >
-                    <Download size={16} />
-                    <span>{downloadBtnText}</span>
-                  </a>
+                  {downloadUrl !== '#' && (
+                    <a
+                      href={downloadUrl}
+                      download={downloadFileName}
+                      className="secondary-btn lock-action-btn download"
+                    >
+                      <Download size={16} />
+                      <span>{downloadBtnText}</span>
+                    </a>
+                  )}
                 </div>
 
-                <div style={{ marginTop: '24px', fontSize: '12px', color: '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <div className="lock-security-badge">
                   <ShieldCheck size={14} color="#059669" />
-                  <span>Hardware Blackout Active • OBS Blocked • Zero Install Portable</span>
+                  <span>
+                    {isMobile
+                      ? 'Mobile DRM Active • Screen Capture Blocked • Safe Stream'
+                      : 'Hardware Blackout Active • OBS Blocked • Zero Install Portable'}
+                  </span>
                 </div>
               </div>
             ) : selectedVideo && jwtToken ? (

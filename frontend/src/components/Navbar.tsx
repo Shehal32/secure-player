@@ -29,10 +29,30 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const userOS = detectUserOS();
   const isMac = userOS === 'mac';
-  const downloadUrl = isMac ? '/FonixEdu-SecurePlayer.dmg' : '/FonixEdu-SecurePlayer-Setup.exe';
-  const downloadFileName = isMac ? 'FonixEdu-SecurePlayer.dmg' : 'FonixEdu-SecurePlayer-Setup.exe';
-  const appLabel = isMac ? 'Mac App' : 'Windows App';
-  const appIcon = isMac ? '🍏' : '💻';
+  const isIOS = userOS === 'ios';
+  const isAndroid = userOS === 'android';
+
+  let downloadUrl = '/FonixEdu-SecurePlayer-Setup.exe';
+  let downloadFileName = 'FonixEdu-SecurePlayer-Setup.exe';
+  let appLabel = 'Windows App';
+  let appIcon = '💻';
+
+  if (isMac) {
+    downloadUrl = '/FonixEdu-SecurePlayer.dmg';
+    downloadFileName = 'FonixEdu-SecurePlayer.dmg';
+    appLabel = 'Mac App';
+    appIcon = '🍏';
+  } else if (isIOS) {
+    downloadUrl = '#';
+    downloadFileName = '';
+    appLabel = 'iOS App';
+    appIcon = '📱';
+  } else if (isAndroid) {
+    downloadUrl = '/FonixEdu-SecurePlayer.apk';
+    downloadFileName = 'FonixEdu-SecurePlayer.apk';
+    appLabel = 'Android App';
+    appIcon = '🤖';
+  }
 
   return (
     <header className="app-header">

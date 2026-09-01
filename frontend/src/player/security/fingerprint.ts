@@ -115,18 +115,35 @@ export async function getDeviceLocationCoords(): Promise<string> {
   });
 }
 
+export type DetectedOS = 'ios' | 'android' | 'mac' | 'windows' | 'other';
+
 /**
- * Detects client OS for downloading and launching native secure desktop clients.
+ * Detects client OS for downloading and launching native secure desktop/mobile clients.
  */
-export function detectUserOS(): 'mac' | 'windows' | 'other' {
+export function detectUserOS(): DetectedOS {
   if (typeof window === 'undefined') return 'windows';
   const ua = navigator.userAgent || '';
   const platform = (navigator as any).userAgentData?.platform || navigator.platform || '';
-  if (/Mac|iPhone|iPad|iPod/i.test(ua) || /Mac/i.test(platform)) {
+
+  // 1. Check iOS (iPhone, iPad, iPod)
+  if (/iPad|iPhone|iPod/i.test(ua) || (platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+    return 'ios';
+  }
+
+  // 2. Check Android
+  if (/Android/i.test(ua) || /Android/i.test(platform)) {
+    return 'android';
+  }
+
+  // 3. Check macOS Desktop
+  if (/Mac/i.test(ua) || /Mac/i.test(platform)) {
     return 'mac';
   }
+
+  // 4. Check Windows Desktop
   if (/Win/i.test(ua) || /Win/i.test(platform)) {
     return 'windows';
   }
+
   return 'other';
 }

@@ -439,6 +439,162 @@ body,
   padding: 24px;
 }
 
+/* ==========================================================================
+   Desktop / Mobile Lock Security Gate
+   ========================================================================== */
+
+.desktop-lock-placeholder {
+  aspect-ratio: auto;
+  min-height: 380px;
+  background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 100%);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 16px;
+  padding: 36px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.lock-icon-box {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(249, 115, 22, 0.15);
+  border: 1px solid rgba(249, 115, 22, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f97316;
+  margin-bottom: 18px;
+  box-shadow: 0 0 24px rgba(249, 115, 22, 0.2);
+}
+
+.lock-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  color: #f8fafc;
+  line-height: 1.3;
+}
+
+.lock-description {
+  max-width: 480px;
+  margin: 0 0 22px 0;
+  color: #94a3b8;
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+.lock-actions-group {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 460px;
+}
+
+.lock-action-btn {
+  padding: 12px 22px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 10px;
+  min-height: 44px;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.lock-action-btn.launch {
+  background: linear-gradient(135deg, #ea580c, #f97316);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
+  border: none;
+}
+
+.lock-action-btn.launch:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.45);
+}
+
+.lock-action-btn.download {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f8fafc;
+}
+
+.lock-action-btn.download:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.lock-security-badge {
+  margin-top: 22px;
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+/* Mobile Responsiveness for Lock Card */
+@media (max-width: 640px) {
+  .desktop-lock-placeholder {
+    min-height: 280px;
+    padding: 24px 14px;
+    border-radius: 12px;
+  }
+
+  .lock-icon-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+
+  .lock-title {
+    font-size: 17px;
+    margin-bottom: 8px;
+  }
+
+  .lock-description {
+    font-size: 12.5px;
+    line-height: 1.5;
+    margin-bottom: 18px;
+    padding: 0 4px;
+  }
+
+  .lock-actions-group {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .lock-action-btn {
+    width: 100%;
+    font-size: 13px;
+    padding: 12px 16px;
+  }
+
+  .lock-security-badge {
+    font-size: 11px;
+    margin-top: 16px;
+  }
+}
+
 .placeholder-icon {
   color: var(--accent-orange);
 }
