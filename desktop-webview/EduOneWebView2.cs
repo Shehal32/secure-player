@@ -39,6 +39,19 @@ namespace EduOneSecurePlayer
                 Console.WriteLine("[SECURITY] SetWindowDisplayAffinity WDA_MONITOR applied: " + (result != 0));
             };
 
+            RegisterProtocols();
+
+            string deepLinkArg = "";
+            foreach (string arg in args)
+            {
+                if (arg.StartsWith("eduone://", StringComparison.OrdinalIgnoreCase) ||
+                    arg.StartsWith("fonixedu://", StringComparison.OrdinalIgnoreCase))
+                {
+                    deepLinkArg = arg;
+                    break;
+                }
+            }
+
             WebView2 webView = new WebView2();
             webView.Dock = DockStyle.Fill;
             form.Controls.Add(webView);
@@ -51,16 +64,25 @@ namespace EduOneSecurePlayer
                     form.Invoke(new Action(() => {
                         try
                         {
-                            webView.CoreWebView2.Settings.AreDevToolsEnabled = true;
+                            webView.CoreWebView2.Settings.AreDevToolsEnabled = false;
                             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+
+                            string deepLinkJs = string.IsNullOrEmpty(deepLinkArg) 
+                                ? "null" 
+                                : "'" + deepLinkArg.Replace("'", "\\'") + "'";
                             
-                            // Inject native desktop bridge
+                            // Inject native desktop bridge with deepLink support
                             string initScript = @"
                                 window.fonixDesktopAPI = {
                                     isDesktop: true,
                                     isWindows: true,
                                     hardwareFingerprint: 'desktop_hw_wv2:native_client',
-                                    onDeepLink: function(cb) {}
+                                    initialDeepLink: " + deepLinkJs + @",
+                                    onDeepLink: function(cb) {
+                                        if (" + deepLinkJs + @") {
+                                            setTimeout(function() { cb(" + deepLinkJs + @"); }, 500);
+                                        }
+                                    }
                                 };
                                 window.eduOneDesktopAPI = window.fonixDesktopAPI;
                             ";
@@ -76,6 +98,36 @@ namespace EduOneSecurePlayer
             });
 
             Application.Run(form);
+        }
+
+        static void RegisterProtocols()
+        {
+            string[] protocols = { "eduone", "fonixedu" };
+            string exePath = Application.ExecutablePath;
+
+            foreach (string proto in protocols)
+            {
+                try
+                {
+                    using (var key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(@"Software\Classes\" + proto))
+                    {
+                        if (key != null)
+                        {
+                            key.SetValue("", "URL:" + proto + " Protocol");
+                            key.SetValue("URL Protocol", "");
+                            using (var iconKey = key.CreateSubKey("DefaultIcon"))
+                            {
+                                if (iconKey != null) iconKey.SetValue("", "\"" + exePath + "\",0");
+                            }
+                            using (var cmdKey = key.CreateSubKey(@"shell\open\command"))
+                            {
+                                if (cmdKey != null) cmdKey.SetValue("", "\"" + exePath + "\" \"%1\"");
+                            }
+                        }
+                    }
+                }
+                catch { }
+            }
         }
     }
 }
