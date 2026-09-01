@@ -36,7 +36,7 @@
     "directories": {
       "output": "release"
     },
-    "icon": "assets/icon.svg",
+    "icon": "assets/icon.png",
     "files": [
       "dist/**/*",
       "package.json",
@@ -45,7 +45,6 @@
       "../frontend/dist/**/*"
     ],
     "win": {
-      "icon": "assets/icon.ico",
       "target": [
         {
           "target": "nsis",
