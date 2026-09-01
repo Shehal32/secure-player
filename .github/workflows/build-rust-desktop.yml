@@ -1,0 +1,30 @@
+name: Build Rust Secure Desktop Client
+
+on:
+  push:
+    paths:
+      - 'desktop-rust/**'
+      - '.github/workflows/build-rust-desktop.yml'
+  workflow_dispatch:
+
+jobs:
+  build-windows-rust:
+    name: Compile Tamper-Proof Rust Client
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust Stable (MSVC)
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build Release Executable (Stripped Machine Code)
+        working-directory: desktop-rust
+        run: cargo build --release
+
+      - name: Upload Native Windows Executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: EduOne-Rust-Windows-x64
+          path: desktop-rust/target/release/eduone.exe
+          if-no-files-found: error
