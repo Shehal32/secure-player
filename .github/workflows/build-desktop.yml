@@ -32,12 +32,12 @@ jobs:
 
       - name: Package Windows Executables (.exe)
         if: matrix.os == 'windows-latest'
-        run: npx electron-builder --win --x64 -c.electronVersion=33.2.1
+        run: npx electron-builder --win --x64
         working-directory: desktop
 
       - name: Package macOS Applications (.dmg)
         if: matrix.os == 'macos-latest'
-        run: npx electron-builder --mac --universal -c.electronVersion=33.2.1
+        run: npx electron-builder --mac --universal
         working-directory: desktop
 
       - name: Upload Build Artifacts
