@@ -132,6 +132,44 @@ export function App() {
     );
   };
 
+  // Auto-login if launched via deep link from web portal (SSO handoff)
+  useEffect(() => {
+    const handleDeepLinkSSO = (rawUrl: string) => {
+      if (!rawUrl) return;
+      try {
+        const parsed = new URL(rawUrl.replace(/^(eduone|fonixedu):\/\/?/, 'http://dummy/'));
+        const token = parsed.searchParams.get('token');
+        const userId = parsed.searchParams.get('userId');
+        const email = parsed.searchParams.get('email');
+        const studentId = parsed.searchParams.get('studentId');
+        const name = parsed.searchParams.get('name');
+        const sessionId = parsed.searchParams.get('sessionId');
+
+        if (userId) {
+          const ssoUser: CurrentUser = {
+            userId,
+            studentId: studentId || userId,
+            email: email || `${userId}@example.com`,
+            name: name || 'Student',
+            role: 'STUDENT',
+            token: token || undefined,
+            sessionId: sessionId || `sess_${Math.random().toString(36).slice(2, 10)}`,
+          };
+          handleAuthSuccess(ssoUser, 'Single Sign-On authenticated via web launch.');
+        }
+      } catch (err) {
+        console.warn('Failed to parse SSO deep link:', err);
+      }
+    };
+
+    if ((window as any).fonixDesktopAPI?.initialDeepLink) {
+      handleDeepLinkSSO((window as any).fonixDesktopAPI.initialDeepLink);
+    }
+    if ((window as any).fonixDesktopAPI?.onDeepLink) {
+      (window as any).fonixDesktopAPI.onDeepLink(handleDeepLinkSSO);
+    }
+  }, []);
+
   const handleLogout = () => {
     const prevId = currentUser?.studentId || currentUser?.userId || 'User';
     setCurrentUser(null);

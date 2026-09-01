@@ -97,16 +97,30 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     launchBtnText = 'Open in Android App';
   }
 
-  // Deep link listener if running inside Electron
+  // Deep link listener if running inside Electron or WebView2 desktop client
   useEffect(() => {
-    if ((window as any).fonixDesktopAPI?.onDeepLink) {
-      (window as any).fonixDesktopAPI.onDeepLink((url: string) => {
-        const match = url.match(/videoId=([^&]+)/);
-        if (match && match[1]) {
-          const target = videos.find((v) => v.id === match[1]);
-          if (target) setSelectedVideo(target);
+    const handleDeepLinkVideo = (url: string) => {
+      if (!url) return;
+      const match = url.match(/videoId=([^&]+)/);
+      if (match && match[1]) {
+        const vId = decodeURIComponent(match[1]);
+        const target = videos.find((v) => v.id === vId);
+        if (target) {
+          setSelectedVideo(target);
+        } else {
+          setSelectedVideo({
+            id: vId,
+            title: `Lecture (${vId})`,
+          });
         }
-      });
+      }
+    };
+
+    if ((window as any).fonixDesktopAPI?.initialDeepLink) {
+      handleDeepLinkVideo((window as any).fonixDesktopAPI.initialDeepLink);
+    }
+    if ((window as any).fonixDesktopAPI?.onDeepLink) {
+      (window as any).fonixDesktopAPI.onDeepLink(handleDeepLinkVideo);
     }
   }, [videos]);
 
@@ -299,7 +313,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 <div className="lock-actions-group">
                   {selectedVideo && (
                     <a
-                      href={`eduone://play?videoId=${selectedVideo.id}`}
+                      href={`eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`}
                       className="primary-btn lock-action-btn launch"
                     >
                       <ExternalLink size={16} />
