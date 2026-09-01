@@ -125,9 +125,15 @@ export class PlaylistController {
     const rawJwt = this.extractRawToken(req, jwtQuery);
     const prefixHeader = (req.headers['x-forwarded-prefix'] as string) || '';
     const originalUrl = req.originalUrl || req.url || '';
+    const hostHeader = (req.headers['host'] as string) || '';
+    const isHostedDomain =
+      hostHeader.includes('cloudapp.azure.com') ||
+      hostHeader.includes('fonixedu.com') ||
+      hostHeader.includes('eduone.com');
+
     const basePath = prefixHeader
       ? prefixHeader.replace(/\/+$/, '')
-      : originalUrl.includes('/secure-api')
+      : originalUrl.includes('/secure-api') || isHostedDomain
         ? '/secure-api'
         : '';
 
