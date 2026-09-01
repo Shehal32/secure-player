@@ -177,30 +177,52 @@ export class DeviceBindingService {
     }
 
     // Check fingerprint match if provided
-    if (incomingFingerprint && incomingFingerprint !== 'unknown') {
-      if (session.deviceFingerprint !== incomingFingerprint) {
-        this.logger.warn(
-          `[DEVICE BINDING MISMATCH] Token replay detected! User="${userId}", Session="${sessionId}". Bound fingerprint="${session.deviceFingerprint.slice(0, 10)}...", Incoming="${incomingFingerprint.slice(0, 10)}..."`,
-        );
+    if (incomingFingerprint && incomingFingerprint !== 'unknown' && incomingFingerprint !== 'web_default_fp') {
+      if (
+        session.deviceFingerprint === 'web_default_fp' ||
+        session.deviceFingerprint === 'unknown' ||
+        !session.deviceFingerprint
+      ) {
+        session.deviceFingerprint = incomingFingerprint;
+        await this.deviceSessionRepository.save(session);
+      } else if (session.deviceFingerprint !== incomingFingerprint) {
+        const isDesktopClient =
+          incomingFingerprint.includes('desktop_hw') ||
+          userAgent.toLowerCase().includes('electron') ||
+          userAgent.toLowerCase().includes('eduone') ||
+          userAgent.toLowerCase().includes('fonixedu');
 
-        await this.auditService.logEvent({
-          eventType: 'FINGERPRINT_MISMATCH',
-          userId,
-          sessionId,
-          ip,
-          userAgent,
-          deviceFingerprintHash: incomingFingerprint,
-          metadata: {
-            boundFingerprint: session.deviceFingerprint,
-            incomingFingerprint,
-          },
-        });
+        if (isDesktopClient) {
+          this.logger.log(
+            `[DEVICE BINDING] Seamlessly bound session="${sessionId}" for user="${userId}" to desktop hardware fingerprint="${incomingFingerprint.slice(0, 10)}..."`,
+          );
+          session.deviceFingerprint = incomingFingerprint;
+          if (userAgent && userAgent !== 'Unknown') session.userAgent = userAgent;
+          await this.deviceSessionRepository.save(session);
+        } else {
+          this.logger.warn(
+            `[DEVICE BINDING MISMATCH] Token replay detected! User="${userId}", Session="${sessionId}". Bound fingerprint="${session.deviceFingerprint.slice(0, 10)}...", Incoming="${incomingFingerprint.slice(0, 10)}..."`,
+          );
 
-        throw new ForbiddenException({
-          code: 'DEVICE_FINGERPRINT_MISMATCH',
-          message:
-            'Access denied: This playback session token is bound to a different device. Token replay is blocked.',
-        });
+          await this.auditService.logEvent({
+            eventType: 'FINGERPRINT_MISMATCH',
+            userId,
+            sessionId,
+            ip,
+            userAgent,
+            deviceFingerprintHash: incomingFingerprint,
+            metadata: {
+              boundFingerprint: session.deviceFingerprint,
+              incomingFingerprint,
+            },
+          });
+
+          throw new ForbiddenException({
+            code: 'DEVICE_FINGERPRINT_MISMATCH',
+            message:
+              'Access denied: This playback session token is bound to a different device. Token replay is blocked.',
+          });
+        }
       }
     }
 

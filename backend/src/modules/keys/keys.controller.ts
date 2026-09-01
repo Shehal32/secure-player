@@ -135,12 +135,26 @@ export class KeysController {
     const referer = req.headers['referer'] as string | undefined;
 
     const isDomainAllowed = (urlStr: string) => {
+      if (!urlStr || urlStr === 'null') return true;
+      if (
+        urlStr.startsWith('file://') ||
+        urlStr.startsWith('eduone://') ||
+        urlStr.startsWith('fonixedu://') ||
+        urlStr.startsWith('app://') ||
+        urlStr.startsWith('vscode-file://')
+      ) {
+        return true;
+      }
       return (
         this.allowedOrigins.some((allowed) => urlStr.startsWith(allowed)) ||
         urlStr.includes('ngrok-free.dev') ||
         urlStr.includes('ngrok-free.app') ||
         urlStr.includes('ngrok.io') ||
-        urlStr.includes('localhost')
+        urlStr.includes('localhost') ||
+        urlStr.includes('127.0.0.1') ||
+        urlStr.includes('cloudapp.azure.com') ||
+        urlStr.includes('fonixedu.com') ||
+        urlStr.includes('eduone.com')
       );
     };
 
