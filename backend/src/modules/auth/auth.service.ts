@@ -216,7 +216,10 @@ export class AuthService implements OnModuleInit {
    * Grant entitlement to a video for a user.
    */
   async grantEntitlement(userId: string, videoId: string, email = `${userId}@example.com`): Promise<void> {
-    let user = await this.userRepository.findOne({ where: { id: userId } });
+    // Upsert user — check by id OR email to avoid unique constraint violations
+    let user = await this.userRepository.findOne({
+      where: [{ id: userId }, { email }],
+    });
     if (!user) {
       const studentId = userId.startsWith('SID-') ? userId : this.generateStudentId();
       user = this.userRepository.create({
@@ -226,7 +229,18 @@ export class AuthService implements OnModuleInit {
         email,
         role: 'STUDENT',
       });
-      await this.userRepository.save(user);
+      try {
+        await this.userRepository.save(user);
+      } catch (err: any) {
+        // Handle race condition — another request may have created the user
+        if (err?.code === '23505') {
+          user = await this.userRepository.findOne({
+            where: [{ id: userId }, { email }],
+          });
+        } else {
+          throw err;
+        }
+      }
     }
 
     let video = await this.videoRepository.findOne({ where: { id: videoId } });
@@ -236,7 +250,15 @@ export class AuthService implements OnModuleInit {
         title: `Video ${videoId}`,
         blobPrefix: `videos/${videoId}/`,
       });
-      await this.videoRepository.save(video);
+      try {
+        await this.videoRepository.save(video);
+      } catch (err: any) {
+        if (err?.code === '23505') {
+          video = await this.videoRepository.findOne({ where: { id: videoId } });
+        } else {
+          throw err;
+        }
+      }
     }
 
     let purchase = await this.purchaseRepository.findOne({ where: { userId, videoId } });
@@ -246,7 +268,20 @@ export class AuthService implements OnModuleInit {
         videoId,
         active: true,
       });
-      await this.purchaseRepository.save(purchase);
+      try {
+        await this.purchaseRepository.save(purchase);
+      } catch (err: any) {
+        if (err?.code === '23505') {
+          // Already exists, just activate it
+          purchase = await this.purchaseRepository.findOne({ where: { userId, videoId } });
+          if (purchase) {
+            purchase.active = true;
+            await this.purchaseRepository.save(purchase);
+          }
+        } else {
+          throw err;
+        }
+      }
     } else {
       purchase.active = true;
       await this.purchaseRepository.save(purchase);
