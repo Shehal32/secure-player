@@ -203,15 +203,24 @@ export const SecurePlayer: React.FC<SecurePlayerProps> = ({
         manifestLoadingMaxRetry: 3,
         levelLoadingMaxRetry: 3,
         autoStartLoad: true,
-        xhrSetup: (xhr: any) => {
-          if (fingerprint) {
-            xhr.setRequestHeader('x-device-fingerprint', fingerprint);
-          }
-          if (jwtToken) {
-            xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
-          }
-          if (userId) {
-            xhr.setRequestHeader('x-user-id', userId);
+        xhrSetup: (xhr: any, url: string) => {
+          // Do not send custom Auth headers to Azure Blob Storage (.ts media segments)
+          // Azure Blob Storage uses SAS signatures in query params and rejects Bearer headers with HTTP 400
+          const isStorageUrl =
+            url.includes('blob.core.windows.net') ||
+            url.includes('.ts?') ||
+            url.endsWith('.ts');
+
+          if (!isStorageUrl) {
+            if (fingerprint) {
+              xhr.setRequestHeader('x-device-fingerprint', fingerprint);
+            }
+            if (jwtToken) {
+              xhr.setRequestHeader('Authorization', `Bearer ${jwtToken}`);
+            }
+            if (userId) {
+              xhr.setRequestHeader('x-user-id', userId);
+            }
           }
         },
       } as unknown as Partial<Hls['config']>);
