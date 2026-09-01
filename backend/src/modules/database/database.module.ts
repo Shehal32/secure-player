@@ -30,12 +30,14 @@ const ALL_ENTITIES = [
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const url = configService.get<string>('databaseUrl');
+        const isSsl = process.env.DB_SSL === 'true' || url?.includes('sslmode=require') || url?.includes('azure.com');
         return {
           type: 'postgres',
           url,
           entities: ALL_ENTITIES,
-          synchronize: true, // Auto-sync schema in dev mode
+          synchronize: true, // Auto-sync schema
           logging: false,
+          ssl: isSsl ? { rejectUnauthorized: false } : false,
         };
       },
     }),

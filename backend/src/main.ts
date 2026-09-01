@@ -3,9 +3,14 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { ensureDatabaseExists } from './modules/database/ensure-database';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
+
+  // Auto-create database if it does not exist
+  await ensureDatabaseExists();
+
   const app = await NestFactory.create(AppModule);
 
   const configService = app.get(ConfigService);
