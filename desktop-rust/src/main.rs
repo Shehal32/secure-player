@@ -80,6 +80,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let init_script = format!(
         r#"
         (function() {{
+            // 1. Native Desktop Bridge Setup
             window.fonixDesktopAPI = {{
                 isDesktop: true,
                 isWindows: true,
@@ -93,7 +94,34 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 }}
             }};
             window.eduOneDesktopAPI = window.fonixDesktopAPI;
-            console.log('[EDUONE-RUST] Native Rust Client Bridge Active.');
+
+            // 2. Disable Right-Click Context Menu
+            document.addEventListener('contextmenu', function(e) {{
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return false;
+            }}, true);
+
+            // 3. Disable DevTools & Save/Print/Inspect Keyboard Shortcuts
+            window.addEventListener('keydown', function(e) {{
+                if (
+                    e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && ['I', 'i', 'J', 'j', 'C', 'c'].includes(e.key)) ||
+                    (e.ctrlKey && ['u', 'U', 's', 'S', 'p', 'P', 'r', 'R'].includes(e.key))
+                ) {{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }}
+            }}, true);
+
+            // 4. Disable Drag and Drop extraction
+            document.addEventListener('dragstart', function(e) {{
+                e.preventDefault();
+                return false;
+            }}, true);
+
+            console.log('[EDUONE-RUST] Hardened Lockdown Active: Right-click & Inspection disabled.');
         }})();
         "#
     );

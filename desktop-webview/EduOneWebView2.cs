@@ -66,6 +66,8 @@ namespace EduOneSecurePlayer
                         {
                             webView.CoreWebView2.Settings.AreDevToolsEnabled = false;
                             webView.CoreWebView2.Settings.IsStatusBarEnabled = false;
+                            webView.CoreWebView2.Settings.AreDefaultContextMenusEnabled = false;
+                            webView.CoreWebView2.Settings.IsZoomControlEnabled = false;
 
                             string deepLinkJs = string.IsNullOrEmpty(deepLinkArg) 
                                 ? "null" 
