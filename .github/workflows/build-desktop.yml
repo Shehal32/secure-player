@@ -37,7 +37,7 @@ jobs:
 
       - name: Package macOS Applications (.dmg)
         if: matrix.os == 'macos-latest'
-        run: npx electron-builder --mac -c.electronVersion=33.2.1
+        run: npx electron-builder --mac --universal -c.electronVersion=33.2.1
         working-directory: desktop
 
       - name: Upload Build Artifacts
