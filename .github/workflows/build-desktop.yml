@@ -35,14 +35,9 @@ jobs:
         run: npx electron-builder --win --x64
         working-directory: desktop
 
-      - name: Package macOS Applications (x64)
+      - name: Package macOS Applications (.dmg + .zip)
         if: matrix.os == 'macos-latest'
-        run: npx electron-builder --mac --x64
-        working-directory: desktop
-
-      - name: Package macOS Applications (arm64)
-        if: matrix.os == 'macos-latest'
-        run: npx electron-builder --mac --arm64
+        run: npx electron-builder --mac
         working-directory: desktop
 
       - name: Upload Build Artifacts
