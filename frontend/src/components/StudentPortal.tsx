@@ -135,6 +135,16 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
           });
         }
       }
+
+      // Extract existing JWT token if passed in deep link
+      const tokenMatch = url.match(/token=([^&]+)/);
+      if (tokenMatch && tokenMatch[1]) {
+        const deepToken = decodeURIComponent(tokenMatch[1]);
+        if (deepToken) {
+          setJwtToken(deepToken);
+          setIsLoadingToken(false);
+        }
+      }
     };
 
     if ((window as any).eduOneDesktopAPI?.onDeepLink) {
@@ -174,6 +184,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   useEffect(() => {
     if (!selectedVideo) {
       setJwtToken(null);
+      setIsLoadingToken(false);
       return;
     }
 
@@ -183,12 +194,13 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       setTokenError(null);
 
       try {
+        const activeFp = fingerprint || (await generateDeviceFingerprint());
         const coords = await getDeviceLocationCoords().catch(() => '');
         const res = await fetch(`${apiBaseUrl}/auth/token`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'x-device-fingerprint': fingerprint,
+            'x-device-fingerprint': activeFp,
             ...(coords ? { 'x-device-coords': coords } : {}),
           },
           body: JSON.stringify({
@@ -196,7 +208,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
             email: currentUser.email,
             videoId: selectedVideo.id,
             sessionId: currentUser.sessionId,
-            deviceFingerprint: fingerprint,
+            deviceFingerprint: activeFp,
             coords,
           }),
         });
@@ -209,6 +221,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         const data = await res.json();
         if (isMounted) {
           setJwtToken(data.token);
+          setIsLoadingToken(false);
           if (onLogEvent) {
             onLogEvent(`Security token issued for ${selectedVideo.id}`, 'security', `Session: ${currentUser.sessionId}`);
           }
@@ -216,13 +229,10 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       } catch (err: any) {
         if (isMounted) {
           setTokenError(err.message || 'Error authorizing video stream.');
+          setIsLoadingToken(false);
           if (onLogEvent) {
             onLogEvent(`Token rejected for ${selectedVideo.id}`, 'error', err.message);
           }
-        }
-      } finally {
-        if (isMounted) {
-          setIsLoadingToken(false);
         }
       }
     };
@@ -232,7 +242,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [selectedVideo, currentUser, apiBaseUrl, fingerprint, onLogEvent]);
+  }, [selectedVideo?.id, currentUser.userId, currentUser.sessionId, apiBaseUrl]);
 
   const isSelectedYoutube = Boolean(
     selectedVideo?.sourceType === 'youtube' ||
