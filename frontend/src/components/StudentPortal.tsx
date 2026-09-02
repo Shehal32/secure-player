@@ -76,44 +76,45 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   }
 
   const isWindows = !isMac && !isIOS && !isAndroid;
+  const [isAttemptingLaunch, setIsAttemptingLaunch] = useState(false);
 
-  const handleLaunchWindowsApp = (e: React.MouseEvent) => {
-    e.preventDefault();
+  const handleLaunchWindowsApp = () => {
     if (!selectedVideo) return;
 
     const deepLink = `eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`;
 
-    let hasBlurred = false;
-    const onBlur = () => {
-      hasBlurred = true;
-      try {
-        localStorage.setItem('eduone_app_installed', 'true');
-      } catch {}
+    setIsAttemptingLaunch(true);
+
+    let appOpened = false;
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        appOpened = true;
+      }
     };
-    window.addEventListener('blur', onBlur, { once: true });
+    const handleBlur = () => {
+      appOpened = true;
+    };
 
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = deepLink;
-    document.body.appendChild(iframe);
+    window.addEventListener('visibilitychange', handleVisibilityChange, { once: true });
+    window.addEventListener('blur', handleBlur, { once: true });
 
+    // 1. Direct protocol navigation (allowed in Chrome/Edge on user gesture)
+    window.location.href = deepLink;
+
+    // 2. Fallback: If after 1.8 seconds the window is still focused, the app is not installed!
     setTimeout(() => {
-      window.removeEventListener('blur', onBlur);
-      try {
-        document.body.removeChild(iframe);
-      } catch {}
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleBlur);
+      setIsAttemptingLaunch(false);
 
-      const wasInstalled = localStorage.getItem('eduone_app_installed') === 'true';
-      if (!hasBlurred && !wasInstalled) {
+      if (!appOpened) {
+        // App is not registered/installed -> trigger auto download
         const dl = document.createElement('a');
         dl.href = '/EduOne.exe';
         dl.download = 'EduOne.exe';
         document.body.appendChild(dl);
         dl.click();
         document.body.removeChild(dl);
-        alert(
-          'EduOne Desktop App was not detected on your PC.\n\nWe have started downloading the portable client (EduOne.exe • 570 KB).\n\nPlease click EduOne.exe in your downloads bar to launch your lecture with hardware screen blackout protection!'
-        );
       }
     }, 1800);
   };
@@ -293,15 +294,37 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                 <div className="lock-actions-group">
                   {selectedVideo && (
                     isWindows ? (
-                      <button
-                        type="button"
-                        onClick={handleLaunchWindowsApp}
-                        className="primary-btn lock-action-btn launch"
-                        style={{ padding: '12px 28px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
-                      >
-                        <ExternalLink size={18} />
-                        <span>Launch in Windows App</span>
-                      </button>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
+                        <button
+                          type="button"
+                          onClick={handleLaunchWindowsApp}
+                          disabled={isAttemptingLaunch}
+                          className="primary-btn lock-action-btn launch"
+                          style={{
+                            padding: '13px 32px',
+                            fontSize: '15px',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            boxShadow: '0 4px 14px rgba(234, 88, 12, 0.4)',
+                          }}
+                        >
+                          <ExternalLink size={18} />
+                          <span>{isAttemptingLaunch ? 'Opening EduOne Desktop...' : 'Launch in Windows App'}</span>
+                        </button>
+                        <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                          Don't have the desktop client yet?{' '}
+                          <a
+                            href="/EduOne.exe"
+                            download="EduOne.exe"
+                            style={{ color: '#ea580c', fontWeight: 600, textDecoration: 'underline' }}
+                          >
+                            Download EduOne.exe (570 KB)
+                          </a>
+                        </div>
+                      </div>
                     ) : (
                       <>
                         <a
