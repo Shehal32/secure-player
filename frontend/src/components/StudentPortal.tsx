@@ -81,7 +81,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const handleLaunchWindowsApp = () => {
     if (!selectedVideo) return;
 
-    const deepLink = `eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`;
+    const deepLink = `eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}&origin=${encodeURIComponent(window.location.origin)}`;
 
     setIsAttemptingLaunch(true);
 
@@ -312,7 +312,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                     ) : (
                       <>
                         <a
-                          href={`eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`}
+                          href={`eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}&origin=${encodeURIComponent(window.location.origin)}`}
                           className="primary-btn lock-action-btn launch"
                         >
                           <ExternalLink size={16} />

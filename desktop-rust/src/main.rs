@@ -82,8 +82,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    let target_url = env::var("EDUONE_LIVE_URL")
-        .unwrap_or_else(|_| "http://localhost:3000".to_string());
+    let mut target_url = env::var("EDUONE_LIVE_URL")
+        .unwrap_or_else(|_| "http://192.168.1.40:3000".to_string());
+
+    if !deep_link.is_empty() {
+        if let Some(idx) = deep_link.find("origin=") {
+            let origin_part = &deep_link[idx + 7..];
+            let end_idx = origin_part.find('&').unwrap_or(origin_part.len());
+            let raw = &origin_part[..end_idx];
+            let decoded = raw
+                .replace("%3A", ":")
+                .replace("%3a", ":")
+                .replace("%2F", "/")
+                .replace("%2f", "/");
+            if !decoded.is_empty() {
+                target_url = decoded;
+            }
+        }
+    }
 
     let event_loop = EventLoop::new();
     let window = WindowBuilder::new()
