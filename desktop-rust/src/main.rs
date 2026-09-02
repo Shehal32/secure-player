@@ -8,8 +8,12 @@ use tao::{
     platform::windows::WindowExtWindows,
     window::WindowBuilder,
 };
+use windows::core::w;
 use windows::Win32::Foundation::HWND;
-use windows::Win32::UI::WindowsAndMessaging::{GetWindowDisplayAffinity, SetWindowDisplayAffinity, WDA_MONITOR};
+use windows::Win32::UI::WindowsAndMessaging::{
+    FindWindowW, GetWindowDisplayAffinity, SetForegroundWindow, SetWindowDisplayAffinity, ShowWindow,
+    SW_RESTORE, WDA_MONITOR,
+};
 use winreg::enums::*;
 use winreg::RegKey;
 use wry::WebViewBuilder;
@@ -35,6 +39,17 @@ fn register_protocols(exe_path: &str) {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // 0. Single-Instance Check: Prevent duplicate instances when user launches from browser
+    unsafe {
+        if let Ok(hwnd) = FindWindowW(None, w!("EduOne Secure Player")) {
+            if hwnd.0 as usize != 0 {
+                let _ = ShowWindow(hwnd, SW_RESTORE);
+                let _ = SetForegroundWindow(hwnd);
+                return Ok(());
+            }
+        }
+    }
+
     // Collect command-line args for deep links
     let args: Vec<String> = env::args().collect();
     let current_exe = env::current_exe()
@@ -160,6 +175,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // 3. Build Chromium WebView2 using Wry
     let _webview = WebViewBuilder::new()
         .with_devtools(cfg!(debug_assertions))
+        .with_user_agent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 EduOneDesktop/1.0.0 (Rust)")
         .with_initialization_script(&init_script)
         .with_url(&target_url)
         .build(&window)?;

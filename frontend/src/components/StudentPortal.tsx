@@ -98,12 +98,6 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     document.body.appendChild(iframe);
 
     setTimeout(() => {
-      if (!hasBlurred) {
-        window.location.href = deepLink;
-      }
-    }, 120);
-
-    setTimeout(() => {
       window.removeEventListener('blur', onBlur);
       try {
         document.body.removeChild(iframe);
