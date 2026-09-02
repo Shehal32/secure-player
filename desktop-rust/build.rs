@@ -6,8 +6,6 @@ fn main() {
         res.set("ProductName", "EduOne Secure Player");
         res.set("FileDescription", "EduOne Secure Player Native Client");
         res.set("LegalCopyright", "Copyright (C) 2026 FonixEdu");
-        if let Err(e) = res.compile() {
-            eprintln!("Warning: Failed to compile Windows resource: {}", e);
-        }
+        let _ = res.compile();
     }
 }
