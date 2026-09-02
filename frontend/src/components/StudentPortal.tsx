@@ -110,7 +110,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       if (!appOpened) {
         // App is not registered/installed -> trigger auto download
         const dl = document.createElement('a');
-        dl.href = '/EduOne.exe';
+        dl.href = '/eduone.exe';
         dl.download = 'EduOne.exe';
         document.body.appendChild(dl);
         dl.click();
@@ -327,11 +327,11 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                         <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
                           Don't have the desktop client yet?{' '}
                           <a
-                            href="/EduOne.exe"
+                            href="/eduone.exe"
                             download="EduOne.exe"
                             style={{ color: '#ea580c', fontWeight: 600, textDecoration: 'underline' }}
                           >
-                            Download EduOne.exe (570 KB)
+                            Download EduOne.exe (680 KB)
                           </a>
                         </div>
                       </div>
