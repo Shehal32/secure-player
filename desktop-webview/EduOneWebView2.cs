@@ -12,6 +12,9 @@ namespace EduOneSecurePlayer
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint SetWindowDisplayAffinity(IntPtr hWnd, uint dwAffinity);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool GetWindowDisplayAffinity(IntPtr hWnd, out uint pdwAffinity);
+
         const uint WDA_MONITOR = 0x00000001;
 
         [STAThread]
@@ -33,10 +36,57 @@ namespace EduOneSecurePlayer
             }
             catch { }
 
-            // Apply OBS & Screenshot hardware blackout
+            // Apply OBS & Screenshot hardware blackout + Watchdog Heartbeat
             form.Shown += (s, e) => {
                 uint result = SetWindowDisplayAffinity(form.Handle, WDA_MONITOR);
                 Console.WriteLine("[SECURITY] SetWindowDisplayAffinity WDA_MONITOR applied: " + (result != 0));
+
+                // Anti-Tampering Watchdog Thread (200ms Heartbeat)
+                var watchdogThread = new System.Threading.Thread(() => {
+                    while (true)
+                    {
+                        System.Threading.Thread.Sleep(200);
+                        try
+                        {
+                            // 1. Verify Affinity Integrity (kills process if memory-unhooked)
+                            uint currentAffinity;
+                            if (GetWindowDisplayAffinity(form.Handle, out currentAffinity))
+                            {
+                                if (currentAffinity != WDA_MONITOR)
+                                {
+                                    Environment.Exit(1);
+                                }
+                            }
+
+                            // 2. Detect Clone / Duplicate Display Mode
+                            var screens = Screen.AllScreens;
+                            if (screens.Length > 1)
+                            {
+                                for (int i = 0; i < screens.Length; i++)
+                                {
+                                    for (int j = i + 1; j < screens.Length; j++)
+                                    {
+                                        if (screens[i].Bounds == screens[j].Bounds)
+                                        {
+                                            // Cloned/Duplicate Display detected
+                                            if (form.InvokeRequired)
+                                            {
+                                                form.Invoke(new Action(() => {
+                                                    MessageBox.Show(form, "Duplicate / Cloned Display detected. Please switch Windows display settings to Single or Extended display mode to view lectures.", "Security Alert", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    Environment.Exit(1);
+                                                }));
+                                            }
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        catch { }
+                    }
+                });
+                watchdogThread.IsBackground = true;
+                watchdogThread.Start();
             };
 
             RegisterProtocols();

@@ -16,7 +16,6 @@ import SecurePlayer from '../player/SecurePlayer';
 import { YouTubeSecurePlayer } from '../player/YouTubeSecurePlayer';
 import { generateDeviceFingerprint, getDeviceLocationCoords, detectUserOS } from '../player/security/fingerprint';
 import { DownloadModal } from './DownloadModal';
-import { Youtube } from 'lucide-react';
 
 export interface VideoItem {
   id: string;
@@ -24,6 +23,8 @@ export interface VideoItem {
   blobPrefix?: string;
   keyCount?: number;
   createdAt?: string;
+  sourceType?: 'hls' | 'youtube';
+  youtubeId?: string;
 }
 
 interface StudentPortalProps {
@@ -35,6 +36,7 @@ interface StudentPortalProps {
 export const StudentPortal: React.FC<StudentPortalProps> = ({
   currentUser,
   apiBaseUrl,
+  onLogEvent,
 }) => {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
@@ -43,30 +45,6 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
   const [tokenError, setTokenError] = useState<string | null>(null);
   const [fingerprint, setFingerprint] = useState<string>('');
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
-  const [youtubeUrl, setYoutubeUrl] = useState('');
-  const [activeYoutubeId, setActiveYoutubeId] = useState<string | null>(null);
-
-  const extractYoutubeId = (url: string): string | null => {
-    if (!url) return null;
-    const trimmed = url.trim();
-    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
-    const match = trimmed.match(
-      /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/,
-    );
-    return match ? match[1] : null;
-  };
-
-  const handlePlayYoutube = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
-    const id = extractYoutubeId(youtubeUrl);
-    if (id) {
-      setActiveYoutubeId(id);
-      setSelectedVideo(null);
-      setTokenError(null);
-    } else {
-      setTokenError('Please enter a valid YouTube video URL or ID');
-    }
-  };
 
   const isDesktop =
     typeof window !== 'undefined' &&
@@ -97,7 +75,55 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     launchBtnText = 'Open in Android App';
   }
 
-  // Deep link listener if running inside Electron or WebView2 desktop client
+  const isWindows = !isMac && !isIOS && !isAndroid;
+
+  const handleLaunchWindowsApp = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!selectedVideo) return;
+
+    const deepLink = `eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`;
+
+    let hasBlurred = false;
+    const onBlur = () => {
+      hasBlurred = true;
+      try {
+        localStorage.setItem('eduone_app_installed', 'true');
+      } catch {}
+    };
+    window.addEventListener('blur', onBlur, { once: true });
+
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = deepLink;
+    document.body.appendChild(iframe);
+
+    setTimeout(() => {
+      if (!hasBlurred) {
+        window.location.href = deepLink;
+      }
+    }, 120);
+
+    setTimeout(() => {
+      window.removeEventListener('blur', onBlur);
+      try {
+        document.body.removeChild(iframe);
+      } catch {}
+
+      const wasInstalled = localStorage.getItem('eduone_app_installed') === 'true';
+      if (!hasBlurred && !wasInstalled) {
+        const dl = document.createElement('a');
+        dl.href = '/EduOne.exe';
+        dl.download = 'EduOne.exe';
+        document.body.appendChild(dl);
+        dl.click();
+        document.body.removeChild(dl);
+        alert(
+          'EduOne Desktop App was not detected on your PC.\n\nWe have started downloading the portable client (EduOne.exe • 570 KB).\n\nPlease click EduOne.exe in your downloads bar to launch your lecture with hardware screen blackout protection!'
+        );
+      }
+    }, 1800);
+  };
+
   useEffect(() => {
     const handleDeepLinkVideo = (url: string) => {
       if (!url) return;
@@ -116,51 +142,42 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
       }
     };
 
-    if ((window as any).fonixDesktopAPI?.initialDeepLink) {
-      handleDeepLinkVideo((window as any).fonixDesktopAPI.initialDeepLink);
+    if ((window as any).eduOneDesktopAPI?.onDeepLink) {
+      (window as any).eduOneDesktopAPI.onDeepLink((url: string) => {
+        handleDeepLinkVideo(url);
+      });
     }
-    if ((window as any).fonixDesktopAPI?.onDeepLink) {
-      (window as any).fonixDesktopAPI.onDeepLink(handleDeepLinkVideo);
+
+    if ((window as any).eduOneDeepLink) {
+      handleDeepLinkVideo((window as any).eduOneDeepLink);
     }
   }, [videos]);
 
-  // Compute device fingerprint on mount
   useEffect(() => {
-    generateDeviceFingerprint().then(setFingerprint);
-  }, []);
-
-  // Fetch list of available videos from backend
-  const fetchVideos = async () => {
-    try {
-      const res = await fetch(`${apiBaseUrl}/upload/videos`);
-      if (res.ok) {
-        const data = await res.json();
-        if (data.videos && Array.isArray(data.videos)) {
+    const fetchVideos = async () => {
+      try {
+        const res = await fetch(`${apiBaseUrl}/upload/videos`);
+        if (res.ok) {
+          const data = await res.json();
           setVideos(data.videos);
-          if (data.videos.length > 0) {
-            setSelectedVideo((prev) => (prev && data.videos.some((v: any) => v.id === prev.id) ? prev : data.videos[0]));
-          } else {
-            setSelectedVideo(null);
-            setJwtToken(null);
+          if (data.videos && data.videos.length > 0 && !selectedVideo) {
+            setSelectedVideo(data.videos[0]);
           }
-          return;
         }
+      } catch {
+        // Fallback demo videos
       }
-    } catch {
-      // Ignore network errors
-    }
-    setVideos([]);
-    setSelectedVideo(null);
-    setJwtToken(null);
-  };
+    };
 
-  useEffect(() => {
     fetchVideos();
   }, [apiBaseUrl]);
 
-  // Request stream token when video or student changes
   useEffect(() => {
-    if (!selectedVideo || !fingerprint) {
+    generateDeviceFingerprint().then((fp) => setFingerprint(fp));
+  }, []);
+
+  useEffect(() => {
+    if (!selectedVideo) {
       setJwtToken(null);
       return;
     }
@@ -169,6 +186,7 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     const fetchToken = async () => {
       setIsLoadingToken(true);
       setTokenError(null);
+
       try {
         const coords = await getDeviceLocationCoords().catch(() => '');
         const res = await fetch(`${apiBaseUrl}/auth/token`, {
@@ -190,19 +208,27 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
         if (!res.ok) {
           const errData = await res.json().catch(() => ({}));
-          throw new Error(errData.message || `Unable to start lecture session`);
+          throw new Error(errData.message || 'Failed to authorize lecture access.');
         }
 
         const data = await res.json();
         if (isMounted) {
           setJwtToken(data.token);
+          if (onLogEvent) {
+            onLogEvent(`Security token issued for ${selectedVideo.id}`, 'security', `Session: ${currentUser.sessionId}`);
+          }
         }
       } catch (err: any) {
         if (isMounted) {
-          setTokenError(err.message || 'Unable to load stream session');
+          setTokenError(err.message || 'Error authorizing video stream.');
+          if (onLogEvent) {
+            onLogEvent(`Token rejected for ${selectedVideo.id}`, 'error', err.message);
+          }
         }
       } finally {
-        if (isMounted) setIsLoadingToken(false);
+        if (isMounted) {
+          setIsLoadingToken(false);
+        }
       }
     };
 
@@ -211,11 +237,18 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [currentUser.userId, currentUser.email, currentUser.sessionId, selectedVideo?.id, fingerprint, apiBaseUrl]);
+  }, [selectedVideo, currentUser, apiBaseUrl, fingerprint, onLogEvent]);
+
+  const isSelectedYoutube = Boolean(
+    selectedVideo?.sourceType === 'youtube' ||
+    selectedVideo?.blobPrefix?.startsWith('youtube:') ||
+    selectedVideo?.id?.startsWith('yt_')
+  );
+  const selectedYoutubeId = selectedVideo?.youtubeId ||
+    (selectedVideo?.blobPrefix?.startsWith('youtube:') ? selectedVideo.blobPrefix.replace('youtube:', '') : selectedVideo?.id?.startsWith('yt_') ? selectedVideo.id.replace('yt_', '') : null);
 
   return (
     <div className="student-portal-container">
-      {/* Student Welcome Banner */}
       <div className="student-welcome-banner">
         <div className="welcome-left">
           <div className="enrolled-badge">
@@ -236,64 +269,17 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
         </div>
       </div>
 
-      {/* Main Learning Grid: Video Player + Course Catalog */}
       <div className="student-grid">
-        {/* Left Column: Secure Video Player */}
         <div className="student-main-content">
           <div className="player-card">
-            {/* YouTube Stream Input Bar */}
-            <div style={{
-              display: 'flex',
-              gap: '10px',
-              padding: '12px 16px',
-              background: 'rgba(15, 23, 42, 0.65)',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-              alignItems: 'center',
-            }}>
-              <Youtube size={20} color="#ef4444" style={{ flexShrink: 0 }} />
-              <input
-                type="text"
-                placeholder="Paste YouTube Link or Video ID (e.g. https://www.youtube.com/watch?v=...)"
-                value={youtubeUrl}
-                onChange={(e) => setYoutubeUrl(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter') handlePlayYoutube(); }}
-                style={{
-                  flex: 1,
-                  background: 'rgba(30, 41, 59, 0.8)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
-                  borderRadius: '6px',
-                  padding: '8px 12px',
-                  color: '#fff',
-                  fontSize: '13px',
-                  outline: 'none',
-                }}
-              />
-              <button
-                type="button"
-                onClick={handlePlayYoutube}
-                className="primary-btn"
-                style={{ padding: '8px 14px', fontSize: '13px', whiteSpace: 'nowrap', cursor: 'pointer' }}
-              >
-                Play YouTube
-              </button>
-            </div>
-
-            {activeYoutubeId ? (
-              <YouTubeSecurePlayer
-                youtubeId={activeYoutubeId}
-                userId={currentUser.studentId || currentUser.userId}
-                email={currentUser.email}
-                sessionId={currentUser.sessionId}
-                watermarkOpacity={0.22}
-              />
-            ) : videos.length === 0 ? (
+            {videos.length === 0 ? (
               <div className="player-placeholder" style={{ padding: '60px 24px' }}>
                 <BookOpen size={48} className="placeholder-icon" style={{ color: '#f97316', marginBottom: '16px' }} />
                 <h3 style={{ margin: '0 0 8px 0', fontSize: '18px', color: 'var(--text-primary)' }}>
                   No Lectures Available
                 </h3>
                 <p style={{ margin: 0, maxWidth: '420px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                  There are currently no published lectures in your course catalog. You can paste a YouTube link above to test hardware blackout!
+                  There are currently no published lectures in your course catalog.
                 </p>
               </div>
             ) : !isDesktop ? (
@@ -312,29 +298,44 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
                 <div className="lock-actions-group">
                   {selectedVideo && (
-                    <a
-                      href={`eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`}
-                      className="primary-btn lock-action-btn launch"
-                    >
-                      <ExternalLink size={16} />
-                      <span>{launchBtnText}</span>
-                    </a>
-                  )}
+                    isWindows ? (
+                      <button
+                        type="button"
+                        onClick={handleLaunchWindowsApp}
+                        className="primary-btn lock-action-btn launch"
+                        style={{ padding: '12px 28px', fontSize: '15px', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}
+                      >
+                        <ExternalLink size={18} />
+                        <span>Launch in Windows App</span>
+                      </button>
+                    ) : (
+                      <>
+                        <a
+                          href={`eduone://play?videoId=${encodeURIComponent(selectedVideo.id)}&token=${encodeURIComponent(jwtToken || currentUser.token || '')}&userId=${encodeURIComponent(currentUser.userId)}&email=${encodeURIComponent(currentUser.email)}&studentId=${encodeURIComponent(currentUser.studentId || '')}&name=${encodeURIComponent(currentUser.name || '')}&sessionId=${encodeURIComponent(currentUser.sessionId || '')}`}
+                          className="primary-btn lock-action-btn launch"
+                        >
+                          <ExternalLink size={16} />
+                          <span>{launchBtnText}</span>
+                        </a>
 
-                  <button
-                    onClick={() => setIsDownloadModalOpen(true)}
-                    className="secondary-btn lock-action-btn download"
-                    style={{
-                      background: 'rgba(249, 115, 22, 0.12)',
-                      borderColor: 'rgba(249, 115, 22, 0.45)',
-                      color: '#f97316',
-                      fontWeight: 700,
-                      cursor: 'pointer',
-                    }}
-                  >
-                    <Download size={16} />
-                    <span>Download App (Select Edition)</span>
-                  </button>
+                        <button
+                          type="button"
+                          onClick={() => setIsDownloadModalOpen(true)}
+                          className="secondary-btn lock-action-btn download"
+                          style={{
+                            background: 'rgba(249, 115, 22, 0.12)',
+                            borderColor: 'rgba(249, 115, 22, 0.45)',
+                            color: '#f97316',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                          }}
+                        >
+                          <Download size={16} />
+                          <span>Download App (Select Edition)</span>
+                        </button>
+                      </>
+                    )
+                  )}
                 </div>
 
                 <div className="lock-security-badge">
@@ -346,6 +347,14 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   </span>
                 </div>
               </div>
+            ) : selectedVideo && isSelectedYoutube && selectedYoutubeId ? (
+              <YouTubeSecurePlayer
+                youtubeId={selectedYoutubeId}
+                userId={currentUser.studentId || currentUser.userId}
+                email={currentUser.email}
+                sessionId={currentUser.sessionId}
+                watermarkOpacity={0.22}
+              />
             ) : selectedVideo && jwtToken ? (
               <SecurePlayer
                 videoId={selectedVideo.id}
@@ -375,23 +384,22 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                   <>
                     <BookOpen size={36} className="placeholder-icon" />
                     <h3>Select a Lecture to Begin</h3>
-                    <p>Choose a lesson from your course catalog on the right or paste a YouTube URL above.</p>
+                    <p>Choose a lesson from your course catalog on the right to begin watching.</p>
                   </>
                 )}
               </div>
             )}
 
-            {/* Video Meta Bar */}
-            {(selectedVideo || activeYoutubeId) && (
+            {selectedVideo && (
               <div className="video-meta-bar">
                 <div className="video-title-group">
-                  <h3>{activeYoutubeId ? `YouTube Protected Stream (${activeYoutubeId})` : selectedVideo?.title}</h3>
-                  <span className="video-id-tag">{activeYoutubeId ? `YouTube: ${activeYoutubeId}` : `Lecture: ${selectedVideo?.id}`}</span>
+                  <h3>{selectedVideo.title}</h3>
+                  <span className="video-id-tag">Lecture: {selectedVideo.id}</span>
                 </div>
                 <div className="security-status-pills">
                   <div className="sec-pill">
                     <Lock size={12} color="#ea580c" />
-                    <span>{activeYoutubeId ? 'Hardware Blackout Protected' : 'AES-128 Protected'}</span>
+                    <span>{isSelectedYoutube ? 'Hardware Blackout Protected' : 'AES-128 Protected'}</span>
                   </div>
                   <div className="sec-pill">
                     <ShieldCheck size={12} color="#ea580c" />
@@ -436,7 +444,6 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
                       key={vid.id}
                       className={`lesson-item ${isSelected ? 'active' : ''}`}
                       onClick={() => {
-                        setActiveYoutubeId(null);
                         setSelectedVideo(vid);
                       }}
                     >
