@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, BadRequestException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -412,6 +412,67 @@ export class UploadService {
       order: { createdAt: 'DESC' },
       relations: ['keys'],
     });
+  }
+
+  /**
+   * Adds a YouTube protected lecture to the database and grants access to students.
+   */
+  async addYouTubeVideo(youtubeUrl: string, title?: string, customVideoId?: string): Promise<Video> {
+    const trimmed = (youtubeUrl || '').trim();
+    let ytId: string | null = null;
+    if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+      ytId = trimmed;
+    } else {
+      const match = trimmed.match(
+        /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/|youtube\.com\/shorts\/)([^"&?\/\s]{11})/,
+      );
+      if (match) {
+        ytId = match[1];
+      }
+    }
+
+    if (!ytId) {
+      throw new BadRequestException('Invalid YouTube URL or 11-character Video ID');
+    }
+
+    const videoId = customVideoId && customVideoId.trim() ? customVideoId.trim() : `yt_${ytId}`;
+    const videoTitle = title && title.trim() ? title.trim() : `YouTube Lecture (${ytId})`;
+
+    // Check if video already exists
+    let video = await this.videoRepository.findOne({ where: { id: videoId } });
+    if (!video) {
+      video = this.videoRepository.create({
+        id: videoId,
+        title: videoTitle,
+        blobPrefix: `youtube:${ytId}`,
+      });
+      await this.videoRepository.save(video);
+      this.logger.log(`Created YouTube video entry: id="${videoId}", title="${videoTitle}", ytId="${ytId}"`);
+    } else {
+      video.title = videoTitle;
+      video.blobPrefix = `youtube:${ytId}`;
+      await this.videoRepository.save(video);
+      this.logger.log(`Updated YouTube video entry: id="${videoId}", title="${videoTitle}"`);
+    }
+
+    // Auto-grant access to common student accounts so it appears immediately
+    const studentIds = ['demo_user_1', 'student_1', 'admin_1', 'shehal32'];
+    for (const userId of studentIds) {
+      try {
+        const existingPurchase = await this.purchaseRepository.findOne({ where: { userId, videoId } });
+        if (!existingPurchase) {
+          const purchase = this.purchaseRepository.create({
+            userId,
+            videoId,
+          });
+          await this.purchaseRepository.save(purchase);
+        }
+      } catch (err) {
+        // Ignore entitlement uniqueness collisions
+      }
+    }
+
+    return video;
   }
 
   /**

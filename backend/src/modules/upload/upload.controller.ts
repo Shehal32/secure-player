@@ -28,10 +28,24 @@ export class UploadController {
         id: v.id,
         title: v.title,
         blobPrefix: v.blobPrefix,
+        sourceType: v.blobPrefix?.startsWith('youtube:') ? 'youtube' : 'hls',
+        youtubeId: v.blobPrefix?.startsWith('youtube:') ? v.blobPrefix.replace('youtube:', '') : undefined,
         keyCount: v.keys ? v.keys.length : 0,
         createdAt: v.createdAt,
       })),
     };
+  }
+
+  @Post('youtube')
+  async addYouTubeVideo(
+    @Body('youtubeUrl') youtubeUrl: string,
+    @Body('title') title?: string,
+    @Body('videoId') customVideoId?: string,
+  ) {
+    if (!youtubeUrl) {
+      throw new BadRequestException('Missing required field: youtubeUrl');
+    }
+    return await this.uploadService.addYouTubeVideo(youtubeUrl, title, customVideoId);
   }
 
   @Delete('videos/:videoId')
