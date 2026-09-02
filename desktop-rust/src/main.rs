@@ -8,11 +8,13 @@ use tao::{
     platform::windows::WindowExtWindows,
     window::WindowBuilder,
 };
-use windows::core::w;
-use windows::Win32::Foundation::HWND;
+use windows::core::{w, PCWSTR};
+use windows::Win32::Foundation::{HWND, LPARAM, WPARAM};
+use windows::Win32::System::LibraryLoader::GetModuleHandleW;
 use windows::Win32::UI::WindowsAndMessaging::{
-    FindWindowW, GetWindowDisplayAffinity, SetForegroundWindow, SetWindowDisplayAffinity, ShowWindow,
-    SW_RESTORE, WDA_MONITOR,
+    FindWindowW, GetWindowDisplayAffinity, LoadImageW, SendMessageW, SetForegroundWindow,
+    SetWindowDisplayAffinity, ShowWindow, IMAGE_ICON, LR_SHARED, SW_RESTORE, WDA_MONITOR,
+    WM_SETICON,
 };
 use winreg::enums::*;
 use winreg::RegKey;
@@ -95,6 +97,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let hwnd = window.hwnd();
     unsafe {
         let _ = SetWindowDisplayAffinity(HWND(hwnd as _), WDA_MONITOR);
+
+        // 1b. Set top-left window titlebar icon (ICON_SMALL) and taskbar icon (ICON_BIG) from embedded resource #1
+        let h_module = GetModuleHandleW(None).unwrap_or_default();
+        if let Ok(icon) = LoadImageW(h_module, PCWSTR(1 as _), IMAGE_ICON, 16, 16, LR_SHARED) {
+            SendMessageW(HWND(hwnd as _), WM_SETICON, WPARAM(0), LPARAM(icon.0 as _));
+        }
+        if let Ok(icon) = LoadImageW(h_module, PCWSTR(1 as _), IMAGE_ICON, 32, 32, LR_SHARED) {
+            SendMessageW(HWND(hwnd as _), WM_SETICON, WPARAM(1), LPARAM(icon.0 as _));
+        }
     }
 
     // 2. High-Frequency Affinity Watchdog Thread (200ms Heartbeat)
