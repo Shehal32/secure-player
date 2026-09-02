@@ -22,9 +22,19 @@ jobs:
         working-directory: desktop-rust
         run: cargo build --release
 
+      - name: Sign Executable with Authenticode SHA256
+        shell: powershell
+        run: |
+          $cert = New-SelfSignedCertificate -Subject "CN=EduOne Technologies, O=FonixEdu" -Type CodeSigningCert -CertStoreLocation "Cert:\CurrentUser\My" -HashAlgorithm SHA256 -NotAfter (Get-Date).AddYears(5)
+          Set-AuthenticodeSignature -FilePath "desktop-rust/target/release/eduone.exe" -Certificate $cert -HashAlgorithm SHA256 -TimestampServer "http://timestamp.digicert.com"
+          Get-AuthenticodeSignature "desktop-rust/target/release/eduone.exe"
+          Export-Certificate -Cert $cert -FilePath "desktop-rust/target/release/EduOne-Certificate.cer"
+
       - name: Upload Native Windows Executable
         uses: actions/upload-artifact@v4
         with:
           name: EduOne-Rust-Windows-x64
-          path: desktop-rust/target/release/eduone.exe
+          path: |
+            desktop-rust/target/release/eduone.exe
+            desktop-rust/target/release/EduOne-Certificate.cer
           if-no-files-found: error
