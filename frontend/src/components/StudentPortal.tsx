@@ -85,38 +85,12 @@ export const StudentPortal: React.FC<StudentPortalProps> = ({
 
     setIsAttemptingLaunch(true);
 
-    let appOpened = false;
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        appOpened = true;
-      }
-    };
-    const handleBlur = () => {
-      appOpened = true;
-    };
-
-    window.addEventListener('visibilitychange', handleVisibilityChange, { once: true });
-    window.addEventListener('blur', handleBlur, { once: true });
-
     // 1. Direct protocol navigation (allowed in Chrome/Edge on user gesture)
     window.location.href = deepLink;
 
-    // 2. Fallback: If after 1.8 seconds the window is still focused, the app is not installed!
     setTimeout(() => {
-      window.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('blur', handleBlur);
       setIsAttemptingLaunch(false);
-
-      if (!appOpened) {
-        // App is not registered/installed -> trigger auto download
-        const dl = document.createElement('a');
-        dl.href = '/eduone.exe';
-        dl.download = 'EduOne.exe';
-        document.body.appendChild(dl);
-        dl.click();
-        document.body.removeChild(dl);
-      }
-    }, 1800);
+    }, 2000);
   };
 
   useEffect(() => {
