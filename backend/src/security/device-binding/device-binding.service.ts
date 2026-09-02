@@ -186,18 +186,30 @@ export class DeviceBindingService {
         session.deviceFingerprint = incomingFingerprint;
         await this.deviceSessionRepository.save(session);
       } else if (session.deviceFingerprint !== incomingFingerprint) {
+        const isSameIp = Boolean(
+          session.ip &&
+          ip &&
+          (session.ip === ip || ip === '127.0.0.1' || ip === '::1' || ip.includes('localhost'))
+        );
+
+        const uaLower = (userAgent || '').toLowerCase();
         const isDesktopClient =
           incomingFingerprint.includes('desktop_hw') ||
-          userAgent.toLowerCase().includes('electron') ||
-          userAgent.toLowerCase().includes('eduone') ||
-          userAgent.toLowerCase().includes('fonixedu');
+          uaLower.includes('electron') ||
+          uaLower.includes('eduone') ||
+          uaLower.includes('fonixedu') ||
+          uaLower.includes('webview') ||
+          uaLower.includes('edg/') ||
+          uaLower.includes('windows nt');
 
-        if (isDesktopClient) {
+        // Seamlessly upgrade session fingerprint if on same IP or launching desktop client
+        if (isSameIp || isDesktopClient) {
           this.logger.log(
-            `[DEVICE BINDING] Seamlessly bound session="${sessionId}" for user="${userId}" to desktop hardware fingerprint="${incomingFingerprint.slice(0, 10)}..."`,
+            `[DEVICE BINDING] Seamlessly upgraded session="${sessionId}" for user="${userId}" to desktop client fingerprint="${incomingFingerprint.slice(0, 10)}..." (sameIp=${isSameIp}, isDesktop=${isDesktopClient})`,
           );
           session.deviceFingerprint = incomingFingerprint;
           if (userAgent && userAgent !== 'Unknown') session.userAgent = userAgent;
+          if (ip && ip !== 'Unknown') session.ip = ip;
           await this.deviceSessionRepository.save(session);
         } else {
           this.logger.warn(
